@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -59,39 +61,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         </a>
 
     </div>
-
-    <!-- NAVBAR -->
-
-    <div class="navbar">
-
-        <a href="dashboard.php">
-            <i class="fa-solid fa-house"></i>
-            <span>Beranda</span>
-        </a>
-
-        <a href="kategori.php" class="active">
-            <i class="fa-solid fa-table-cells"></i>
-            <span>Kategori</span>
-        </a>
-
-        <a href="keranjang.php">
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span>Keranjang</span>
-        </a>
-
-        <a href="pesanan.php">
-            <i class="fa-solid fa-file"></i>
-            <span>Pesanan</span>
-        </a>
-
-        <a href="akun.php">
-            <i class="fa-regular fa-user"></i>
-            <span>Akun</span>
-        </a>
-
-    </div>
-
-</div>
 
 </body>
 </html>

@@ -1,3 +1,7 @@
+<?php
+include 'bahasa.php';
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>

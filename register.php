@@ -1,4 +1,7 @@
-```php
+<?php
+include 'bahasa.php';
+?>
+
 <?php
 session_start();
 include 'koneksi.php';

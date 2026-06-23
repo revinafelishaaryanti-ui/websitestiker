@@ -1,3 +1,6 @@
+<?php
+include 'bahasa.php';
+?>
 
 <?php
 session_start();

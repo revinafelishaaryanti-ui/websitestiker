@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -58,29 +59,18 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <div class="settings-card">
 
-    <div class="setting-item">
-        <div class="setting-left">
-            <div class="icon-box">👤</div>
-            <div>
-                <h4>Ubah Profil</h4>
-                <p>Ubah informasi profil akun Anda seperti poto profil,nama, dan lainnya.</p>
-            </div>
+<a href="ubah_profil.php" class="setting-item">
+    <div class="setting-left">
+        <div class="icon-box">👤</div>
+        <div>
+            <h4>Ubah Profil</h4>
+            <p>Ubah informasi profil akun Anda seperti foto profil, nama, dan lainnya.</p>
         </div>
-        <span>›</span>
     </div>
+    <span>›</span>
+</a>
 
-    <div class="setting-item">
-        <div class="setting-left">
-            <div class="icon-box">🔒</div>
-            <div>
-                <h4>Ubah Password</h4>
-                <p>Perbarui password akun Anda secara berkala untuk keamanan.</p>
-            </div>
-        </div>
-        <span>›</span>
-    </div>
-
-    <div class="setting-item">
+<a href="bahasa.php" class="setting-item">
         <div class="setting-left">
             <div class="icon-box">🌐</div>
             <div>
@@ -89,7 +79,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             </div>
         </div>
         <span>›</span>
-    </div>
+</a>
 
     <div class="setting-item">
         <div class="setting-left">
