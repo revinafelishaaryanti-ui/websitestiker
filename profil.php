@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -26,6 +27,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         <a href="kategori.php">Kategori</a>
 
         <a href="pesanan.php">Pesanan</a>
+
 
 
     </div>
@@ -100,9 +102,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     </div>
 
     <div class="button-group">
-        <button class="btn-primary">
+        <a href="ubah_profil.php" class="btn-primary" >
             ✏ Ubah Profil
-        </button>
+</a>
 
         <button class="btn-outline">
             🔒 Ubah Password
