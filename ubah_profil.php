@@ -125,7 +125,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         <div class="action-buttons">
             <button class="btn-batal">Batal</button>
             <button class="btn-simpan">
-            <?= $teks[$lang]['simpan']; ?>
+            simpan
             </button>
         </div>
 

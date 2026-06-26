@@ -1,6 +1,4 @@
-<?php
-include 'bahasa.php';
-?>
+
 
 <?php
 session_start();
@@ -74,7 +72,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <div class="produk-item">
 
-<img src="img/stiker1.png">
+<input type="checkbox" name="pilih[]" value="1" class="pilih-produk">
+
+<img src="img/stiker_aes.jpeg">
 
 <div class="detail">
 
@@ -106,7 +106,9 @@ Rp <?= number_format($total1); ?>
 
 <div class="produk-item">
 
-<img src="img/stiker2.png">
+<input type="checkbox" name="pilih[]" value="2" class="pilih-produk">
+
+<img src="img/custum_holo1.jpeg">
 
 <div class="detail">
 
@@ -138,7 +140,9 @@ Rp <?= number_format($total2); ?>
 
 <div class="produk-item">
 
-<img src="img/stiker3.png">
+<input type="checkbox" name="pilih[]" value="3" class="pilih-produk">
+
+<img src="img/custum_krj.jpeg">
 
 <div class="detail">
 
@@ -165,6 +169,7 @@ Rp <?= number_format($total3); ?>
 </div>
 
 </div>
+
 
 <hr>
 
