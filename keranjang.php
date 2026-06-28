@@ -70,7 +70,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <!-- PRODUK 1 -->
 
-<div class="produk-item">
+<div class="produk-item" data-harga="<?= $harga1 ?>">
 
 <input type="checkbox" name="pilih[]" value="1" class="pilih-produk">
 
@@ -88,7 +88,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <a href="keranjang.php?aksi=kurang&id=1">-</a>
 
-<span><?= $_SESSION['qty1']; ?></span>
+<span class="jumlah"><?= $_SESSION['qty1']; ?></span>
 
 <a href="keranjang.php?aksi=tambah&id=1">+</a>
 
@@ -104,7 +104,7 @@ Rp <?= number_format($total1); ?>
 
 <!-- PRODUK 2 -->
 
-<div class="produk-item">
+<div class="produk-item" data-harga="<?= $harga2 ?>">
 
 <input type="checkbox" name="pilih[]" value="2" class="pilih-produk">
 
@@ -122,7 +122,7 @@ Rp <?= number_format($total1); ?>
 
 <a href="keranjang.php?aksi=kurang&id=2">-</a>
 
-<span><?= $_SESSION['qty2']; ?></span>
+<span class="jumlah"><?= $_SESSION['qty2']; ?></span>
 
 <a href="keranjang.php?aksi=tambah&id=2">+</a>
 
@@ -138,7 +138,7 @@ Rp <?= number_format($total2); ?>
 
 <!-- PRODUK 3 -->
 
-<div class="produk-item">
+<div class="produk-item" data-harga="<?= $harga3 ?>">
 
 <input type="checkbox" name="pilih[]" value="3" class="pilih-produk">
 
@@ -156,7 +156,7 @@ Rp <?= number_format($total2); ?>
 
 <a href="keranjang.php?aksi=kurang&id=3">-</a>
 
-<span><?= $_SESSION['qty3']; ?></span>
+<span class="jumlah"><?= $_SESSION['qty3']; ?></span>
 
 <a href="keranjang.php?aksi=tambah&id=3">+</a>
 
@@ -177,17 +177,17 @@ Rp <?= number_format($total3); ?>
 
 <div>
 <span>Subtotal</span>
-<span>Rp <?= number_format($subtotal); ?></span>
+<span id="subtotalBayar">Rp 0</span>
 </div>
 
 <div>
 <span>Ongkos Kirim</span>
-<span>Rp <?= number_format($ongkir); ?></span>
+<span id="ongkirBayar">Rp <?= number_format($ongkir); ?></span>
 </div>
 
 <div class="total">
 <span>Total</span>
-<span>Rp <?= number_format($total); ?></span>
+<span id="totalBayar">Rp 0</span>
 </div>
 
 </div>
@@ -197,6 +197,51 @@ Lanjut ke Pemesanan
 </a>
 
 </div>
+
+<script>
+
+function hitungTotal(){
+
+    let subtotal = 0;
+
+    document.querySelectorAll(".produk-item").forEach(function(item){
+
+        let cek = item.querySelector(".pilih-produk");
+
+        if(cek.checked){
+
+            let harga = parseInt(item.dataset.harga);
+
+            let qty = parseInt(item.querySelector(".jumlah").innerText);
+
+            subtotal += harga * qty;
+        }
+
+    });
+
+    let ongkir = <?= $ongkir ?>;
+    let total = subtotal;
+
+    if(subtotal > 0){
+        total += ongkir;
+    }
+
+    document.getElementById("subtotalBayar").innerHTML =
+        "Rp " + subtotal.toLocaleString("id-ID");
+
+    document.getElementById("totalBayar").innerHTML =
+        "Rp " + total.toLocaleString("id-ID");
+}
+
+document.querySelectorAll(".pilih-produk").forEach(function(cb){
+
+    cb.addEventListener("change", hitungTotal);
+
+});
+
+window.onload = hitungTotal;
+
+</script>
 
 </body>
 </html>

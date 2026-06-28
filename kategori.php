@@ -53,6 +53,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
     <div class="layout">
 
+    
 <!-- Sidebar -->
 <aside class="sidebar">
 
@@ -61,7 +62,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         <h3>Semua Kategori</h3>
 
         <ul>
-        <a href="produk.php?kategori=vinyl">TEST VINYL</a>
+            <li><a href="kategori.php?kategori=vinyl">Sticker Vinyl</a></li>
 
             <li><a href="produk.php?kategori=hologram">Sticker Hologram</a></li>
 
