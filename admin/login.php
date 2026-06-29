@@ -14,6 +14,9 @@ $query=mysqli_query($conn,"SELECT * FROM admin
 WHERE email='$email'
 AND password='$password'");
 
+echo "Email : ".$email."<br>";
+echo "MD5 Password : ".$password."<br>";
+
 if(mysqli_num_rows($query)>0){
 
 $data=mysqli_fetch_assoc($query);

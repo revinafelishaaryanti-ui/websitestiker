@@ -62,25 +62,27 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         <h3>Semua Kategori</h3>
 
         <ul>
-            <li><a href="kategori.php?kategori=vinyl">Sticker Vinyl</a></li>
+        <li><a href="produk.php?id=1">Sticker Vinyl</a></li>
 
-            <li><a href="produk.php?kategori=hologram">Sticker Hologram</a></li>
+        <li><a href="produk.php?id=2">Sticker Hologram</a></li>
 
-            <li><a href="produk.php?kategori=transparan">Sticker Transparan</a></li>
+        <li><a href="produk.php?id=3">Sticker Transparan</a></li>
 
-            <li><a href="produk.php?kategori=kertas">Sticker Kertas</a></li>
+        <li><a href="produk.php?id=4">Sticker Kertas</a></li>
 
-            <li><a href="produk.php?kategori=diecut">Sticker Die Cut</a></li>
+        <li><a href="produk.php?id=5">Sticker Die Cut</a></li>
 
-            <li><a href="produk.php?kategori=bulat">Sticker Bulat</a></li>
+        <li><a href="produk.php?id=6">Sticker Bulat</a></li>
 
-            <li><a href="produk.php?kategori=kotak">Sticker Kotak</a></li>
+        <li><a href="produk.php?id=7">Sticker Kotak</a></li>
 
-            <li><a href="produk.php?kategori=label">Sticker Label</a></li>
+        <li><a href="produk.php?id=8">Sticker Persegi</a></li>
 
-            <li><a href="produk.php?kategori=promosi">Sticker Promosi</a></li>
+        <li><a href="produk.php?id=9">Sticker Label</a></li>
 
-            <li><a href="produk.php?kategori=aksesoris">Aksesoris Cetak</a></li>
+        <li><a href="produk.php?id=10">Sticker Promosi</a></li>
+
+        <li><a href="produk.php?id=11">Aksesoris Cetak</a></li>
         </ul>
 
     </div>
@@ -109,25 +111,33 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     <div class="category-grid">
 
         <!-- Card 1 -->
-        <div class="card">
+        <a href="produk.php?id=1" class="kategori-link">
 
-            <div class="card-image">
-            <img src="img/stiker_vin.png" alt="">
+            <div class="card">
+
+                <div class="card-image">
+                    <img src="img/stiker_vin.png">
+                </div>
+
+                <div class="card-body">
+
+                    <h3>Sticker Vinyl</h3>
+
+                    <p>
+                        Tahan air dan cuaca untuk kebutuhan outdoor.
+                    </p>
+
+                    <span>Mulai Rp 10.000</span>
+
+                </div>
+
             </div>
 
-            <div class="card-body">
-                <h3>Sticker Vinyl</h3>
-
-                <p>
-                    Tahan air dan cuaca untuk kebutuhan outdoor.
-                </p>
-
-                <span>Mulai Rp 10.000</span>
-            </div>
-
-        </div>
+            </a>
 
         <!-- Card 2 -->
+        <a href="produk.php?id=2" class="kategori-link">
+
         <div class="card">
 
             <div class="card-image">
@@ -145,7 +155,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
         </div>
 
+        </a>
+
         <!-- Card 3 -->
+        <a href="produk.php?id=3" class="kategori-link">
+
         <div class="card">
 
             <div class="card-image">
@@ -164,149 +178,173 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
                 </div>
                 <!-- Card 4 -->
+                <a href="produk.php?id=4" class="kategori-link">
+
                 <div class="card">
 
-<div class="card-image">
-<img src="img/stiker_kertas.png" alt="">
-</div>
+                <div class="card-image">
+                <img src="img/stiker_kertas.png" alt="">
+                </div>
 
-<div class="card-body">
-    <h3>Sticker kertas</h3>
+                <div class="card-body">
+                    <h3>Sticker kertas</h3>
 
-    <p>
-        pilihan ekonomis untuk kebutuhan label dan brending.
-    </p>
+                    <p>
+                        pilihan ekonomis untuk kebutuhan label dan brending.
+                    </p>
 
-    <span>Mulai Rp 5.000</span>
-</div>
-    </div>
-    <!-- Card 5 -->
-<div class="card">
+                    <span>Mulai Rp 5.000</span>
+                </div>
+                    </div>
+                    </a>
+                <!-- Card 5 -->
+                <a href="produk.php?id=5" class="kategori-link">
 
-<div class="card-image">
-<img src="img/stiker_die.png" alt="">
-</div>
+                <div class="card">
 
-<div class="card-body">
-<h3>Sticker Die Cut</h3>
+                <div class="card-image">
+                <img src="img/stiker_die.png" alt="">
+                </div>
 
-<p>
-dipotong mengikuti bentuk desain,lebih fleksibel.
-</p>
+                <div class="card-body">
+                <h3>Sticker Die Cut</h3>
 
-<span>Mulai Rp 8.000</span>
-</div>
+                <p>
+                dipotong mengikuti bentuk desain,lebih fleksibel.
+                </p>
 
-</div>
+                <span>Mulai Rp 8.000</span>
+                </div>
 
-<!-- Card 6 -->
-<div class="card">
+                </div>
+                </a>
 
-<div class="card-image">
-<img src="img/stiker_bulat.png" alt="">
-</div>
-<div class="card-body">
-<h3>Sticker bulat</h3>
+            <!-- Card 6 -->
+            <a href="produk.php?id=6" class="kategori-link">
 
-<p>
-bentuk bulat klasik untuk berbagai kebutuhan.
-</p>
+            <div class="card">
 
-<span>Mulai Rp 7.000</span>
-</div>
+            <div class="card-image">
+            <img src="img/stiker_bulat.png" alt="">
+            </div>
+            <div class="card-body">
+            <h3>Sticker bulat</h3>
 
-</div>
+            <p>
+            bentuk bulat klasik untuk berbagai kebutuhan.
+            </p>
+
+            <span>Mulai Rp 7.000</span>
+            </div>
+
+            </div>
+            </a>
 
 
-<!-- Card 7 -->
-    <div class="card">
+            <!-- Card 7 -->
+            <a href="produk.php?id=7" class="kategori-link">
 
-<div class="card-image">
-<img src="img/stiker_kotak.png" alt="">
-</div>
+                <div class="card">
 
-<div class="card-body">
-<h3>Sticker kotak</h3>
+            <div class="card-image">
+            <img src="img/stiker_kotak.png" alt="">
+            </div>
 
-<p>
-    bentuk kotak rapi untuk tampilan profesional.
-</p>
+            <div class="card-body">
+            <h3>Sticker kotak</h3>
 
-<span>Mulai Rp 7.000</span>
-</div>
-</div>
+            <p>
+                bentuk kotak rapi untuk tampilan profesional.
+            </p>
 
-<!-- Card 8 -->
-<div class="card">
+            <span>Mulai Rp 7.000</span>
+            </div>
+            </div>
+            </a>
 
-<div class="card-image">
-<img src="img/stiker_persegi.png" alt="">
-</div>
+            <!-- Card 8 -->
+            <a href="produk.php?id=8" class="kategori-link">
 
-<div class="card-body">
-<h3>Sticker persegi</h3>
+            <div class="card">
 
-<p>
-bentuk persegi panjangn untuk informasi yang lebih detail.
-</p>
+            <div class="card-image">
+            <img src="img/stiker_persegi.png" alt="">
+            </div>
 
-<span>Mulai Rp 6.000</span>
-</div>
-</div>
+            <div class="card-body">
+            <h3>Sticker persegi</h3>
 
-<!-- Card 9 -->
-    <div class="card">
+            <p>
+            bentuk persegi panjangn untuk informasi yang lebih detail.
+            </p>
 
-<div class="card-image">
-<img src="img/stiker_label.png" alt="">
-</div>
+            <span>Mulai Rp 6.000</span>
+            </div>
+            </div>
+            </a>
 
-<div class="card-body">
-<h3>Sticker label</h3>
+            <!-- Card 9 -->
+            <a href="produk.php?id=9" class="kategori-link">
 
-<p>
-   lebih khusu untuk produk,harga, atau barcode.
-</p>
+                <div class="card">
 
-<span>Mulai Rp 9.000</span>
-</div>
-</div>
+            <div class="card-image">
+            <img src="img/stiker_label.png" alt="">
+            </div>
 
-<!-- Card 10 -->
-<div class="card">
+            <div class="card-body">
+            <h3>Sticker label</h3>
 
-<div class="card-image">
-<img src="img/stiker_promosi.png" alt="">
-</div>
+            <p>
+            lebih khusu untuk produk,harga, atau barcode.
+            </p>
 
-<div class="card-body">
-<h3>Sticker promosi</h3>
+            <span>Mulai Rp 9.000</span>
+            </div>
+            </div>
+            </a>
 
-<p>
-tingkatkan promosi dengan sticker menarik dan eye-catching.
-</p>
+            <!-- Card 10 -->
+            <a href="produk.php?id=10" class="kategori-link">
 
-<span>Mulai Rp 9.000</span>
-</div>
-</div>
+            <div class="card">
 
-<!-- Card 11 -->
-    <div class="card">
+            <div class="card-image">
+            <img src="img/stiker_promosi.png" alt="">
+            </div>
 
-<div class="card-image">
-<img src="img/aksesoris_ctak.png" alt="">
-</div>
+            <div class="card-body">
+            <h3>Sticker promosi</h3>
 
-<div class="card-body">
-<h3>aksesoris cetak</h3>
+            <p>
+            tingkatkan promosi dengan sticker menarik dan eye-catching.
+            </p>
 
-<p>
-   gantungan kunci,pin,dan aksesoris custum lainnya.
-</p>
+            <span>Mulai Rp 9.000</span>
+            </div>
+            </div>
+            </a>
 
-<span>Mulai Rp 15.000</span>
-</div>
-</div>
+            <!-- Card 11 -->
+            <a href="produk.php?id=11" class="kategori-link">
+
+                <div class="card">
+
+            <div class="card-image">
+            <img src="img/aksesoris_ctak.png" alt="">
+            </div>
+
+            <div class="card-body">
+            <h3>aksesoris cetak</h3>
+
+            <p>
+            gantungan kunci,pin,dan aksesoris custum lainnya.
+            </p>
+
+            <span>Mulai Rp 15.000</span>
+            </div>
+            </div>
+            </a>
 
 
 </main>
