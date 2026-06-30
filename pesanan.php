@@ -1,21 +1,24 @@
-
 <?php
 session_start();
 include 'koneksi.php';
 
 if(!isset($_SESSION['id'])){
-    header("Location: login.php");
+    header("Location:login.php");
     exit;
 }
 
 $id_user = $_SESSION['id'];
 
-// Ambil pesanan custom milik user
 $query = mysqli_query($conn,"
-SELECT *
+SELECT
+custom_sticker.*,
+produk.nama_produk,
+produk.gambar
 FROM custom_sticker
-WHERE id='$id_user'
-ORDER BY tanggal DESC
+LEFT JOIN produk
+ON custom_sticker.id_produk = produk.id_produk
+WHERE custom_sticker.id='$id_user'
+ORDER BY id_custom DESC
 ");
 ?>
 
@@ -39,41 +42,34 @@ ORDER BY tanggal DESC
 
 <?php
 if(mysqli_num_rows($query)>0){
-?>
 
-<?php
 while($row=mysqli_fetch_assoc($query)){
 ?>
 
-<div class="card">
+<div class="card pesanan-card">
 
-<h3>🎨 Custom Sticker</h3>
+<img
+src="img/<?= $row['gambar']; ?>"
+class="gambar-pesanan">
 
-<p>
-<b>ID Pesanan :</b>
-<?= $row['id_custom']; ?>
-</p>
+<h3><?= $row['nama_produk']; ?></h3>
 
-<p>
-<b>Ukuran :</b>
-<?= $row['ukuran']; ?>
-</p>
+<p><b>Ukuran :</b> <?= $row['ukuran']; ?></p>
 
-<p>
-<b>Jumlah :</b>
-<?= $row['jumlah']; ?>
-</p>
+<p><b>Jumlah :</b> <?= $row['jumlah']; ?></p>
 
-<p>
-<b>Status :</b>
-<?= $row['status']; ?>
-</p>
+<p><b>Status :</b> <?= $row['status']; ?></p>
 
-<br>
 
-<a
-href="chat_user.php?id_custom=<?= $row['id_custom']; ?>"
-class="auth-btn">
+<a class="btn-detail"
+href="detail_pesanan.php?id=<?= $row['id_custom']; ?>">
+
+Detail
+
+</a>
+
+<a class="btn-chat"
+href="chat_user.php?id_custom=<?= $row['id_custom']; ?>">
 
 💬 Chat Admin
 
@@ -84,25 +80,18 @@ class="auth-btn">
 <br>
 
 <?php
-}
-?>
 
-<?php
+}
+
 }else{
-?>
 
-<div class="card">
+echo "<div class='card'>Belum ada pesanan.</div>";
 
-<p>Belum ada pesanan custom.</p>
-
-</div>
-
-<?php
 }
+
 ?>
 
 </div>
 
 </body>
-
 </html>

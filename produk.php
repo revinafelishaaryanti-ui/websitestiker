@@ -112,8 +112,6 @@ echo "<h3>Produk belum tersedia.</h3>";
 
 <div class="mobile">
 
-<h2 class="judul"><?= ucfirst($kategori); ?></h2>
-
 <div class="produk-container">
 
 <?php if($kategori=="vinyl"){ ?>

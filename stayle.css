@@ -1732,7 +1732,83 @@ body{
     
     }
 
+    .detail-card{
 
+        display:flex;
+        
+        gap:30px;
+        
+        background:#fff;
+        
+        padding:25px;
+        
+        border-radius:18px;
+        
+        box-shadow:0 5px 15px rgba(0,0,0,.08);
+        
+        }
+        
+        .detail-img{
+        
+        width:280px;
+        
+        height:280px;
+        
+        object-fit:cover;
+        
+        border-radius:15px;
+        
+        border:1px solid #ddd;
+        
+        }
+        
+        .detail-info{
+        
+        flex:1;
+        
+        }
+        
+        .detail-info h2{
+        
+        margin-bottom:15px;
+        
+        }
+        
+        .detail-info p{
+        
+        margin:10px 0;
+        
+        line-height:1.7;
+        
+        }
+        
+        .btn-detail,
+        .btn-chat{
+        
+        display:inline-block;
+        
+        padding:12px 20px;
+        
+        border-radius:10px;
+        
+        text-decoration:none;
+        
+        color:#fff;
+        
+        margin-right:10px;
+        
+        }
+        
+        .btn-detail{
+        
+        background:#4CAF50;
+        
+        }
+        
+        .btn-chat{
+        
+        background:#ff9800;
+        
+        }
 
-
-
+    

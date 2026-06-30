@@ -27,7 +27,7 @@
         </li>
 
         <li>
-            <a href="custom.php">
+        <a href="pesanan_custom.php">
                 🎨 Custom Sticker
             </a>
         </li>
@@ -45,10 +45,6 @@
         </li>
 
         <li>
-    <a href="custom.php">
-        🎨 Custom Sticker
-    </a>
-</li>
 
 <li>
     <a href="chat.php">
