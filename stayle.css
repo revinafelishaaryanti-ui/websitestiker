@@ -12,12 +12,15 @@ padding:0;
 }
 
 .mobile{
-width:100%;
-max-width:1400px;
-background:white;
-min-height:100vh;
-padding:20px 50px;
-margin:auto;
+    width:100%;
+    max-width:100%;
+    margin:auto;
+    min-height:100vh;
+    background:#fff;
+    overflow:hidden;
+    position:relative;
+    padding:20px 40px;
+    box-sizing:border-box;
 }
 
 .header{
@@ -449,13 +452,13 @@ object-fit:contain;
 }
 
 .auth-card{
-    width:100%;
-    margin:0;
-    padding:36px 32px;
-    border-radius:32px;
-    background:rgba(255,255,255,0.98);
-    box-shadow:0 30px 90px rgba(67,38,215,0.16);
-    border:1px solid rgba(67,38,215,0.12);
+    width:90%;
+    max-width:380px;
+    margin:40px auto;
+    background:#fff;
+    border-radius:20px;
+    padding:30px;
+    box-sizing:border-box;
 }
 
 .auth-card-large{
@@ -506,8 +509,14 @@ object-fit:contain;
 }
 
 .input-group{
-    position:relative;
-    margin-bottom:18px;
+    width:100%;
+    margin-bottom:20px;
+}
+
+.input-group input{
+    width:100%;
+    padding:15px 18px;
+    box-sizing:border-box;
 }
 
 .input-icon{
@@ -673,6 +682,8 @@ object-fit:contain;
 .social-facebook i{
     color:#1877f2;
 }
+
+
 
 /* HALAMAN AKUN */
 
@@ -1678,137 +1689,361 @@ body{
 }
 
 
-.list-pesanan{
+.pesanan-card{
+    display:flex;
+    gap:25px;
+    background:#fff;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.produk-kiri{
+    width:180px;
+    flex-shrink:0;
+}
+
+.gambar-pesanan{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+    border-radius:12px;
+    border:1px solid #ddd;
+}
+
+.produk-kanan{
+    flex:1;
+}
+
+.produk-kanan h3{
+    margin-bottom:15px;
+    color:#222;
+    font-size:24px;
+}
+
+.produk-kanan p{
+    margin:8px 0;
+}
+
+.status-badge{
+    display:inline-block;
+    margin-top:10px;
+    padding:7px 18px;
+    border-radius:20px;
+    background:#6C3BD1;
+    color:#fff;
+    font-weight:600;
+}
+
+.progress{
+    width:100%;
+    height:10px;
+    background:#e5e5e5;
+    border-radius:20px;
+    margin:15px 0;
+    overflow:hidden;
+}
+
+.progress-bar{
+    height:100%;
+    background:#6C3BD1;
+    border-radius:20px;
+}
+
+.aksi{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:18px;
+}
+
+.btn-detail,
+.btn-chat,
+.btn-lacak,
+.btn-rating{
+    padding:10px 18px;
+    border-radius:10px;
+    color:#fff;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.btn-detail{
+    background:#6C3BD1;
+}
+
+.btn-chat{
+    background:#ff9800;
+}
+
+.btn-lacak{
+    background:#2196F3;
+}
+
+.btn-rating{
+    background:#28a745;
+}
+
+@media(max-width:768px){
+
+    .pesanan-card{
+        flex-direction:column;
+        text-align:center;
+    }
+
+    .produk-kiri{
+        width:100%;
+    }
+
+    .gambar-pesanan{
+        width:220px;
+        height:220px;
+        margin:auto;
+    }
+
+    .aksi{
+        justify-content:center;
+    }
+}
+
+
+.filter-status{
 
     display:flex;
-    
-    flex-direction:column;
-    
-    gap:20px;
-    
-    padding:20px;
+    gap:10px;
+    margin:20px 0 30px;
+    flex-wrap:wrap;
     
     }
     
-    .card-pesanan{
-    
-    background:#fff;
-    
-    padding:20px;
-    
-    border-radius:15px;
-    
-    box-shadow:0 3px 15px rgba(0,0,0,.1);
-    
-    }
-    
-    .card-pesanan h3{
-    
-    margin-bottom:10px;
-    
-    }
-    
-    .card-pesanan p{
-    
-    margin:8px 0;
-    
-    }
-    
-    .btn-chat{
-    
-    display:inline-block;
-    
-    margin-top:15px;
+    .filter-status a{
     
     padding:10px 18px;
-    
-    background:#2563eb;
-    
-    color:white;
-    
+    background:#eee;
+    border-radius:30px;
     text-decoration:none;
+    color:#333;
+    font-weight:bold;
+    transition:.3s;
     
-    border-radius:8px;
+    }
+    
+    .filter-status a:hover{
+    
+    background:#6C3BD1;
+    color:#fff;
+    
+    }
+    
+    .filter-status .aktif{
+    
+    background:#6C3BD1;
+    color:#fff;
     
     }
 
-    .detail-card{
-
+    .daftar-pesanan{
         display:flex;
-        
-        gap:30px;
-        
-        background:#fff;
-        
-        padding:25px;
-        
-        border-radius:18px;
-        
-        box-shadow:0 5px 15px rgba(0,0,0,.08);
-        
-        }
-        
-        .detail-img{
-        
-        width:280px;
-        
-        height:280px;
-        
-        object-fit:cover;
-        
-        border-radius:15px;
-        
-        border:1px solid #ddd;
-        
-        }
-        
-        .detail-info{
-        
-        flex:1;
-        
-        }
-        
-        .detail-info h2{
-        
-        margin-bottom:15px;
-        
-        }
-        
-        .detail-info p{
-        
-        margin:10px 0;
-        
-        line-height:1.7;
-        
-        }
-        
-        .btn-detail,
-        .btn-chat{
-        
-        display:inline-block;
-        
-        padding:12px 20px;
-        
-        border-radius:10px;
-        
-        text-decoration:none;
-        
-        color:#fff;
-        
-        margin-right:10px;
-        
-        }
-        
-        .btn-detail{
-        
-        background:#4CAF50;
-        
-        }
-        
-        .btn-chat{
-        
-        background:#ff9800;
-        
-        }
+        flex-direction:column;
+        gap:20px;
+    }
 
+    .header-page{
+        display:flex;
+        align-items:center;
+        gap:15px;
+        margin:20px 0;
+    }
     
+    .back-btn{
+        width:42px;
+        height:42px;
+        border-radius:50%;
+        color:#080808;
+        text-decoration:none;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        font-size:24px;
+        font-weight:bold;
+        transition:.3s;
+    }
+    
+    .back-btn:hover{
+        transform:scale(1.05);
+    }
+    
+    .header-page h2{
+        margin:0;
+        font-size:28px;
+        color:#333;
+    }
+
+    /* ==========================
+   DETAIL PESANAN
+========================== */
+
+.detail-card{
+    background:#fff;
+    border-radius:18px;
+    padding:20px;
+    margin:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+.detail-img{
+    width:100px;
+    height:100px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+.detail-info h2{
+    margin-bottom:10px;
+    color:#333;
+}
+
+.detail-info p{
+    margin:10px 0;
+    color:#555;
+    line-height:1.6;
+}
+
+.section-title{
+    margin-top:25px;
+    margin-bottom:10px;
+    font-size:18px;
+    color:#6C3BD1;
+    font-weight:bold;
+    border-bottom:2px solid #eee;
+    padding-bottom:8px;
+}
+
+.detail-card{
+    display:flex;
+    gap:20px;
+    align-items:flex-start;
+    background:#fff;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 3px 10px rgba(0,0,0,.1);
+}
+
+.produk-kiri{
+    flex-shrink:0;
+}
+
+.detail-img{
+    width:100px;
+    height:100px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+.detail-info{
+    flex:1;
+}
+
+.file-btn{
+    display:inline-block;
+    margin-top:8px;
+    padding:10px 18px;
+    background:#6C3BD1;
+    color:#fff;
+    text-decoration:none;
+    border-radius:8px;
+    transition:.3s;
+}
+
+.file-btn:hover{
+    background:#5b2db3;
+}
+
+.progress{
+    width:100%;
+    height:10px;
+    background:#e8e8e8;
+    border-radius:20px;
+    overflow:hidden;
+    margin:15px 0;
+}
+
+.progress-bar{
+    height:100%;
+    background:#6C3BD1;
+    border-radius:20px;
+}
+
+.status-badge{
+    display:inline-block;
+    padding:6px 16px;
+    background:#6C3BD1;
+    color:#fff;
+    border-radius:20px;
+    margin-top:8px;
+    font-size:14px;
+}
+
+.action-group{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:25px;
+}
+
+.btn-detail,
+.btn-chat,
+.btn-acc{
+    flex:1;
+    text-align:center;
+    text-decoration:none;
+    color:#fff;
+    padding:12px;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.btn-detail{
+    background:#6C3BD1;
+}
+
+.btn-chat{
+    background:#ff9800;
+}
+
+.btn-acc{
+    background:#28a745;
+}
+
+.btn-detail:hover,
+.btn-chat:hover,
+.btn-acc:hover{
+    opacity:.9;
+}
+
+.back-header{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin:20px;
+}
+
+.back-header a{
+    width:40px;
+    height:40px;
+    background:#6C3BD1;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-decoration:none;
+    font-size:22px;
+}
+
+.back-header h2{
+    margin:0;
+}
+        

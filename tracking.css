@@ -1,0 +1,48 @@
+.tracking-card{
+    background:#fff;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.timeline{
+    margin-top:25px;
+}
+
+.step{
+    display:flex;
+    align-items:flex-start;
+    margin-bottom:25px;
+    position:relative;
+}
+
+.step::before{
+    content:"";
+    position:absolute;
+    left:11px;
+    top:25px;
+    width:2px;
+    height:35px;
+    background:#ccc;
+}
+
+.step:last-child::before{
+    display:none;
+}
+
+.circle{
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:#ccc;
+    margin-right:15px;
+    flex-shrink:0;
+}
+
+.step.done .circle{
+    background:#6C3BD1;
+}
+
+.text{
+    font-size:16px;
+}

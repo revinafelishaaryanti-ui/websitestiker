@@ -29,6 +29,9 @@ if(mysqli_num_rows($query)==0){
 
 $data=mysqli_fetch_assoc($query);
 ?>
+<?php
+$total_harga = $data['harga'] * $data['jumlah'];
+?>
 
 <!DOCTYPE html>
 <html>
@@ -44,15 +47,19 @@ $data=mysqli_fetch_assoc($query);
 
 <div class="mobile">
 
-<div class="card detail-card">
+<div class="detail-card">
 
-<img src="uploads/produk/<?= $data['gambar']; ?>" class="detail-img">
+    <div class="produk-kiri">
+        <img src="img/<?= htmlspecialchars($data['gambar']); ?>" class="detail-img">
+    </div>
 
-<div class="detail-info">
-
+    <div class="detail-info">
+        
 <h2><?= $data['nama_produk']; ?></h2>
 
-<p><b>Harga :</b> Rp <?= number_format($data['harga']); ?></p>
+<p><b>Harga Satuan :</b> Rp <?= number_format($data['harga'],0,',','.'); ?></p>
+
+<p><b>Total Harga :</b> Rp <?= number_format($total_harga,0,',','.'); ?></p>
 
 <p><b>Ukuran :</b> <?= $data['ukuran']; ?></p>
 
@@ -96,17 +103,6 @@ Lihat Referensi
 if($data['file_desain']!=""){
 ?>
 
-<hr>
-
-<h3>Hasil Desain</h3>
-
-<a
-href="uploads/desain/<?= $data['file_desain']; ?>"
-target="_blank">
-
-Lihat Desain
-
-</a>
 
 <?php
 }
@@ -117,22 +113,6 @@ if($data['status']=="Menunggu Persetujuan"){
 ?>
 
 <br><br>
-
-<a
-class="btn-detail"
-href="acc_desain.php?id=<?= $data['id_custom']; ?>">
-
-ACC Desain
-
-</a>
-
-<a
-class="btn-chat"
-href="revisi_desain.php?id=<?= $data['id_custom']; ?>">
-
-Minta Revisi
-
-</a>
 
 <?php
 }
@@ -151,6 +131,7 @@ href="chat_user.php?id_custom=<?= $data['id_custom']; ?>">
 💬 Chat Admin
 
 </a>
+
 
 </div>
 

@@ -2,36 +2,36 @@
 session_start();
 include '../koneksi.php';
 
-$error="";
+$error = "";
 
 if(isset($_POST['login'])){
 
-$email=mysqli_real_escape_string($conn,$_POST['email']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = md5($_POST['password']);
 
-$password=md5($_POST['password']);
+    $sql = "SELECT * FROM admin WHERE email='$email' AND password='$password'"; 
 
-$query=mysqli_query($conn,"SELECT * FROM admin
-WHERE email='$email'
-AND password='$password'");
+    $query = mysqli_query($conn, $sql);
 
-echo "Email : ".$email."<br>";
-echo "MD5 Password : ".$password."<br>";
+    if(!$query){
+        die("Query Error: " . mysqli_error($conn));
+    }
 
-if(mysqli_num_rows($query)>0){
+    if(mysqli_num_rows($query) > 0){
 
-$data=mysqli_fetch_assoc($query);
+        $data = mysqli_fetch_assoc($query);
 
-$_SESSION['admin_id']=$data['id_admin'];
-$_SESSION['admin_nama']=$data['nama_admin'];
+        $_SESSION['admin_id'] = $data['id_admin'];
+        $_SESSION['admin_nama'] = $data['nama_admin'];
 
-header("Location: dashboard.php");
-exit;
+        header("Location: dashboard.php");
+        exit;
 
-}else{
+    }else{
 
-$error="Email atau Password Salah!";
+        $error = "Email atau Password Salah!";
 
-}
+    }
 
 }
 ?>
@@ -74,10 +74,10 @@ if($error!=""){
 <div class="input-group">
 
 <input
-type="email"
-name="email"
-placeholder="Email Admin"
-required>
+    type="email"
+    name="email"
+    placeholder="Email Admin"
+    required>
 
 </div>
 

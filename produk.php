@@ -60,7 +60,9 @@ while($row=mysqli_fetch_assoc($query)){
 
 <div class="card">
 
-<img src="uploads/produk/<?= $row['gambar']; ?>" alt="">
+
+<img src="img/<?= htmlspecialchars($row['gambar']); ?>" alt="">
+<br>
 
 <h3>
 

@@ -131,10 +131,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
         <h3>Produk Populer</h3>
 
-        <a href="semua_produk.php">
-Lihat semua
-</a>
-
     </div>
 
     <div class="produk">
