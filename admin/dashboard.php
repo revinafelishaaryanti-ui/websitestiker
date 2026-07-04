@@ -1,18 +1,9 @@
 <?php
-
-if(!isset($_SESSION['admin_id'])){
-    header("Location:login.php");
-    exit;
-}
-
 session_start();
 
-if(!isset($_SESSION['admin_id'])){
-
-header("Location: login.php");
-
-exit;
-
+if (!isset($_SESSION['admin_id'])) {
+    header("Location: login.php");
+    exit;
 }
 
 include '../koneksi.php';
@@ -29,7 +20,9 @@ $jml_user = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM users"));
 
 <title>Dashboard Admin</title>
 
-<link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" href="admin.css?v=1">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
@@ -41,81 +34,148 @@ $jml_user = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM users"));
 
 <?php include 'include/navbar.php'; ?>
 
-<div class="cards">
+<div class="welcome-box">
 
-<div class="card">
+    <div class="welcome-text">
 
-<h3>Produk</h3>
+        <h2>👋 Halo, <?= $_SESSION['admin_nama']; ?>!</h2>
 
-<h1><?= $jml_produk ?></h1>
+        <p>
+            Selamat datang di Dashboard Stickerin.
+            Kelola produk, pesanan, pelanggan, dan custom sticker dengan mudah.
+        </p>
 
-</div>
+    </div>
 
-<div class="card">
+    <div class="welcome-image">
 
-<h3>Kategori</h3>
+        <img src="../img/admin-dashboard.png" alt="">
 
-<h1><?= $jml_kategori ?></h1>
-
-</div>
-
-<div class="card">
-
-<h3>Pelanggan</h3>
-
-<h1><?= $jml_user ?></h1>
+    </div>
 
 </div>
 
-<div class="card">
-
-<h3>Pesanan</h3>
-
-<h1>0</h1>
-
-</div>
-
-</div>
-
-</div>
 
 <div class="cards">
 
-<div class="card">
+    <div class="stat-card produk">
 
-<h4>Total Produk</h4>
+        <div class="stat-icon">
+            <i class="fa-solid fa-box"></i>
+        </div>
 
-<h1><?= $jml_produk ?></h1>
+        <div class="stat-info">
+
+            <h4>Total Produk</h4>
+
+            <h2><?= $jml_produk ?></h2>
+
+            <small>Produk tersedia</small>
+
+        </div>
+
+    </div>
+
+    <div class="stat-card pendapatan">
+
+        <div class="stat-icon">
+            <i class="fa-solid fa-sack-dollar"></i>
+        </div>
+
+        <div class="stat-info">
+
+            <h4>Pendapatan Hari Ini</h4>
+
+            <h2>Rp 0</h2>
+
+            <small>Belum ada transaksi</small>
+
+        </div>
+
+    </div>
+
+    <div class="stat-card pesanan">
+
+        <div class="stat-icon">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </div>
+
+        <div class="stat-info">
+
+            <h4>Total Pesanan</h4>
+
+            <h2>0</h2>
+
+            <small>Pesanan masuk</small>
+
+        </div>
+
+    </div>
 
 </div>
 
-<div class="card">
 
-<h4>Total Kategori</h4>
+<div class="dashboard-grid">
 
-<h1><?= $jml_kategori ?></h1>
+    <div class="chart-card">
+
+        <h3>📈 Statistik Penjualan</h3>
+
+        <canvas id="salesChart"></canvas>
+
+    </div>
+
+    <div class="activity-card">
+
+        <h3>📝 Aktivitas Terbaru</h3>
+
+        <ul>
+
+            <li>✅ Produk baru ditambahkan</li>
+
+            <li>✅ Kategori diperbarui</li>
+
+            <li>✅ Pesanan baru masuk</li>
+
+            <li>✅ Sistem berjalan normal</li>
+
+        </ul>
+
+    </div>
 
 </div>
 
-<div class="card">
+</div> <!-- Penutup .main pindahkan ke sini -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<h4>Total Pelanggan</h4>
+<script>
+const ctx = document.getElementById('salesChart');
 
-<h1><?= $jml_user ?></h1>
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
+        datasets: [{
+            label: 'Penjualan',
+            data: [12, 19, 8, 15, 25, 20, 30],
+            borderWidth: 3,
+            tension: 0.4,
+            fill: true
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
 
-</div>
-
-<div class="card">
-
-<h4>Total Pesanan</h4>
-
-<h1>0</h1>
-
-</div>
-
-</div>
-
+</body>
+</html>
 </body>
 
 </html>
-

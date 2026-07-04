@@ -20,7 +20,10 @@ $query = mysqli_query($conn,"SELECT * FROM kategori ORDER BY id_kategori ASC");
 
 <title>Data Kategori</title>
 
-<link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" href="admin.css?v=2">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
@@ -34,19 +37,38 @@ $query = mysqli_query($conn,"SELECT * FROM kategori ORDER BY id_kategori ASC");
 
 <div class="content">
 
-<div class="content-header">
+<div class="page-header">
 
-<h2>Data Kategori</h2>
+    <div>
 
-<a href="tambah_kategori.php" class="btn-tambah">
+        <h2>📂 Kategori Sticker</h2>
 
-+ Tambah Kategori
+        <p>Kelola semua kategori Stickerin.</p>
 
-</a>
+    </div>
+
+    <div class="search-area">
+
+        <input type="text" placeholder="Cari kategori...">
+
+    </div>
 
 </div>
 
+<div class="header-kategori">
+    <h2>Data Kategori</h2>
+
+    <a href="tambah_kategori.php" class="btn-tambah">
+        <i class="fa-solid fa-plus"></i>
+        Tambah Kategori
+    </a>
+</div>
+
+<div class="table-card">
+
 <table>
+
+<thead>
 
 <tr>
 
@@ -57,6 +79,10 @@ $query = mysqli_query($conn,"SELECT * FROM kategori ORDER BY id_kategori ASC");
 <th width="180">Aksi</th>
 
 </tr>
+
+</thead>
+
+<tbody>
 
 <?php
 
@@ -70,18 +96,20 @@ while($row=mysqli_fetch_assoc($query)){
 
 <td><?= $no++ ?></td>
 
-<td><?= $row['nama_kategori'] ?></td>
+<td><?= $row['nama_kategori']; ?></td>
 
 <td>
 
-<a href="edit_kategori.php?id=<?= $row['id_kategori'] ?>" class="edit">
+<a href="edit_kategori.php?id=<?= $row['id_kategori']; ?>" class="btn-edit">
 
-Edit</a>
+<i class="fa-solid fa-pen"></i>
 
-<a href="hapus_kategori.php?id=<?= $row['id_kategori'] ?>" class="hapus"
+</a>
+
+<a href="hapus_kategori.php?id=<?= $row['id_kategori']; ?>" class="btn-delete"
 onclick="return confirm('Yakin ingin menghapus?')">
 
-Hapus
+<i class="fa-solid fa-trash"></i>
 
 </a>
 
@@ -90,6 +118,8 @@ Hapus
 </tr>
 
 <?php } ?>
+
+</tbody>
 
 </table>
 

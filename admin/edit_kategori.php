@@ -35,8 +35,17 @@ if (isset($_POST['update'])) {
 <html>
 
 <head>
-    <title>Edit Kategori</title>
-    <link rel="stylesheet" href="assets/css/admin.css">
+
+<meta charset="UTF-8">
+
+<title>Edit Kategori</title>
+
+<link rel="stylesheet" href="admin.css?v=1">
+
+<link rel="stylesheet"
+
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
 </head>
 
 <body>
@@ -49,9 +58,22 @@ if (isset($_POST['update'])) {
 
 <div class="content">
 
-<h2>Edit Kategori</h2>
+<div class="form-card">
+
+<div class="form-title">
+
+<h2>
+<i class="fa-solid fa-pen-to-square"></i>
+Edit Kategori
+</h2>
+
+<p>Edit data kategori Stickerin.</p>
+
+</div>
 
 <form method="POST">
+
+<div class="input-group">
 
 <label>Nama Kategori</label>
 
@@ -61,13 +83,30 @@ name="nama"
 value="<?= $kategori['nama_kategori']; ?>"
 required>
 
-<br><br>
+</div>
 
-<button class="btn-tambah" name="update">
+<div class="button-group">
+
+<button
+type="submit"
+name="update"
+class="btn-save">
+
+<i class="fa-solid fa-floppy-disk"></i>
 
 Update
 
 </button>
+
+<a href="kategori.php" class="btn-back">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Kembali
+
+</a>
+
+</div>
 
 </form>
 
