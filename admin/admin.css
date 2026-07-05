@@ -1176,3 +1176,558 @@ STATISTIC CARD
     font-size:26px;
     font-weight:700;
 }
+
+/* =======================
+   TAMBAH KATEGORI
+=======================*/
+
+.page-header{
+    margin-bottom:30px;
+}
+
+.page-header h1{
+    font-size:36px;
+    color:#2349d7;
+    font-weight:700;
+}
+
+.page-header p{
+    color:#777;
+    margin-top:8px;
+}
+
+.kategori-wrapper{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:25px;
+}
+
+.kategori-form,
+.info-card{
+    background:#fff;
+    border-radius:22px;
+    padding:35px;
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+}
+
+.kategori-form h2{
+    margin-bottom:25px;
+    color:#2349d7;
+}
+
+.kategori-form label{
+    display:block;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.kategori-form input{
+    width:100%;
+    padding:16px 20px;
+    border:2px solid #e8edff;
+    border-radius:14px;
+    font-size:16px;
+    transition:.3s;
+}
+
+.kategori-form input:focus{
+    border-color:#4f6df5;
+    outline:none;
+    box-shadow:0 0 0 4px rgba(79,109,245,.15);
+}
+
+.btn-group{
+    display:flex;
+    justify-content:flex-end;
+    gap:15px;
+    margin-top:35px;
+}
+
+.btn-batal{
+    padding:14px 30px;
+    border-radius:12px;
+    background:#f2f5ff;
+    color:#2349d7;
+    text-decoration:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-batal:hover{
+    background:#dfe7ff;
+}
+
+.btn-simpan{
+    border:none;
+    cursor:pointer;
+    padding:14px 35px;
+    border-radius:12px;
+    background:linear-gradient(90deg,#2349d7,#5b73ff);
+    color:#fff;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-simpan:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 25px rgba(35,73,215,.25);
+}
+
+.info-card h3{
+    color:#2349d7;
+    margin-bottom:20px;
+}
+
+.info-card ul{
+    padding-left:20px;
+}
+
+.info-card li{
+    margin-bottom:16px;
+    color:#555;
+    line-height:1.6;
+}
+
+@media(max-width:1000px){
+
+    .kategori-wrapper{
+        grid-template-columns:1fr;
+    }
+
+}
+
+/*==========================
+TABEL PRODUK
+==========================*/
+
+.table-card{
+    background:#fff;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    overflow:hidden;
+}
+
+.table-produk{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.table-produk thead{
+    background:linear-gradient(135deg,#4F7CFF,#6D63FF);
+}
+
+.table-produk thead th{
+    color:#fff;
+    padding:18px;
+    text-align:center;
+    font-size:15px;
+    font-weight:600;
+}
+
+.table-produk tbody td{
+    padding:18px;
+    text-align:center;
+    border-bottom:1px solid #edf1ff;
+    vertical-align:middle;
+}
+
+.table-produk tbody tr:hover{
+    background:#f6f9ff;
+}
+
+.table-produk img{
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border-radius:12px;
+    border:2px solid #eef2ff;
+}
+
+.badge-stok{
+    display:inline-block;
+    background:#22c55e;
+    color:#fff;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.badge-habis{
+    display:inline-block;
+    background:#ef4444;
+    color:#fff;
+    padding:6px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.btn-edit{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    width:42px;
+    height:42px;
+    border-radius:10px;
+    background:#ffc107;
+    color:#fff;
+    text-decoration:none;
+    margin-right:6px;
+    transition:.3s;
+}
+
+.btn-edit:hover{
+    transform:translateY(-3px);
+}
+
+.btn-delete{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    width:42px;
+    height:42px;
+    border-radius:10px;
+    background:#ff4d6d;
+    color:#fff;
+    text-decoration:none;
+    transition:.3s;
+}
+
+.btn-delete:hover{
+    transform:translateY(-3px);
+}
+
+/*============================
+EDIT PRODUK
+=============================*/
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
+
+}
+
+.input-group{
+
+    margin-bottom:25px;
+
+}
+
+.input-group label{
+
+    display:block;
+
+    margin-bottom:10px;
+
+    font-weight:600;
+
+    color:#444;
+
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea{
+
+    width:100%;
+
+    padding:15px;
+
+    border:1px solid #dfe7ff;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus{
+
+    border-color:#4F7CFF;
+
+    box-shadow:0 0 10px rgba(79,124,255,.2);
+
+}
+
+.preview-produk{
+
+    width:180px;
+
+    height:180px;
+
+    object-fit:cover;
+
+    border-radius:15px;
+
+    border:3px solid #eef2ff;
+
+    box-shadow:0 10px 20px rgba(0,0,0,.08);
+
+}
+
+.button-group{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:15px;
+
+    margin-top:30px;
+
+}
+
+.btn-save{
+
+    background:linear-gradient(135deg,#4F7CFF,#6D63FF);
+
+    color:white;
+
+    border:none;
+
+    padding:14px 28px;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.btn-save:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 20px rgba(79,124,255,.25);
+
+}
+
+.btn-back{
+
+    background:#f2f4ff;
+
+    color:#4F7CFF;
+
+    text-decoration:none;
+
+    padding:14px 28px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+}
+
+.btn-back:hover{
+
+    background:#dfe7ff;
+
+}
+
+@media(max-width:900px){
+
+.form-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.preview-produk{
+
+width:100%;
+
+height:auto;
+
+}
+
+}
+
+/*=================================
+TAMBAH PRODUK
+=================================*/
+
+.form-card{
+
+    background:#fff;
+
+    border-radius:22px;
+
+    padding:35px;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
+
+}
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:25px;
+
+}
+
+.input-group{
+
+    margin-bottom:25px;
+
+}
+
+.input-group label{
+
+    display:block;
+
+    font-weight:600;
+
+    margin-bottom:10px;
+
+    color:#333;
+
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea{
+
+    width:100%;
+
+    padding:15px 18px;
+
+    border:2px solid #eef2ff;
+
+    border-radius:12px;
+
+    outline:none;
+
+    transition:.3s;
+
+    font-size:15px;
+
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus{
+
+    border-color:#4F7CFF;
+
+    box-shadow:0 0 12px rgba(79,124,255,.15);
+
+}
+
+.preview-produk{
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:18px;
+
+    object-fit:cover;
+
+    border:3px dashed #4F7CFF;
+
+    padding:8px;
+
+    background:#f8faff;
+
+}
+
+.button-group{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:15px;
+
+    margin-top:20px;
+
+}
+
+.btn-save{
+
+    background:linear-gradient(135deg,#4F7CFF,#7B61FF);
+
+    color:#fff;
+
+    border:none;
+
+    padding:14px 28px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-save:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 25px rgba(79,124,255,.25);
+
+}
+
+.btn-back{
+
+    background:#eef2ff;
+
+    color:#4F7CFF;
+
+    padding:14px 28px;
+
+    border-radius:12px;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+}
+
+.btn-back:hover{
+
+    background:#dfe8ff;
+
+}
+
+@media(max-width:900px){
+
+.form-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.preview-produk{
+
+width:100%;
+
+height:auto;
+
+}
+
+}

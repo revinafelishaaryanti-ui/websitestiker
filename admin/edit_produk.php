@@ -63,7 +63,7 @@ if(isset($_POST['update'])){
 
 <title>Edit Produk</title>
 
-<link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" href="admin.css">
 
 </head>
 
@@ -77,78 +77,144 @@ if(isset($_POST['update'])){
 
 <div class="content">
 
-<h2>Edit Produk</h2>
+    <div class="page-header">
 
-<form method="POST" enctype="multipart/form-data">
+        <div>
 
-<label>Nama Produk</label>
+            <h1>✏️ Edit Produk</h1>
 
-<input type="text"
-name="nama_produk"
-value="<?= $data['nama_produk']; ?>"
-required>
+            <p>Perbarui informasi produk Stickerin.</p>
 
-<label>Kategori</label>
+        </div>
 
-<select name="id_kategori">
+    </div>
 
-<?php while($k=mysqli_fetch_assoc($kategori)){ ?>
+    <div class="form-card">
 
-<option
-value="<?= $k['id_kategori']; ?>"
-<?= ($k['id_kategori']==$data['id_kategori'])?'selected':''; ?>>
+        <form method="POST" enctype="multipart/form-data">
 
-<?= $k['nama_kategori']; ?>
+            <div class="form-grid">
 
-</option>
+                <div class="input-group">
 
-<?php } ?>
+                    <label>Nama Produk</label>
 
-</select>
+                    <input
+                    type="text"
+                    name="nama_produk"
+                    value="<?= $data['nama_produk']; ?>"
+                    required>
 
-<label>Harga</label>
+                </div>
 
-<input type="number"
-name="harga"
-value="<?= $data['harga']; ?>">
+                <div class="input-group">
 
-<label>Stok</label>
+                    <label>Kategori</label>
 
-<input type="number"
-name="stok"
-value="<?= $data['stok']; ?>">
+                    <select name="id_kategori" required>
 
-<label>Deskripsi</label>
+                        <?php while($k=mysqli_fetch_assoc($kategori)){ ?>
 
-<textarea
-name="deskripsi"
-rows="5"><?= $data['deskripsi']; ?></textarea>
+                        <option
+                        value="<?= $k['id_kategori']; ?>"
+                        <?= $data['id_kategori']==$k['id_kategori'] ? 'selected' : ''; ?>>
 
-<label>Gambar Sekarang</label>
+                            <?= $k['nama_kategori']; ?>
 
-<br>
+                        </option>
 
-<img src="../uploads/produk/<?= $data['gambar']; ?>" width="120">
+                        <?php } ?>
 
-<br><br>
+                    </select>
 
-<label>Ganti Gambar (Opsional)</label>
+                </div>
 
-<input type="file" name="gambar">
+            </div>
 
-<br>
+            <div class="form-grid">
 
-<button
-class="btn-tambah"
-name="update">
+                <div class="input-group">
 
-Update Produk
+                    <label>Harga</label>
 
-</button>
+                    <input
+                    type="number"
+                    name="harga"
+                    value="<?= $data['harga']; ?>"
+                    required>
 
-</form>
+                </div>
 
-</div>
+                <div class="input-group">
+
+                    <label>Stok</label>
+
+                    <input
+                    type="number"
+                    name="stok"
+                    value="<?= $data['stok']; ?>"
+                    required>
+
+                </div>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Deskripsi</label>
+
+                <textarea
+                name="deskripsi"
+                rows="5"><?= $data['deskripsi']; ?></textarea>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Foto Produk Saat Ini</label>
+
+                <br><br>
+
+                <img
+                src="../img/<?= $data['gambar']; ?>"
+                class="preview-produk">
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Ganti Foto Produk</label>
+
+                <input
+                type="file"
+                name="gambar">
+
+            </div>
+
+            <div class="button-group">
+
+                <a
+                href="produk.php"
+                class="btn-back">
+
+                    ← Kembali
+
+                </a>
+
+                <button
+                type="submit"
+                name="update"
+                class="btn-save">
+
+                    💾 Update Produk
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
 
 </div>
 

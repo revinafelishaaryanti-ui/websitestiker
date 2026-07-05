@@ -47,17 +47,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
     </div>
 
-    <div class="search-area">
-
-        <input type="text" placeholder="Cari kategori...">
-
-    </div>
+    
 
 </div>
 
 <div class="header-kategori">
-    <h2>Data Kategori</h2>
-
+   
     <a href="tambah_kategori.php" class="btn-tambah">
         <i class="fa-solid fa-plus"></i>
         Tambah Kategori

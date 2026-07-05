@@ -41,7 +41,8 @@ if (isset($_POST['simpan'])) {
 <html>
 <head>
     <title>Tambah Produk</title>
-    <link rel="stylesheet" href="assets/css/admin.css">
+    
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
 
@@ -53,50 +54,165 @@ if (isset($_POST['simpan'])) {
 
 <div class="content">
 
-<h2>Tambah Produk</h2>
+    <div class="page-header">
 
-<form method="POST" enctype="multipart/form-data">
+        <div>
 
-<label>Nama Produk</label>
-<input type="text" name="nama_produk" required>
+            <h1>📦 Tambah Produk</h1>
 
-<label>Kategori</label>
-<select name="id_kategori" required>
-    <option value="">-- Pilih Kategori --</option>
+            <p>Tambahkan produk baru ke katalog Stickerin.</p>
 
-    <?php while($k = mysqli_fetch_assoc($kategori)){ ?>
+        </div>
 
-    <option value="<?= $k['id_kategori']; ?>">
-        <?= $k['nama_kategori']; ?>
-    </option>
+    </div>
 
-    <?php } ?>
+    <div class="form-card">
 
-</select>
+        <form method="POST" enctype="multipart/form-data">
 
-<label>Harga</label>
-<input type="number" name="harga" required>
+            <div class="form-grid">
 
-<label>Stok</label>
-<input type="number" name="stok" required>
+                <div class="input-group">
 
-<label>Deskripsi</label>
-<textarea name="deskripsi" rows="5"></textarea>
+                    <label>Nama Produk</label>
 
-<label>Gambar Produk</label>
-<input type="file" name="gambar" required>
+                    <input
+                    type="text"
+                    name="nama_produk"
+                    placeholder="Masukkan nama produk..."
+                    required>
 
-<br><br>
+                </div>
 
-<button class="btn-tambah" name="simpan">
-    Simpan Produk
-</button>
+                <div class="input-group">
 
-</form>
+                    <label>Kategori</label>
+
+                    <select name="id_kategori" required>
+
+                        <option value="">-- Pilih Kategori --</option>
+
+                        <?php while($k=mysqli_fetch_assoc($kategori)){ ?>
+
+                        <option value="<?= $k['id_kategori']; ?>">
+
+                            <?= $k['nama_kategori']; ?>
+
+                        </option>
+
+                        <?php } ?>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-grid">
+
+                <div class="input-group">
+
+                    <label>Harga</label>
+
+                    <input
+                    type="number"
+                    name="harga"
+                    placeholder="Masukkan harga..."
+                    required>
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Stok</label>
+
+                    <input
+                    type="number"
+                    name="stok"
+                    placeholder="Masukkan stok..."
+                    required>
+
+                </div>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Deskripsi Produk</label>
+
+                <textarea
+                name="deskripsi"
+                rows="5"
+                placeholder="Masukkan deskripsi produk..."></textarea>
+
+            </div>
+
+            <div class="input-group">
+
+                <label>Upload Gambar Produk</label>
+
+                <input
+                type="file"
+                name="gambar"
+                id="gambar"
+                accept="image/*"
+                onchange="previewImage(event)"
+                required>
+
+            </div>
+
+            <div class="input-group">
+
+                <img
+                id="preview"
+                src="../img/default.png"
+                class="preview-produk">
+
+            </div>
+
+            <div class="button-group">
+
+                <a
+                href="produk.php"
+                class="btn-back">
+
+                    ← Kembali
+
+                </a>
+
+                <button
+                type="submit"
+                name="simpan"
+                class="btn-save">
+
+                    💾 Simpan Produk
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
 
 </div>
 
-</div>
+<script>
 
+function previewImage(event){
+
+    let reader=new FileReader();
+
+    reader.onload=function(){
+
+        document.getElementById("preview").src=reader.result;
+
+    }
+
+    reader.readAsDataURL(event.target.files[0]);
+
+}
+
+</script>
 </body>
 </html>

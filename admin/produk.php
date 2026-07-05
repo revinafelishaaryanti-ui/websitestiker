@@ -24,7 +24,9 @@ ORDER BY id_produk DESC
 
 <title>Data Produk</title>
 
-<link rel="stylesheet" href="assets/css/admin.css">
+<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
@@ -50,23 +52,26 @@ ORDER BY id_produk DESC
 
 </div>
 
-<table>
+<div class="table-card">
+
+<table class="table-produk">
+
+<thead>
 
 <tr>
 
 <th>Gambar</th>
-
 <th>Nama Produk</th>
-
 <th>Kategori</th>
-
 <th>Harga</th>
-
 <th>Stok</th>
-
 <th>Aksi</th>
 
 </tr>
+
+</thead>
+
+<tbody>
 
 <?php while($row=mysqli_fetch_assoc($query)){ ?>
 
@@ -74,7 +79,7 @@ ORDER BY id_produk DESC
 
 <td>
 
-<img src="../uploads/produk/<?= $row['gambar']; ?>" width="70">
+<img src="../img/<?= $row['gambar']; ?>">
 
 </td>
 
@@ -82,24 +87,45 @@ ORDER BY id_produk DESC
 
 <td><?= $row['nama_kategori']; ?></td>
 
-<td>Rp <?= number_format($row['harga']); ?></td>
+<td>
 
-<td><?= $row['stok']; ?></td>
+Rp <?= number_format($row['harga'],0,',','.'); ?>
+
+</td>
 
 <td>
 
-<a class="edit"
-href="edit_produk.php?id=<?= $row['id_produk']; ?>">
+<?php if($row['stok']>0){ ?>
 
-Edit
+<span class="badge-stok">
+
+<?= $row['stok']; ?>
+
+</span>
+
+<?php }else{ ?>
+
+<span class="badge-habis">
+
+Habis
+
+</span>
+
+<?php } ?>
+
+</td>
+
+<td>
+
+<a href="edit_produk.php?id=<?= $row['id_produk']; ?>" class="btn-edit">
+
+<i class="fa-solid fa-pen"></i>
 
 </a>
 
-<a class="hapus"
-onclick="return confirm('Hapus Produk?')"
-href="hapus_produk.php?id=<?= $row['id_produk']; ?>">
+<a href="hapus_produk.php?id=<?= $row['id_produk']; ?>" class="btn-delete">
 
-Hapus
+<i class="fa-solid fa-trash"></i>
 
 </a>
 
@@ -109,12 +135,11 @@ Hapus
 
 <?php } ?>
 
+</tbody>
+
 </table>
 
 </div>
-
-</div>
-
 </body>
 
 </html>

@@ -42,7 +42,7 @@ if(isset($_POST['kirim'])){
 
 <title>Custom Sticker</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="admin.css">
 
 </head>
 
