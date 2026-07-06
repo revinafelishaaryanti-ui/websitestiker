@@ -30,14 +30,14 @@
         </li>
 
         <li>
-            <a href="custom.php">
+        <a href="customsticker.php">
                 <i class="fa-solid fa-wand-magic-sparkles"></i>
                 <span>Custom Sticker</span>
             </a>
         </li>
 
         <li>
-            <a href="pesanan.php">
+        <a href="pesanan.php">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <span>Pesanan</span>
             </a>

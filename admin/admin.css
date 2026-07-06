@@ -1731,3 +1731,94 @@ height:auto;
 }
 
 }
+
+
+.badge{
+    padding:8px 16px;
+    border-radius:30px;
+    color:#fff;
+    font-size:13px;
+    font-weight:600;
+}
+
+.badge-warning{
+    background:#f59e0b;
+}
+
+.badge-primary{
+    background:#2563eb;
+}
+
+.badge-success{
+    background:#10b981;
+}
+
+.table-card img{
+    transition:.3s;
+    cursor:pointer;
+}
+
+.table-card img:hover{
+    transform:scale(1.08);
+}
+
+.content{
+    padding:30px;
+}
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.page-header h2{
+    color:#333;
+}
+
+#search{
+    width:280px;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+    background:#fff;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.table th{
+    background:#ff6b00;
+    color:white;
+    padding:14px;
+}
+
+.table td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+}
+
+.table tr:hover{
+    background:#fafafa;
+}
+
+.btn-detail{
+    background:#3498db;
+    color:#fff;
+    padding:8px 14px;
+    border-radius:5px;
+    text-decoration:none;
+}
+
+.btn-delete{
+    background:#e74c3c;
+    color:#fff;
+    padding:8px 14px;
+    border-radius:5px;
+    text-decoration:none;
+    margin-left:5px;
+}
