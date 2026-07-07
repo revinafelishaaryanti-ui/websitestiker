@@ -37,10 +37,10 @@
         </li>
 
         <li>
-        <a href="pesanan.php">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span>Pesanan</span>
-            </a>
+        <a href="pesanan_pelanggan.php">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <span>Pesanan</span>
+        </a>
         </li>
 
         <li>

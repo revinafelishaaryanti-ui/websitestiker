@@ -1,14 +1,13 @@
 <?php
 session_start();
+include '../koneksi.php';
 
-if (!isset($_SESSION['id'])) {
-    header("Location: login.php");
+if(!isset($_SESSION['admin_id'])){
+    header("Location:login.php");
     exit;
 }
 
-include '../koneksi.php';
-
-$query = mysqli_query($koneksi, "SELECT * FROM pelanggan");
+$query = mysqli_query($conn,"SELECT * FROM users");
 ?>
 
 <!DOCTYPE html>
@@ -24,11 +23,19 @@ $query = mysqli_query($koneksi, "SELECT * FROM pelanggan");
 
 <div class="content">
 
-    <div class="page-header">
-        <h2>👥 Data Pelanggan</h2>
+<div class="page-header">
 
-        <input type="text" id="search" placeholder="Cari pelanggan...">
-    </div>
+<div>
+    <h2>👥 Data Pelanggan</h2>
+
+    <a href="dashboard.php" class="btn-back">
+        ← Kembali
+    </a>
+</div>
+
+<input type="text" id="search" placeholder="Cari pelanggan...">
+
+</div>
 
     <table class="table">
         <thead>
@@ -63,15 +70,15 @@ $query = mysqli_query($koneksi, "SELECT * FROM pelanggan");
 
             <td>
 
-                <a href="detail_pelanggan.php?id=<?= $row['id_pelanggan']; ?>" class="btn-detail">
-                    Detail
-                </a>
+                        <a href="detail_pelanggan.php?id=<?= $row['id']; ?>" class="btn-detail">
+                Detail
+            </a>
 
-                <a href="hapus_pelanggan.php?id=<?= $row['id_pelanggan']; ?>"
-                onclick="return confirm('Yakin ingin menghapus pelanggan ini?')"
-                class="btn-delete">
-                    Hapus
-                </a>
+            <a href="hapus_pelanggan.php?id=<?= $row['id']; ?>"
+            onclick="return confirm('Yakin ingin menghapus pelanggan ini?')"
+            class="btn-delete">
+                Hapus
+            </a>
 
             </td>
 
