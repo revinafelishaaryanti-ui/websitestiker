@@ -14,7 +14,7 @@ users.nama
 FROM pesanan
 JOIN users
 ON pesanan.id_user = users.id
-ORDER BY id_pesanan DESC
+ORDER BY pesanan.id_pesanan DESC
 ");
 
 if(!$query){
@@ -23,10 +23,13 @@ if(!$query){
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="id">
+
 <head>
 
-<title>Pesanan Pelanggan</title>
+<meta charset="UTF-8">
+
+<title>pesanan Pelanggan</title>
 
 <link rel="stylesheet" href="admin.css">
 
@@ -44,12 +47,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <?php include 'include/navbar.php'; ?>
 
 <div class="content">
-
 <div class="page-header">
 
 <div>
 
-<h2>Pesanan Pelanggan</h2>
+<h2>📦 Pesanan Pelanggan</h2>
 
 <p>Kelola seluruh pesanan pelanggan Stickerin.</p>
 
@@ -87,20 +89,22 @@ Filter
 <tbody>
 
 <?php
+
 $no=1;
 
 while($d=mysqli_fetch_assoc($query)){
+
 ?>
 
 <tr>
 
-<td><?= $no++ ?></td>
+<td><?= $no++; ?></td>
 
-<td><?= $d['nama'] ?></td>
+<td><?= $d['nama']; ?></td>
 
 <td>
 
-Rp <?= number_format($d['total_harga']) ?>
+Rp <?= number_format($d['total_harga'],0,',','.'); ?>
 
 </td>
 
@@ -132,15 +136,15 @@ echo "<span class='badge'>$d[status]</span>";
 
 <td>
 
-<?= date('d M Y',strtotime($d['tanggal'])) ?>
+<?= date('d M Y',strtotime($d['tanggal'])); ?>
 
 </td>
 
 <td>
 
-<a
-href="detail_pesanan.php?id=<?= $d['id_pesanan']; ?>"
-class="btn-detail">
+<a href="detail_pesanan.php?id=<?= $d['id_pesanan']; ?>" class="btn-detail">
+
+<i class="fa-solid fa-eye"></i>
 
 Detail
 
@@ -163,4 +167,5 @@ Detail
 </div>
 
 </body>
+
 </html>

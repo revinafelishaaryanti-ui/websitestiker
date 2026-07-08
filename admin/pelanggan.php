@@ -21,19 +21,31 @@ $query = mysqli_query($conn,"SELECT * FROM users");
 
 <body>
 
+<?php include 'include/sidebar.php'; ?>
+
+<div class="main">
+
+<?php include 'include/navbar.php'; ?>
+
 <div class="content">
 
 <div class="page-header">
 
 <div>
     <h2>👥 Data Pelanggan</h2>
-
-    <a href="dashboard.php" class="btn-back">
-        ← Kembali
-    </a>
+    <p>Kelola seluruh data pelanggan Stickerin.</p>
 </div>
 
-<input type="text" id="search" placeholder="Cari pelanggan...">
+<div class="page-actions">
+
+    <a href="dashboard.php" class="btn-back">
+        <i class="fa-solid fa-arrow-left"></i>
+        Kembali
+    </a>
+
+    <input type="text" id="search" placeholder="Cari pelanggan...">
+
+</div>
 
 </div>
 
@@ -89,7 +101,9 @@ $query = mysqli_query($conn,"SELECT * FROM users");
         </tbody>
     </table>
 
-</div>
+    </div> <!-- content -->
+
+</div> <!-- main -->
 
 <script>
 const search=document.getElementById("search");
