@@ -63,10 +63,10 @@ body{
 ========================== */
 
 .cards{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-    gap: 20px;
-    margin-bottom: 30px;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+    width:100%;
 }
 
 .card{
@@ -1964,3 +1964,74 @@ BADGE STATUS
 .page-actions input:focus{
     border-color:#4F7CFF;
 }
+
+/*=========================
+LAPORAN
+=========================*/
+
+.laporan-box{
+
+    display:grid;
+    
+    grid-template-columns:repeat(3,1fr);
+    
+    gap:20px;
+    
+    margin-bottom:30px;
+    
+    }
+    
+    .card-laporan{
+    
+    background:#fff;
+    
+    padding:25px;
+    
+    border-radius:18px;
+    
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+    
+    text-align:center;
+    
+    }
+    
+    .card-laporan h4{
+    
+    color:#777;
+    
+    margin-bottom:10px;
+    
+    font-size:15px;
+    
+    }
+    
+    .card-laporan h2{
+    
+    color:#2563eb;
+    
+    font-size:28px;
+    
+    }
+
+    .pelanggan .stat-icon{
+        background: #e8f7ff;
+        color: #2196f3;
+    }
+
+    .stat-card.pelanggan{
+        background:rgb(163, 24, 24);
+        border-radius:20px;
+        padding:20px;
+        display:flex;
+        align-items:center;
+        gap:15px;
+    }
+
+    .stat-card.pelanggan{
+        background: linear-gradient(135deg, #ec0914);
+    }
+    
+    .stat-card.pelanggan .stat-icon{
+        background: #ec0914;
+        color: white;
+    }

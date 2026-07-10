@@ -1,11 +1,14 @@
-
 <?php
 session_start();
 
-if (!isset($_SESSION['id'])) {
-    header('Location: login.php');
-    exit;
-}
+include 'koneksi.php';
+
+$produk_rekomendasi = mysqli_query($conn,"
+SELECT * FROM produk
+WHERE rekomendasi='1'
+ORDER BY id_produk DESC
+LIMIT 3
+");
 
 ?>
 
@@ -47,10 +50,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
             <i class="fa-solid fa-magnifying-glass"></i>
 
-        <a href="akun.php">
-            <i class="fa-solid fa-user"></i>
-        </a>
+            <?php if(isset($_SESSION['id'])){ ?>
 
+<a href="akun.php">
+<i class="fa-solid fa-user"></i>
+</a>
+
+<?php }else{ ?>
+
+<a href="login.php">
+<i class="fa-solid fa-user"></i>
+</a>
+
+<?php } ?>
             <a href="keranjang.php" class="cart">
     <i class="fa-solid fa-cart-shopping"></i>
     <span>3</span>
@@ -84,82 +96,72 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 </div>
 
-    <!-- KATEGORI -->
 
-    <div class="section-title">
-
-        <h3>Kategori</h3>
-
-        <a href="kategori.php">
-            Lihat semua >
-        </a>
-
-    </div>
-
-    <div class="kategori">
-
-        <div class="item">
-            <div class="icon">+</div>
-            <p>Semua</p>
-        </div>
-
-        <div class="item">
-            <img src="img/hologram.jpeg">
-            <p>Hologram</p>
-        </div>
-
-        <div class="item">
-            <img src="img/transparan.png">
-            <p>Transparan</p>
-        </div>
-
-        <div class="item">
-            <img src="img/vinyl.png">
-            <p>Vinyl</p>
-        </div>
-
-        <div class="item">
-            <img src="img/semuaa.png">
-            <p>Lainnya</p>
-        </div>
-
-    </div>
 
     <!-- PRODUK -->
 
-    <div class="section-title">
+<!-- PRODUK REKOMENDASI -->
 
-        <h3>Produk Populer</h3>
+<div class="section-title">
 
-    </div>
+    <h3>Produk Rekomendasi</h3>
 
-    <div class="produk">
+</div>
 
-        <div class="card">
-            <a href="detail_vinyl.php">
-                <img src="img/stiker vinyl.png" class="img vinyl" style="width:140px; height:auto; display:block; margin:0 auto;">
 
-                <h4>Stiker Vinyl</h4>
-                <p>Rp 10.000</p>
-            </a>
-        </div>
+<div class="produk">
 
-        <div class="card">
-            <a href="detail_hologram.php">
-             <img src="img/stiker-hologram.png" class="img-hologram" style="width:140px; height:auto; display:block; margin:0 auto;">
+<?php while($p = mysqli_fetch_assoc($produk_rekomendasi)){ ?>
 
-                <h4>Stiker Hologram</h4>
-                <p>Rp 12.000</p>
-            </a>
-        </div>
 
-        <div class="card">
-            <a href="detail_transparan.php">
-                                <img src="img/stiker-transparan.png" class="img-transparan" style="width:140px; height:auto; display:block; margin:0 auto;">
-                <h4>Stiker Transparan</h4>
-                <p>Rp 9.000</p>
-            </a>
-        </div>
+<div class="card">
+
+    <a href="detail_produk.php?id=<?= $p['id_produk']; ?>">
+
+
+        <img 
+        src="uploads/produk/<?= $p['gambar']; ?>"
+        style="width:140px;height:auto;display:block;margin:0 auto;">
+
+
+        <h4>
+        <?= $p['nama_produk']; ?>
+        </h4>
+
+
+        <p>
+        Rp <?= number_format($p['harga'],0,",","."); ?>
+        </p>
+<?php if(isset($_SESSION['id'])){ ?>
+
+<a href="keranjang.php?id=<?= $p['id_produk']; ?>">
+    <button>
+        Beli Sekarang
+    </button>
+</a>
+
+
+<?php }else{ ?>
+
+
+<a href="login.php">
+    <button>
+        Beli Sekarang
+    </button>
+</a>
+
+
+<?php } ?>
+
+    </a>
+
+</div>
+
+
+<?php } ?>
+
+
+</div>
 
     </div>
 

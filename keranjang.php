@@ -1,7 +1,15 @@
-
-
 <?php
+
 session_start();
+
+if(!isset($_SESSION['id'])){
+
+header("Location: login.php");
+exit;
+
+}
+
+include 'koneksi.php';
 
 /* Qty awal */
 if(!isset($_SESSION['qty1'])) $_SESSION['qty1'] = 1;

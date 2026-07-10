@@ -7,10 +7,129 @@ if (!isset($_SESSION['admin_id'])) {
 }
 
 include '../koneksi.php';
+$today = date('Y-m-d');
+// Aktivitas hari ini
+$aktivitas = mysqli_query($conn,"
+SELECT 
+'Pesanan baru masuk' AS aktivitas,
+tanggal
+FROM pesanan
+WHERE DATE(tanggal)='$today'
 
-$jml_produk = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM produk"));
-$jml_kategori = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM kategori"));
-$jml_user = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM users"));
+UNION ALL
+
+SELECT
+'Produk baru ditambahkan' AS aktivitas,
+tanggal
+FROM produk
+WHERE DATE(tanggal)='$today'
+
+ORDER BY tanggal DESC
+LIMIT 5
+");
+
+// Jumlah pelanggan hari ini
+$query_pelanggan = mysqli_query($conn,"
+SELECT COUNT(*) AS total
+FROM users
+WHERE DATE(tanggal)='$today'
+");
+
+$data_pelanggan = mysqli_fetch_assoc($query_pelanggan);
+
+$jml_pelanggan = $data_pelanggan['total'];
+
+if($jml_pelanggan==""){
+    $jml_pelanggan = 0;
+}
+// ===============================
+// TOTAL PRODUK TERJUAL HARI INI
+// ===============================
+
+$today = date('Y-m-d');
+
+$data_produk = mysqli_fetch_assoc(mysqli_query($conn,"
+SELECT SUM(jumlah) AS total
+FROM detail_pesanan dp
+JOIN pesanan p ON dp.id_pesanan = p.id_pesanan
+WHERE DATE(p.tanggal)='$today'
+"));
+
+$produk_terjual = $data_produk['total'];
+
+if($produk_terjual==""){
+    $produk_terjual = 0;
+}
+$query_kategori = mysqli_query($conn,"SELECT * FROM kategori");
+
+if(!$query_kategori){
+    die("Error kategori : ".mysqli_error($conn));
+}
+
+$jml_kategori = mysqli_num_rows($query_kategori);
+$query_user = mysqli_query($conn,"SELECT * FROM users");
+
+if(!$query_user){
+    die("Error user : ".mysqli_error($conn));
+}
+
+$jml_user = mysqli_num_rows($query_user);
+// ===============================
+// DATA HARI INI (UNTUK CARD)
+// ===============================
+
+$today = date('Y-m-d');
+
+// Produk hari ini
+$query_produk = mysqli_query($conn,"
+SELECT *
+FROM produk
+WHERE DATE(tanggal)='$today'
+");
+
+if(!$query_produk){
+    die("Error produk : ".mysqli_error($conn));
+}
+
+$produk_hari_ini = mysqli_num_rows($query_produk);
+
+// Pesanan hari ini
+$pesanan_hari_ini = mysqli_num_rows(mysqli_query($conn,"
+SELECT *
+FROM pesanan
+WHERE DATE(tanggal)='$today'
+"));
+
+// Pendapatan hari ini
+$data_pendapatan = mysqli_fetch_assoc(mysqli_query($conn,"
+SELECT SUM(total_harga) AS total
+FROM pesanan
+WHERE DATE(tanggal)='$today'
+"));
+
+$pendapatan_hari_ini = $data_pendapatan['total'];
+
+if($pendapatan_hari_ini==""){
+    $pendapatan_hari_ini = 0;
+}
+// ===============================
+// STATISTIK PENJUALAN 7 HARI TERAKHIR
+// ===============================
+
+$data_chart = [];
+
+$query_chart = mysqli_query($conn,"
+SELECT DATE(tanggal) AS tgl,
+SUM(total_harga) AS total
+FROM pesanan
+GROUP BY DATE(tanggal)
+ORDER BY DATE(tanggal) ASC
+LIMIT 7
+");
+
+while($row = mysqli_fetch_assoc($query_chart)){
+    $data_chart[] = $row;
+}
 ?>
 
 <!DOCTYPE html>
@@ -66,12 +185,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
         <div class="stat-info">
 
-            <h4>Total Produk</h4>
+        <h4>Produk Terjual</h4>
 
-            <h2><?= $jml_produk ?></h2>
+<h2><?= $produk_terjual ?></h2>
 
-            <small>Produk tersedia</small>
-
+<small>Produk terjual hari ini</small>
         </div>
 
     </div>
@@ -86,9 +204,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
             <h4>Pendapatan Hari Ini</h4>
 
-            <h2>Rp 0</h2>
+            <h2>Rp <?= number_format($pendapatan_hari_ini,0,",","."); ?></h2>
 
-            <small>Belum ada transaksi</small>
+<small>Pendapatan hari ini</small>
 
         </div>
 
@@ -102,15 +220,32 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
         <div class="stat-info">
 
-            <h4>Total Pesanan</h4>
+        <h4>Pesanan Hari Ini</h4>
 
-            <h2>0</h2>
+<h2><?= $pesanan_hari_ini ?></h2>
 
-            <small>Pesanan masuk</small>
+<small>Pesanan masuk hari ini</small>
 
         </div>
 
     </div>
+    <div class="stat-card pelanggan">
+
+    <div class="stat-icon">
+        <i class="fa-solid fa-users"></i>
+    </div>
+
+    <div class="stat-info">
+
+        <h4>Jumlah Pelanggan</h4>
+
+        <h2><?= $jml_pelanggan ?></h2>
+
+        <small>Total pelanggan terdaftar</small>
+
+    </div>
+
+</div>
 
 </div>
 
@@ -131,15 +266,25 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
         <ul>
 
-            <li>✅ Produk baru ditambahkan</li>
+<?php if(mysqli_num_rows($aktivitas) > 0): ?>
 
-            <li>✅ Kategori diperbarui</li>
+<?php while($a = mysqli_fetch_assoc($aktivitas)): ?>
 
-            <li>✅ Pesanan baru masuk</li>
+<li>
+    ✅ <?= $a['aktivitas']; ?>
+</li>
 
-            <li>✅ Sistem berjalan normal</li>
+<?php endwhile; ?>
 
-        </ul>
+<?php else: ?>
+
+<li>
+    Tidak ada aktivitas hari ini
+</li>
+
+<?php endif; ?>
+
+</ul>
 
     </div>
 
@@ -154,10 +299,23 @@ const ctx = document.getElementById('salesChart');
 new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'],
-        datasets: [{
-            label: 'Penjualan',
-            data: [12, 19, 8, 15, 25, 20, 30],
+        labels:[
+<?php
+foreach($data_chart as $d){
+    echo "'".date('d M',strtotime($d['tgl']))."',";
+}
+?>
+],
+
+datasets:[{
+    label:'Penjualan (Rp)',
+    data:[
+<?php
+foreach($data_chart as $d){
+    echo $d['total'].",";
+}
+?>
+],
             borderWidth: 3,
             tension: 0.4,
             fill: true
@@ -171,6 +329,64 @@ new Chart(ctx, {
             }
         }
     }
+});const ctx = document.getElementById('salesChart');
+
+new Chart(ctx,{
+
+    type:'line',
+
+    data:{
+
+        labels:[
+
+        <?php
+        foreach($data_chart as $d){
+            echo "'".date('d M',strtotime($d['tgl']))."',";
+        }
+        ?>
+
+        ],
+
+        datasets:[{
+
+            label:'Penjualan (Rp)',
+
+            data:[
+
+            <?php
+            foreach($data_chart as $d){
+                echo $d['total'].",";
+            }
+            ?>
+
+            ],
+
+            borderWidth:3,
+
+            tension:0.4,
+
+            fill:true
+
+        }]
+
+    },
+
+    options:{
+
+        responsive:true,
+
+        scales:{
+
+            y:{
+
+                beginAtZero:true
+
+            }
+
+        }
+
+    }
+
 });
 </script>
 

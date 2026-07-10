@@ -17,6 +17,7 @@ if (isset($_POST['simpan'])) {
     $id_kategori = $_POST['id_kategori'];
     $harga = $_POST['harga'];
     $stok = $_POST['stok'];
+    $rekomendasi = $_POST['rekomendasi'];
     $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
 
     // Upload gambar
@@ -169,6 +170,25 @@ if (isset($_POST['simpan'])) {
                 class="preview-produk">
 
             </div>
+            <div class="input-group">
+
+<label>
+Produk Rekomendasi
+</label>
+
+<select name="rekomendasi">
+
+<option value="0">
+Tidak
+</option>
+
+<option value="1">
+Ya
+</option>
+
+</select>
+
+</div>
 
             <div class="button-group">
 
