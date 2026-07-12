@@ -2,6 +2,9 @@
 <?php
 session_start();
 include 'koneksi.php';
+if(isset($_GET['redirect'])){
+    $_SESSION['redirect'] = $_GET['redirect'];
+}
 
 $error = '';
 
@@ -19,10 +22,22 @@ if(isset($_POST['login'])){
         if($password == $data['password'] || password_verify($password,$data['password'])){
 
             $_SESSION['id'] = $data['id'];
-            $_SESSION['nama'] = $data['nama'];
+$_SESSION['nama'] = $data['nama'];
 
-            header("Location: dashboard.php");
-            exit;
+if(isset($_SESSION['redirect'])){
+    
+    $halaman = $_SESSION['redirect'];
+    unset($_SESSION['redirect']);
+
+    header("Location: ".$halaman);
+
+}else{
+
+    header("Location: dashboard.php");
+
+}
+
+exit;
 
         } else {
             $error = "Password salah!";
@@ -76,15 +91,17 @@ if(isset($_POST['login'])){
 
         <form action="" method="POST" class="auth-form">
 
-            <div class="input-group">
-                <i class="fa-solid fa-envelope input-icon"></i>
+        <div class="input-group email-group">
 
-                <input
-                    type="email"
-                    name="email"
-                    placeholder="Masukkan Email"
-                    required>
-            </div>
+<i class="fa-solid fa-envelope input-icon"></i>
+
+<input
+    type="email"
+    name="email"
+    placeholder="Masukkan Email"
+    required>
+
+</div>
 
             <div class="input-group password-group">
 

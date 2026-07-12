@@ -70,6 +70,7 @@
 .input-group{
     width:100%;
     margin-bottom:20px;
+    position:relative;
 }
 
 .input-group input{
@@ -80,11 +81,12 @@
 
 .input-icon{
     position:absolute;
-    left:16px;
+    left:18px;
     top:50%;
     transform:translateY(-50%);
-    color:#5f56a6;
+    color:#666;
     font-size:16px;
+    z-index:2;
 }
 
 .auth-form input{
@@ -195,7 +197,8 @@
 .social-btn{
     display:flex;
     align-items:center;
-    gap:10px;
+    justify-content:center;
+    gap:8px;
     padding:12px 14px;
     border-radius:16px;
     border:1px solid rgba(67,38,215,0.16);
@@ -204,14 +207,19 @@
     font-weight:700;
     color:#3f3a72;
     min-width:110px;
-    justify-content:center;
+    height:45px;
     transition:0.2s ease;
     background:white;
 }
 
-.social-btn:hover{
-    transform:translateY(-1px);
-    box-shadow:0 10px 24px rgba(67,38,215,0.12);
+
+.social-btn i{
+    position:static;
+    transform:none;
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 .social-google{
@@ -289,4 +297,8 @@
     color:#666;
     font-size:18px;
     z-index:2;
+}
+
+.social-btn span{
+    display:inline-block;
 }

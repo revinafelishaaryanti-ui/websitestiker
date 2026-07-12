@@ -113,13 +113,15 @@ if($pendapatan_hari_ini==""){
     $pendapatan_hari_ini = 0;
 }
 // ===============================
-// STATISTIK PENJUALAN 7 HARI TERAKHIR
+// DATA GRAFIK PENJUALAN 7 HARI TERAKHIR
 // ===============================
 
-$data_chart = [];
+$label = [];
+$data = [];
 
-$query_chart = mysqli_query($conn,"
-SELECT DATE(tanggal) AS tgl,
+$queryChart = mysqli_query($conn,"
+SELECT
+DATE_FORMAT(tanggal,'%d/%m') AS hari,
 SUM(total_harga) AS total
 FROM pesanan
 GROUP BY DATE(tanggal)
@@ -127,8 +129,11 @@ ORDER BY DATE(tanggal) ASC
 LIMIT 7
 ");
 
-while($row = mysqli_fetch_assoc($query_chart)){
-    $data_chart[] = $row;
+while($row = mysqli_fetch_assoc($queryChart)){
+
+    $label[] = $row['hari'];
+    $data[] = $row['total'];
+
 }
 ?>
 
@@ -294,42 +299,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
+
 const ctx = document.getElementById('salesChart');
-
-new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels:[
-<?php
-foreach($data_chart as $d){
-    echo "'".date('d M',strtotime($d['tgl']))."',";
-}
-?>
-],
-
-datasets:[{
-    label:'Penjualan (Rp)',
-    data:[
-<?php
-foreach($data_chart as $d){
-    echo $d['total'].",";
-}
-?>
-],
-            borderWidth: 3,
-            tension: 0.4,
-            fill: true
-        }]
-    },
-    options: {
-        responsive: true,
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    }
-});const ctx = document.getElementById('salesChart');
 
 new Chart(ctx,{
 
@@ -337,35 +308,23 @@ new Chart(ctx,{
 
     data:{
 
-        labels:[
-
-        <?php
-        foreach($data_chart as $d){
-            echo "'".date('d M',strtotime($d['tgl']))."',";
-        }
-        ?>
-
-        ],
+        labels: <?= json_encode($label); ?>,
 
         datasets:[{
 
-            label:'Penjualan (Rp)',
+            label:'Penjualan',
 
-            data:[
+            data: <?= json_encode($data); ?>,
 
-            <?php
-            foreach($data_chart as $d){
-                echo $d['total'].",";
-            }
-            ?>
+            borderColor:'#4F7CFF',
 
-            ],
+            backgroundColor:'rgba(79,124,255,.2)',
 
             borderWidth:3,
 
-            tension:0.4,
+            fill:true,
 
-            fill:true
+            tension:0.4
 
         }]
 
@@ -376,18 +335,15 @@ new Chart(ctx,{
         responsive:true,
 
         scales:{
-
             y:{
-
                 beginAtZero:true
-
             }
-
         }
 
     }
 
 });
+
 </script>
 
 </body>

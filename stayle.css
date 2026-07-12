@@ -2047,3 +2047,336 @@ body{
     margin:0;
 }
         
+
+.produk-terjual{
+    display:inline-block;
+    background:#eef5ff;
+    color:#2563eb;
+    padding:4px 10px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+    margin-top:8px;
+}
+
+/* ===========================
+   DETAIL PRODUK STICKERIN
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Poppins, Arial, sans-serif;
+}
+
+body{
+    background:#eef5ff;
+}
+
+.detail-container{
+
+    width:90%;
+    max-width:1000px;
+    margin:40px auto;
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.detail-flex{
+
+    display:flex;
+
+    gap:40px;
+
+    align-items:flex-start;
+
+    flex-wrap:wrap;
+
+}
+
+/* =======================
+   Gambar Produk
+======================= */
+
+.detail-img{
+
+    flex:1;
+
+    min-width:320px;
+
+}
+
+.detail-img img{
+
+    width:100%;
+
+    border-radius:20px;
+
+    border:1px solid #ddd;
+
+}
+
+/* =======================
+   Informasi Produk
+======================= */
+
+.detail-info{
+
+    flex:1;
+
+    min-width:320px;
+
+}
+
+.detail-info h2{
+
+    color:#2563eb;
+
+    font-size:32px;
+
+    margin-bottom:15px;
+
+}
+
+.rating{
+
+    color:#666;
+
+    font-size:15px;
+
+    margin-bottom:20px;
+
+}
+
+.rating span{
+
+    margin-left:20px;
+
+}
+
+.harga{
+
+    color:#2563eb;
+
+    font-size:34px;
+
+    font-weight:bold;
+
+    margin-bottom:25px;
+
+}
+
+/* =======================
+   Deskripsi
+======================= */
+
+.deskripsi{
+
+    margin-top:20px;
+
+}
+
+.deskripsi h3{
+
+    color:#2563eb;
+
+    margin-bottom:10px;
+
+}
+
+.deskripsi p{
+
+    color:#555;
+
+    line-height:1.8;
+
+    text-align:justify;
+
+}
+
+/* =======================
+   Tombol
+======================= */
+
+.button-area{
+
+    margin-top:30px;
+
+    display:flex;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+}
+
+.btn{
+
+    text-decoration:none;
+
+    padding:13px 28px;
+
+    border-radius:10px;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+.btn-buy{
+
+    background:#2563eb;
+
+    color:white;
+
+}
+
+.btn-buy:hover{
+
+    background:#1d4ed8;
+
+}
+
+.btn-back{
+
+    background:#e5e7eb;
+
+    color:#333;
+
+}
+
+.btn-back:hover{
+
+    background:#d1d5db;
+
+}
+
+/* =======================
+   Responsive
+======================= */
+
+@media(max-width:768px){
+
+.detail-flex{
+
+    flex-direction:column;
+
+}
+
+.detail-container{
+
+    width:95%;
+
+    padding:20px;
+
+}
+
+.detail-info h2{
+
+    font-size:25px;
+
+}
+
+.harga{
+
+    font-size:28px;
+
+}
+
+.rating{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+.rating span{
+
+    margin-left:0;
+
+}
+
+.button-area{
+
+    flex-direction:column;
+
+}
+
+.btn{
+
+    text-align:center;
+
+}
+
+}
+
+/* ==========================
+   Tombol Kembali Atas
+========================== */
+
+.top-back{
+
+    margin-bottom:25px;
+
+}
+
+.btn-back-top{
+
+    display:inline-block;
+
+    text-decoration:none;
+
+    color:#2563eb;
+
+    background:#eef4ff;
+
+    padding:10px 18px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-back-top:hover{
+
+    background:#dbeafe;
+
+}
+
+
+/* ==========================
+   Tombol Keranjang
+========================== */
+
+.btn-cart{
+
+    background:white;
+
+    color:#2563eb;
+
+    border:2px solid #2563eb;
+
+}
+
+.btn-cart:hover{
+
+    background:#2563eb;
+
+    color:white;
+
+}

@@ -7,6 +7,20 @@ if(!isset($_SESSION['id'])){
 header("Location: login.php");
 exit;
 
+if(isset($_POST['tambah'])){
+
+    $produk = [
+        "id" => $_POST['id_produk'],
+        "nama" => $_POST['nama_produk'],
+        "harga" => $_POST['harga'],
+        "gambar" => $_POST['gambar'],
+        "qty" => 1
+    ];
+
+    $_SESSION['keranjang'][] = $produk;
+
+}
+
 }
 
 include 'koneksi.php';
@@ -75,109 +89,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </a>
 
 </div>
-
-<!-- PRODUK 1 -->
-
-<div class="produk-item" data-harga="<?= $harga1 ?>">
-
-<input type="checkbox" name="pilih[]" value="1" class="pilih-produk">
-
-<img src="img/stiker_aes.jpeg">
-
-<div class="detail">
-
-<h3>Stiker Aesthetic</h3>
-
-<p>Vinyl • 5 cm</p>
-
-<b>Rp <?= number_format($total1); ?></b>
-
-<div class="qty">
-
-<a href="keranjang.php?aksi=kurang&id=1">-</a>
-
-<span class="jumlah"><?= $_SESSION['qty1']; ?></span>
-
-<a href="keranjang.php?aksi=tambah&id=1">+</a>
-
-</div>
-
-</div>
-
-<div class="harga">
-Rp <?= number_format($total1); ?>
-</div>
-
-</div>
-
-<!-- PRODUK 2 -->
-
-<div class="produk-item" data-harga="<?= $harga2 ?>">
-
-<input type="checkbox" name="pilih[]" value="2" class="pilih-produk">
-
-<img src="img/custum_holo1.jpeg">
-
-<div class="detail">
-
-<h3>Stiker Hologram Logo</h3>
-
-<p>Hologram • 5 cm</p>
-
-<b>Rp <?= number_format($total2); ?></b>
-
-<div class="qty">
-
-<a href="keranjang.php?aksi=kurang&id=2">-</a>
-
-<span class="jumlah"><?= $_SESSION['qty2']; ?></span>
-
-<a href="keranjang.php?aksi=tambah&id=2">+</a>
-
-</div>
-
-</div>
-
-<div class="harga">
-Rp <?= number_format($total2); ?>
-</div>
-
-</div>
-
-<!-- PRODUK 3 -->
-
-<div class="produk-item" data-harga="<?= $harga3 ?>">
-
-<input type="checkbox" name="pilih[]" value="3" class="pilih-produk">
-
-<img src="img/custum_krj.jpeg">
-
-<div class="detail">
-
-<h3>Custom Sticker</h3>
-
-<p>Vinyl • 7 cm</p>
-
-<b>Rp <?= number_format($total3); ?></b>
-
-<div class="qty">
-
-<a href="keranjang.php?aksi=kurang&id=3">-</a>
-
-<span class="jumlah"><?= $_SESSION['qty3']; ?></span>
-
-<a href="keranjang.php?aksi=tambah&id=3">+</a>
-
-</div>
-
-</div>
-
-<div class="harga">
-Rp <?= number_format($total3); ?>
-</div>
-
-</div>
-
 
 <hr>
 

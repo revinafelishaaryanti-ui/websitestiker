@@ -53,41 +53,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
     <div class="layout">
 
-    
-<!-- Sidebar -->
-<aside class="sidebar">
 
-    <div class="sidebar-card">
-
-        <h3>Semua Kategori</h3>
-
-        <ul>
-        <li><a href="produk.php?id=1">Sticker Vinyl</a></li>
-
-        <li><a href="produk.php?id=2">Sticker Hologram</a></li>
-
-        <li><a href="produk.php?id=3">Sticker Transparan</a></li>
-
-        <li><a href="produk.php?id=4">Sticker Kertas</a></li>
-
-        <li><a href="produk.php?id=5">Sticker Die Cut</a></li>
-
-        <li><a href="produk.php?id=6">Sticker Bulat</a></li>
-
-        <li><a href="produk.php?id=7">Sticker Kotak</a></li>
-
-        <li><a href="produk.php?id=8">Sticker Persegi</a></li>
-
-        <li><a href="produk.php?id=9">Sticker Label</a></li>
-
-        <li><a href="produk.php?id=10">Sticker Promosi</a></li>
-
-        <li><a href="produk.php?id=11">Aksesoris Cetak</a></li>
-        </ul>
-
-    </div>
-
-</aside>
 
 <!-- Content -->
 <main class="main-content">
@@ -127,8 +93,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         Tahan air dan cuaca untuk kebutuhan outdoor.
                     </p>
 
-                    <span>Mulai Rp 10.000</span>
-
                 </div>
 
             </div>
@@ -149,8 +113,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                 <p>
                     Efek hologram premium yang menarik.
                 </p>
-
-                <span>Mulai Rp 12.000</span>
             </div>
 
         </div>
@@ -173,7 +135,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                     Tampilan elegan dan modern.
                 </p>
 
-                <span>Mulai Rp 11.000</span>
             </div>
 
                 </div>
@@ -193,7 +154,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         pilihan ekonomis untuk kebutuhan label dan brending.
                     </p>
 
-                    <span>Mulai Rp 5.000</span>
                 </div>
                     </div>
                     </a>
@@ -213,7 +173,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                 dipotong mengikuti bentuk desain,lebih fleksibel.
                 </p>
 
-                <span>Mulai Rp 8.000</span>
                 </div>
 
                 </div>
@@ -234,7 +193,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             bentuk bulat klasik untuk berbagai kebutuhan.
             </p>
 
-            <span>Mulai Rp 7.000</span>
             </div>
 
             </div>
@@ -257,7 +215,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                 bentuk kotak rapi untuk tampilan profesional.
             </p>
 
-            <span>Mulai Rp 7.000</span>
             </div>
             </div>
             </a>
@@ -278,7 +235,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             bentuk persegi panjangn untuk informasi yang lebih detail.
             </p>
 
-            <span>Mulai Rp 6.000</span>
             </div>
             </div>
             </a>
@@ -299,7 +255,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             lebih khusu untuk produk,harga, atau barcode.
             </p>
 
-            <span>Mulai Rp 9.000</span>
             </div>
             </div>
             </a>
@@ -320,7 +275,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             tingkatkan promosi dengan sticker menarik dan eye-catching.
             </p>
 
-            <span>Mulai Rp 9.000</span>
             </div>
             </div>
             </a>
@@ -341,7 +295,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             gantungan kunci,pin,dan aksesoris custum lainnya.
             </p>
 
-            <span>Mulai Rp 15.000</span>
             </div>
             </div>
             </a>

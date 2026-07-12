@@ -23,6 +23,8 @@ FROM produk
 WHERE id_kategori='$id'
 ORDER BY id_produk DESC
 ");
+
+
 ?>
 
 <!DOCTYPE html>
@@ -54,8 +56,19 @@ ORDER BY id_produk DESC
 
 if(mysqli_num_rows($query)>0){
 
-while($row=mysqli_fetch_assoc($query)){
+    while($row=mysqli_fetch_assoc($query)){
 
+        $id_produk = $row['id_produk'];
+        
+        $qTerjual = mysqli_query($conn,"
+        SELECT IFNULL(SUM(jumlah),0) AS total
+        FROM detail_pesanan
+        WHERE id_produk='$id_produk'
+        ");
+        
+        $terjual = mysqli_fetch_assoc($qTerjual);
+        
+        
 ?>
 
 <div class="card">
@@ -70,26 +83,20 @@ while($row=mysqli_fetch_assoc($query)){
 
 </h3>
 
-<p>
-
-<?= $row['deskripsi']; ?>
-
-</p>
-
 <span>
-
 Rp <?= number_format($row['harga']); ?>
-
 </span>
 
-<br><br>
+<p class="produk-terjual">
+🛒 <?= $terjual['total']; ?> Terjual
+</p>
+
+<br>
 
 <a href="detail_produk.php?id=<?= $row['id_produk']; ?>">
 
 <button class="btn-detail">
-
 Lihat Detail
-
 </button>
 
 </a>
@@ -122,7 +129,6 @@ echo "<h3>Produk belum tersedia.</h3>";
     <img src="img/vinyl.png" alt="">
     <h3>Sticker Vinyl Glossy</h3>
     <p>Tahan air dan cuaca.</p>
-    <span>Rp10.000</span>
     <a href="detail_produk.php?produk=vinyl_glossy">
     <button>Lihat Detail</button>
 </a>
@@ -132,7 +138,6 @@ echo "<h3>Produk belum tersedia.</h3>";
     <img src="img/stiker_vinyl2.png" alt="">
     <h3>Sticker Vinyl Matte</h3>
     <p>Finishing doff premium.</p>
-    <span>Rp12.000</span>
     <a href="detail_produk.php?produk=vinyl_matte">
     <button>Lihat Detail</button>
 </a>
@@ -142,7 +147,6 @@ echo "<h3>Produk belum tersedia.</h3>";
     <img src="img/stiker_vinyl3.png" alt="">
     <h3>Sticker Vinyl Premium</h3>
     <p>Premium Quality.</p>
-    <span>Rp15.000</span>
     <a href="detail_produk.php?produk=vinyl_premium">
     <button>Lihat Detail</button>
 </a>
@@ -156,7 +160,6 @@ echo "<h3>Produk belum tersedia.</h3>";
     <img src="img/hologram.jpeg" alt="">
     <h3>Hologram Silver</h3>
     <p>Efek mengkilap.</p>
-    <span>Rp12.000</span>
     <a href="detail_produk.php?produk=hologram_silver">
     <button>Lihat Detail</button>
 </a>
@@ -166,7 +169,6 @@ echo "<h3>Produk belum tersedia.</h3>";
     <img src="img/stiker-hologram2.png" alt="">
     <h3>Hologram Gold</h3>
     <p>Premium.</p>
-    <span>Rp15.000</span>
     <a href="detail_produk.php?produk=hologram_gold">
     <button>Lihat Detail</button>
 </a>
