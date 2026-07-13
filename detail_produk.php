@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 include 'koneksi.php';
 
 if(!isset($_GET['id'])){
@@ -110,11 +112,39 @@ Rp <?= number_format($produk['harga'],0,',','.'); ?>
 </a>
 
 <?php
+
 if(isset($_SESSION['id'])){
-    $link_beli = "checkout.php?id=".$produk['id_produk'];
+
+
+    $cek_user = mysqli_query($conn,"
+    SELECT no_hp,alamat
+    FROM users
+    WHERE id='".$_SESSION['id']."'
+    ");
+
+
+    $data_user = mysqli_fetch_assoc($cek_user);
+
+
+    if(empty($data_user['no_hp']) || empty($data_user['alamat'])){
+
+        $link_beli = "lengkapi_profil.php?id=".$produk['id_produk'];
+
+    }else{
+
+        $link_beli = "checkout.php?id=".$produk['id_produk'];
+
+    }
+
+
 }else{
-    $link_beli = "login.php";
+
+
+    $link_beli = "login.php?redirect=checkout&id=".$produk['id_produk'];
+
+
 }
+
 ?>
 
 <a href="<?= $link_beli; ?>" class="btn btn-buy">

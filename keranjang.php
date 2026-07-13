@@ -2,11 +2,45 @@
 
 session_start();
 
+include 'koneksi.php';
+
+
 if(!isset($_SESSION['id'])){
 
-header("Location: login.php");
-exit;
+    header("Location: login.php");
+    exit;
 
+}
+
+
+$id_user = $_SESSION['id'];
+
+
+
+$query = mysqli_query($conn,"
+SELECT 
+keranjang.id,
+keranjang.jumlah,
+
+produk.id_produk,
+produk.nama_produk,
+produk.harga,
+produk.gambar
+
+FROM keranjang
+
+JOIN produk 
+ON keranjang.id_produk = produk.id_produk
+
+WHERE keranjang.id_user='$id_user'
+");
+
+
+
+$subtotal = 0;
+
+
+?>
 if(isset($_POST['tambah'])){
 
     $produk = [

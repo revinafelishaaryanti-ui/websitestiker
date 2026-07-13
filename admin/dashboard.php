@@ -32,13 +32,12 @@ LIMIT 5
 $query_pelanggan = mysqli_query($conn,"
 SELECT COUNT(*) AS total
 FROM users
-WHERE DATE(tanggal)='$today'
+WHERE DATE(tanggal)=CURDATE()
 ");
 
 $data_pelanggan = mysqli_fetch_assoc($query_pelanggan);
 
 $jml_pelanggan = $data_pelanggan['total'];
-
 if($jml_pelanggan==""){
     $jml_pelanggan = 0;
 }
