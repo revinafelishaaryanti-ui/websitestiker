@@ -9,6 +9,9 @@ WHERE rekomendasi='1'
 ORDER BY id_produk DESC
 LIMIT 3
 ");
+if(!$produk_rekomendasi){
+    die("Error Produk Rekomendasi : ".mysqli_error($conn));
+}
 
 ?>
 
@@ -114,57 +117,33 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <?php while($p = mysqli_fetch_assoc($produk_rekomendasi)){ ?>
 
 
-<div class="card">
+    <div class="card">
 
     <a href="detail_produk.php?id=<?= $p['id_produk']; ?>">
 
+        <img src="img/<?= htmlspecialchars($p['gambar']); ?>" alt="">
 
-        <img 
-        src="uploads/produk/<?= $p['gambar']; ?>"
-        style="width:140px;height:auto;display:block;margin:0 auto;">
-
-
-        <h4>
-        <?= $p['nama_produk']; ?>
-        </h4>
-
+        <h4><?= $p['nama_produk']; ?></h4>
 
         <p>
-        Rp <?= number_format($p['harga'],0,",","."); ?>
+            Rp <?= number_format($p['harga'],0,",","."); ?>
         </p>
-<?php if(isset($_SESSION['id'])){ ?>
-
-<a href="keranjang.php?id=<?= $p['id_produk']; ?>">
-    <button>
-        Beli Sekarang
-    </button>
-</a>
-
-
-<?php }else{ ?>
-
-
-<a href="login.php">
-    <button>
-        Beli Sekarang
-    </button>
-</a>
-
-
-<?php } ?>
 
     </a>
 
-</div>
-
-
-<?php } ?>
-
-
-</div>
+    <a href="detail_produk.php?id=<?= $p['id_produk']; ?>">
+    <button class="btn-detail">
+        Lihat Detail
+    </button>
+</a>
 
     </div>
 
-</div>
+<?php } ?> <!-- Penutup while -->
+
+</div> <!-- .produk -->
+
+</div> <!-- .mobile -->
+
 </body>
 </html>

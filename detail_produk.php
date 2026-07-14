@@ -132,16 +132,14 @@ if(isset($_SESSION['id'])){
 
     }else{
 
-        $link_beli = "checkout.php?id=".$produk['id_produk'];
-
+        $link_beli = "checkout.php?id_produk=".$id;
     }
 
 
 }else{
 
-
-    $link_beli = "login.php?redirect=checkout&id=".$produk['id_produk'];
-
+    $redirect = urlencode("checkout.php?id=".$produk['id_produk']);
+    $link_beli = "login.php?redirect=".$redirect;
 
 }
 
