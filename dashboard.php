@@ -3,6 +3,24 @@ session_start();
 
 include 'koneksi.php';
 
+$jumlah_keranjang = 0;
+
+if(isset($_SESSION['id'])){
+
+    $id_user = $_SESSION['id'];
+
+    $qKeranjang = mysqli_query($conn,"
+    SELECT COUNT(*) AS total
+    FROM keranjang
+    WHERE id_user='$id_user'
+    ");
+
+    $dataKeranjang = mysqli_fetch_assoc($qKeranjang);
+
+    $jumlah_keranjang = $dataKeranjang['total'];
+
+}
+
 $produk_rekomendasi = mysqli_query($conn,"
 SELECT * FROM produk
 WHERE rekomendasi='1'
@@ -30,6 +48,39 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <body>
 
 <div class="mobile">
+<?php if(isset($_SESSION['id'])){ ?>
+
+<div class="welcome-box">
+
+    <h2>
+        Halo, <?= htmlspecialchars($_SESSION['nama']); ?> 👋
+    </h2>
+
+    <p>
+        Selamat datang kembali di Stickerin.
+    </p>
+
+</div>
+
+<?php }else{ ?>
+
+<div class="welcome-box">
+
+    <h2>
+        Selamat Datang di Stickerin 👋
+    </h2>
+
+    <p>
+        Login untuk mulai memesan stiker dan melihat status pesananmu.
+    </p>
+
+    <a href="login.php" class="btn-login-home">
+        Login Sekarang
+    </a>
+
+</div>
+
+<?php } ?>
 
     <!-- HEADER -->
     <div class="header">
@@ -42,17 +93,33 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
         <a href="kategori.php">Kategori</a>
 
-        <a href="pesanan.php">Pesanan</a>
+        <?php if(isset($_SESSION['id'])){ ?>
 
+<a href="pesanan.php">Pesanan</a>
+
+<?php } ?>
 
     </div>
 
         <div class="icon-group">
 
-            <i class="fa-regular fa-bell"></i>
+        <a href="notifikasi.php" class="notif-icon">
+    <i class="fa-solid fa-bell"></i>
+</a>
+            <form action="cari.php" method="GET" class="search-box">
 
-            <i class="fa-solid fa-magnifying-glass"></i>
+<input
+type="text"
+name="keyword"
+placeholder="Cari stiker...">
 
+<button type="submit">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+</button>
+
+</form>
             <?php if(isset($_SESSION['id'])){ ?>
 
 <a href="akun.php">
@@ -66,14 +133,30 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </a>
 
 <?php } ?>
-            <a href="keranjang.php" class="cart">
+<?php if(isset($_SESSION['id'])){ ?>
+
+<a href="keranjang.php" class="cart">
+
     <i class="fa-solid fa-cart-shopping"></i>
-    <span>3</span>
+
+    <?php if($jumlah_keranjang > 0){ ?>
+        <span><?= $jumlah_keranjang; ?></span>
+    <?php } ?>
+
 </a>
 
-        </div>
+<?php }else{ ?>
 
-    </div>
+<a href="login.php" class="cart">
+
+    <i class="fa-solid fa-cart-shopping"></i>
+
+</a>
+
+<?php } ?>
+</div>
+
+</div>
 
 
     <!-- BANNER -->
@@ -90,15 +173,28 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             Bebas desain, berbagai pilihan bahan dan ukuran
         </p>
 
-        <a href="custom_stiker.php">
-            <button>PESAN SEKARANG</button>
+        <?php if(isset($_SESSION['id'])){ ?>
+
+<a href="custom_stiker.php">
+
+<?php }else{ ?>
+
+<a href="login.php?redirect=custom_stiker.php">
+
+<?php } ?>
+
+<button>PESAN SEKARANG</button>
+
+</a>
         </a>
     </div>
 
     <img src="img/maskotstiker.png" alt="Maskot">
 
 </div>
+<?php if(isset($_SESSION['id'])){ ?>
 
+<?php } ?>
 
 
     <!-- PRODUK -->

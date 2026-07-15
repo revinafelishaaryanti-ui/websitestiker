@@ -1,4 +1,27 @@
+<?php
+session_start();
+include 'koneksi.php';
 
+$jumlah_keranjang = 0;
+
+if(isset($_SESSION['id'])){
+
+    $id_user = $_SESSION['id'];
+
+    $qKeranjang = mysqli_query($conn,"
+    SELECT COUNT(*) AS total
+    FROM keranjang
+    WHERE id_user='$id_user'
+    ");
+
+    if($qKeranjang){
+        $dataKeranjang = mysqli_fetch_assoc($qKeranjang);
+        $jumlah_keranjang = $dataKeranjang['total'];
+    }
+
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="id">
@@ -15,6 +38,39 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <body>
 
 <div class="mobile">
+    <?php if(isset($_SESSION['id'])){ ?>
+
+<div class="welcome-box">
+
+    <h2>
+        Halo, <?= htmlspecialchars($_SESSION['nama']); ?> 👋
+    </h2>
+
+    <p>
+        Pilih kategori stiker yang ingin kamu pesan.
+    </p>
+
+</div>
+
+<?php }else{ ?>
+
+<div class="welcome-box">
+
+    <h2>
+        Selamat Datang di Stickerin 👋
+    </h2>
+
+    <p>
+        Login untuk mulai memesan stiker dan menikmati semua fitur Stickerin.
+    </p>
+
+    <a href="login.php" class="btn-login-home">
+        Login Sekarang
+    </a>
+
+</div>
+
+<?php } ?>
 
     <!-- HEADER -->
     <div class="header">
@@ -27,7 +83,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
         <a href="kategori.php">Kategori</a>
 
-        <a href="pesanan.php">Pesanan</a>
+        <?php if(isset($_SESSION['id'])){ ?>
+
+<a href="pesanan.php">Pesanan</a>
+
+<?php } ?>
 
 
     </div>
@@ -36,16 +96,46 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
             <i class="fa-regular fa-bell"></i>
 
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <form action="cari.php" method="GET" class="search-box">
 
+<input
+type="text"
+name="keyword"
+placeholder="Cari stiker...">
+
+<button type="submit">
+
+<a href="cari.php" class="search-icon">
+    <i class="fa-solid fa-magnifying-glass"></i>
+</a>
+</button>
+
+</form>
         <a href="akun.php">
             <i class="fa-solid fa-user"></i>
         </a>
 
-            <a href="keranjang.php" class="cart">
+        <?php if(isset($_SESSION['id'])){ ?>
+
+<a href="keranjang.php" class="cart">
+
     <i class="fa-solid fa-cart-shopping"></i>
-    <span>3</span>
+
+    <?php if($jumlah_keranjang > 0){ ?>
+        <span><?= $jumlah_keranjang; ?></span>
+    <?php } ?>
+
 </a>
+
+<?php }else{ ?>
+
+<a href="login.php" class="cart">
+
+    <i class="fa-solid fa-cart-shopping"></i>
+
+</a>
+
+<?php } ?>
 
         </div>
 
@@ -53,49 +143,37 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
     <div class="layout">
 
+    <!-- Content -->
+    <div class="main-content">
 
-
-<!-- Content -->
-<main class="main-content">
-
-    <div class="heading">
-
-        <div>
-            <h1>Kategori Sticker</h1>
-            <p>
-                Pilih kategori sticker sesuai kebutuhanmu.
-            </p>
+        <div class="heading">
+            <h1>Kategori Stiker</h1>
+            <p>Pilih kategori stiker</p>
         </div>
 
-        <input
-            type="text"
-            placeholder="Cari kategori sticker..."
-            class="search-box">
 
-    </div>
+        <div class="category-grid">
 
-    <div class="category-grid">
 
-        <!-- Card 1 -->
-        <a href="produk.php?id=1" class="kategori-link">
+            <!-- Card 1 -->
+            <a href="produk.php?id=1" class="kategori-link">
 
-            <div class="card">
+                <div class="card">
 
-                <div class="card-image">
-                    <img src="img/stiker_vin.png">
-                </div>
+                    <div class="card-image">
+                        <img src="img/stiker_vin.png">
+                    </div>
 
-                <div class="card-body">
+                    <div class="card-body">
+                        <h3>Sticker Vinyl</h3>
 
-                    <h3>Sticker Vinyl</h3>
+                        <p>
+                            Tahan air dan cuaca untuk kebutuhan outdoor.
+                        </p>
 
-                    <p>
-                        Tahan air dan cuaca untuk kebutuhan outdoor.
-                    </p>
+                    </div>
 
                 </div>
-
-            </div>
 
             </a>
 

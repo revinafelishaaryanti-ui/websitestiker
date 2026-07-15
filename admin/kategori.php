@@ -9,6 +9,20 @@ if(!isset($_SESSION['admin_id'])){
 include '../koneksi.php';
 
 $query = mysqli_query($conn,"SELECT * FROM kategori ORDER BY id_kategori ASC");
+$keyword = "";
+
+if(isset($_GET['keyword'])){
+
+    $keyword = mysqli_real_escape_string($conn,$_GET['keyword']);
+
+}
+
+$query = mysqli_query($conn,"
+SELECT *
+FROM kategori
+WHERE nama_kategori LIKE '%$keyword%'
+ORDER BY id_kategori DESC
+");
 ?>
 
 <!DOCTYPE html>
@@ -37,32 +51,36 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <div class="content">
 
-<div class="page-header">
+<div class="content-header">
 
-    <div>
+<h2>Data Kategori</h2>
 
-        <h2>📂 Kategori Sticker</h2>
+<a href="tambah_kategori.php" class="btn-tambah">
 
-        <p>Kelola semua kategori Stickerin.</p>
++ Tambah Kategori
 
-    </div>
-
-    
+</a>
 
 </div>
-
-<div class="header-kategori">
-   
-    <a href="tambah_kategori.php" class="btn-tambah">
-        <i class="fa-solid fa-plus"></i>
-        Tambah Kategori
-    </a>
-</div>
-
 <div class="table-card">
+<form method="GET" class="search-halaman">
 
-<table>
+<input
+type="text"
+name="keyword"
+placeholder="Cari kategori..."
+value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : ''; ?>">
 
+<button type="submit">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+Cari
+
+</button>
+
+</form>
+<table class="table-produk">
 <thead>
 
 <tr>

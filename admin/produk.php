@@ -8,11 +8,25 @@ if(!isset($_SESSION['admin_id'])){
 
 include '../koneksi.php';
 
+$keyword = "";
+
+if(isset($_GET['keyword'])){
+
+    $keyword = mysqli_real_escape_string($conn,$_GET['keyword']);
+
+}
+
+
 $query = mysqli_query($conn,"
 SELECT produk.*, kategori.nama_kategori
 FROM produk
+
 LEFT JOIN kategori
 ON produk.id_kategori = kategori.id_kategori
+
+WHERE produk.nama_produk LIKE '%$keyword%'
+OR kategori.nama_kategori LIKE '%$keyword%'
+
 ORDER BY id_produk DESC
 ");
 ?>
@@ -53,7 +67,20 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </div>
 
 <div class="table-card">
+<form method="GET" class="search-halaman">
 
+<input 
+type="text"
+name="keyword"
+placeholder="Cari produk..."
+value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : ''; ?>">
+
+<button type="submit">
+<i class="fa-solid fa-magnifying-glass"></i>
+Cari
+</button>
+
+</form>
 <table class="table-produk">
 
 <thead>

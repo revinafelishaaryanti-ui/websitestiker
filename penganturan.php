@@ -35,16 +35,45 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
             <i class="fa-regular fa-bell"></i>
 
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <form action="cari.php" method="GET" class="search-box">
 
+<input
+type="text"
+name="keyword"
+placeholder="Cari stiker...">
+
+<button type="submit">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+</button>
+
+</form>
         <a href="akun.php">
             <i class="fa-solid fa-user"></i>
         </a>
 
-            <a href="keranjang.php" class="cart">
+        <?php if(isset($_SESSION['id'])){ ?>
+
+<a href="keranjang.php" class="cart">
+
     <i class="fa-solid fa-cart-shopping"></i>
-    <span>3</span>
+
+    <?php if($jumlah_keranjang > 0){ ?>
+        <span><?= $jumlah_keranjang; ?></span>
+    <?php } ?>
+
 </a>
+
+<?php }else{ ?>
+
+<a href="login.php" class="cart">
+
+    <i class="fa-solid fa-cart-shopping"></i>
+
+</a>
+
+<?php } ?>
 
         </div>
 
@@ -70,28 +99,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     <span>›</span>
 </a>
 
-<a href="bahasa.php" class="setting-item">
-        <div class="setting-left">
-            <div class="icon-box">🌐</div>
-            <div>
-                <h4>Bahasa</h4>
-                <p>Pilih bahasa yang digunakan di aplikasi.</p>
-            </div>
-        </div>
-        <span>›</span>
-</a>
-
-    <div class="setting-item">
-        <div class="setting-left">
-            <div class="icon-box">🌙</div>
-            <div>
-                <h4>Tema Aplikasi</h4>
-                <p>Pilih tema tampilan aplikasi sesuai preferensi Anda.</p>
-            </div>
-        </div>
-        <span>›</span>
-    </div>
-
     <div class="setting-item">
         <div class="setting-left">
             <div class="icon-box">🛡️</div>
@@ -103,40 +110,58 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         <span>›</span>
     </div>
 
-    <div class="setting-item">
-        <div class="setting-left">
-            <div class="icon-box">📄</div>
-            <div>
-                <h4>Syarat & Ketentuan</h4>
-                <p>Baca syarat dan ketentuan penggunaan aplikasi Stickerin.</p>
-            </div>
+    <a href="syarat_ketentuan.php" class="setting-item">
+
+    <div class="setting-left">
+
+        <div class="icon-box">📄</div>
+
+        <div>
+            <h4>Syarat & Ketentuan</h4>
+            <p>Baca syarat dan ketentuan penggunaan aplikasi Stickerin.</p>
         </div>
-        <span>›</span>
+
     </div>
 
-    <div class="setting-item">
-        <div class="setting-left">
-            <div class="icon-box">🎧</div>
-            <div>
-                <h4>Hubungi Kami</h4>
-                <p>Hubungi tim support kami jika Anda membutuhkan bantuan.</p>
-            </div>
-        </div>
-        <span>›</span>
-    </div>
+    <span>›</span>
 
-    <div class="setting-item">
-        <div class="setting-left">
-            <div class="icon-box">ℹ️</div>
-            <div>
-                <h4>Tentang Aplikasi</h4>
-                <p>Informasi versi aplikasi dan pengembang.</p>
-            </div>
-        </div>
-        <span>›</span>
-    </div>
+</a>
+
+<a href="hubungi_kami.php" class="setting-item">
+
+<div class="setting-left">
+
+<div class="icon-box">📞</div>
+
+<div>
+<h4>Hubungi Kami</h4>
+<p>Hubungi kami jika membutuhkan bantuan.</p>
+</div>
 
 </div>
+
+<span>›</span>
+
+</a>
+
+<a href="tentang_aplikasi.php" class="setting-item">
+
+<div class="setting-left">
+
+<div class="icon-box">ℹ️</div>
+
+<div>
+<h4>Tentang Aplikasi</h4>
+
+<p>Informasi mengenai aplikasi Stickerin.</p>
+
+</div>
+
+</div>
+
+<span>›</span>
+
+</a>
 
 <div class="logout-card">
     <div class="setting-left">

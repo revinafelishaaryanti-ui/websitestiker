@@ -1,4 +1,40 @@
+<?php
+session_start();
 
+include 'koneksi.php';
+
+
+if(!isset($_SESSION['id'])){
+
+    header("Location: login.php?redirect=akun.php");
+    exit;
+
+}
+
+
+$id_user = $_SESSION['id'];
+
+
+// jumlah keranjang
+$jumlah_keranjang = 0;
+
+
+$qKeranjang = mysqli_query($conn,"
+    SELECT COUNT(*) AS total
+    FROM keranjang
+    WHERE id_user='$id_user'
+");
+
+
+if($qKeranjang){
+
+    $dataKeranjang = mysqli_fetch_assoc($qKeranjang);
+
+    $jumlah_keranjang = $dataKeranjang['total'];
+
+}
+
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -14,7 +50,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <body>
 
 <div class="mobile">
-
     <!-- HEADER -->
     <div class="header">
 
@@ -26,24 +61,58 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
         <a href="kategori.php">Kategori</a>
 
-        <a href="pesanan.php">Pesanan</a>
+        <?php if(isset($_SESSION['id'])){ ?>
 
+<a href="pesanan.php">Pesanan</a>
+
+<?php } ?>
 
     </div>
 
         <div class="icon-group">
 
-            <i class="fa-regular fa-bell"></i>
+        <a href="notifikasi.php">
+    <i class="fa-regular fa-bell"></i>
+</a>
+            <form action="cari.php" method="GET" class="search-box">
 
-            <i class="fa-solid fa-magnifying-glass"></i>
+<input
+type="text"
+name="keyword"
+placeholder="Cari stiker...">
 
+<button type="submit">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+</button>
+
+</form>
         <a href="akun.php">
             <i class="fa-solid fa-user"></i>
         </a>
 
-            <a href="keranjang.php" class="cart">
+        <?php if(isset($_SESSION['id'])){ ?>
+
+<a href="keranjang.php" class="cart">
+
     <i class="fa-solid fa-cart-shopping"></i>
-    <span>3</span>
+
+    <?php if($jumlah_keranjang > 0){ ?>
+        <span><?= $jumlah_keranjang; ?></span>
+    <?php } ?>
+
+</a>
+
+<?php }else{ ?>
+
+<a href="login.php" class="cart">
+
+    <i class="fa-solid fa-cart-shopping"></i>
+
+</a>
+
+<?php } ?>
 </a>
 
         </div>
@@ -88,6 +157,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
             <i class="fa-solid fa-chevron-right"></i>
         </a>
+        
 
         <a href="logout.php" class="menu-akun">
             <div class="menu-kiri">

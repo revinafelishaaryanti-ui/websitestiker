@@ -105,10 +105,30 @@ Rp <?= number_format($produk['harga'],0,',','.'); ?>
 
 <div class="button-area">
 
-<a href="tambah_keranjang.php?id=<?= $produk['id_produk']; ?>" class="btn btn-cart">
+<div class="jumlah-produk">
 
-🛒 Masukkan Keranjang
+    <button type="button" onclick="kurangJumlah()">
+        -
+    </button>
 
+    <input 
+    type="text" 
+    id="jumlah"
+    value="1"
+    readonly>
+
+    <button type="button" onclick="tambahJumlah()">
+        +
+    </button>
+
+</div>
+
+
+<a 
+href="#" 
+class="btn-keranjang"
+onclick="tambahKeranjang()">
+Tambah ke Keranjang
 </a>
 
 <?php
@@ -160,7 +180,46 @@ if(isset($_SESSION['id'])){
 </div>
 
 </div>
+<script>
 
+let jumlah = 1;
+
+
+function tambahJumlah(){
+
+    jumlah++;
+
+    document.getElementById("jumlah").value = jumlah;
+
+}
+
+
+
+function kurangJumlah(){
+
+    if(jumlah > 1){
+
+        jumlah--;
+
+    }
+
+    document.getElementById("jumlah").value = jumlah;
+
+}
+
+
+
+function tambahKeranjang(){
+
+    let id_produk = <?= $produk['id_produk']; ?>;
+
+    window.location =
+    "tambah_keranjang.php?id=" + id_produk + "&jumlah=" + jumlah;
+
+}
+
+
+</script>
 </body>
 
 </html>

@@ -83,17 +83,45 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
             <i class="fa-regular fa-bell"></i>
 
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <form action="cari.php" method="GET" class="search-box">
 
+<input
+type="text"
+name="keyword"
+placeholder="Cari stiker...">
+
+<button type="submit">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+</button>
+
+</form>
         <a href="akun.php">
             <i class="fa-solid fa-user"></i>
         </a>
 
-            <a href="keranjang.php" class="cart">
+            <?php if(isset($_SESSION['id'])){ ?>
+
+<a href="keranjang.php" class="cart">
+
     <i class="fa-solid fa-cart-shopping"></i>
-    <span>3</span>
+
+    <?php if($jumlah_keranjang > 0){ ?>
+        <span><?= $jumlah_keranjang; ?></span>
+    <?php } ?>
+
 </a>
 
+<?php }else{ ?>
+
+<a href="login.php" class="cart">
+
+    <i class="fa-solid fa-cart-shopping"></i>
+
+</a>
+
+<?php } ?>
         </div>
 
     </div>

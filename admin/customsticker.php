@@ -19,6 +19,32 @@ LEFT JOIN produk
 ON custom_sticker.id_produk = produk.id_produk
 ORDER BY custom_sticker.id_custom DESC
 ");
+
+$keyword = "";
+
+if(isset($_GET['keyword'])){
+
+    $keyword = mysqli_real_escape_string($conn,$_GET['keyword']);
+
+}
+
+$query = mysqli_query($conn,"
+SELECT
+custom_sticker.*,
+users.nama,
+produk.nama_produk
+FROM custom_sticker
+LEFT JOIN users
+ON custom_sticker.id = users.id
+LEFT JOIN produk
+ON custom_sticker.id_produk = produk.id_produk
+WHERE
+users.nama LIKE '%$keyword%'
+OR produk.nama_produk LIKE '%$keyword%'
+OR custom_sticker.ukuran LIKE '%$keyword%'
+OR custom_sticker.status LIKE '%$keyword%'
+ORDER BY custom_sticker.id_custom DESC
+");
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +78,29 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 </div>
 
 <div class="table-card">
+<div class="content-header">
 
+<h2>Data Custom Stiker</h2>
+
+<form method="GET" class="search-halaman">
+
+<input
+type="text"
+name="keyword"
+placeholder="Cari custom stiker..."
+value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : ''; ?>">
+
+<button type="submit">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+Cari
+
+</button>
+
+</form>
+
+</div>
 <table>
 
 <thead>

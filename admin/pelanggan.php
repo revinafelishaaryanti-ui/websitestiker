@@ -8,6 +8,24 @@ if(!isset($_SESSION['admin_id'])){
 }
 
 $query = mysqli_query($conn,"SELECT * FROM users");
+$keyword = "";
+
+if(isset($_GET['keyword'])){
+
+    $keyword = mysqli_real_escape_string($conn,$_GET['keyword']);
+
+}
+
+$query = mysqli_query($conn,"
+SELECT *
+FROM users
+WHERE
+nama LIKE '%$keyword%'
+OR email LIKE '%$keyword%'
+OR no_hp LIKE '%$keyword%'
+OR alamat LIKE '%$keyword%'
+ORDER BY id DESC
+");
 ?>
 
 <!DOCTYPE html>
@@ -31,28 +49,31 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <div class="content">
 
-<div class="page-header">
+<div class="content-header">
 
-<div>
-    <h2>👥 Data Pelanggan</h2>
-    <p>Kelola seluruh data pelanggan Stickerin.</p>
+<h2>Data Pelanggan</h2>
+
+<form method="GET" class="search-halaman">
+
+<input
+type="text"
+name="keyword"
+placeholder="Cari pelanggan..."
+value="<?= isset($_GET['keyword']) ? $_GET['keyword'] : ''; ?>">
+
+<button type="submit">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+Cari
+
+</button>
+
+</form>
+
 </div>
 
-<div class="page-actions">
-
-    <a href="dashboard.php" class="btn-back">
-        <i class="fa-solid fa-arrow-left"></i>
-        Kembali
-    </a>
-
-    <input type="text" id="search" placeholder="Cari pelanggan...">
-
-</div>
-
-</div>
-
-    <table class="table">
-        <thead>
+<table class="table-produk">
+            <thead>
             <tr>
                 <th>No</th>
                 <th>Nama</th>
@@ -102,30 +123,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
         </tbody>
     </table>
-
+    </div>
     </div> <!-- content -->
 
 </div> <!-- main -->
 
-<script>
-const search=document.getElementById("search");
-
-search.addEventListener("keyup",function(){
-
-let value=this.value.toLowerCase();
-
-let rows=document.querySelectorAll("#tableBody tr");
-
-rows.forEach(function(row){
-
-let text=row.innerText.toLowerCase();
-
-row.style.display=text.includes(value)?"":"none";
-
-});
-
-});
-</script>
 
 </body>
 </html>
