@@ -1,0 +1,148 @@
+body{
+    background:#f7f7f7;
+}
+
+
+/* CONTAINER */
+
+.custom-wrapper{
+
+    width:100%;
+    display:flex;
+    justify-content:center;
+    padding:40px 20px;
+
+}
+
+
+/* CARD */
+
+.custom-card{
+
+    width:450px;
+    background:white;
+    padding:30px;
+    border-radius:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+
+}
+
+
+.custom-card h2{
+
+    text-align:center;
+    margin-bottom:5px;
+
+}
+
+
+.subjudul{
+
+    text-align:center;
+    color:#777;
+    margin-bottom:25px;
+
+}
+
+
+/* FORM */
+
+.custom-card label{
+
+    font-weight:bold;
+    display:block;
+    margin-top:18px;
+
+}
+
+
+.custom-card input,
+.custom-card select,
+.custom-card textarea{
+
+    width:100%;
+    padding:12px;
+    margin-top:8px;
+    border-radius:12px;
+    border:1px solid #ddd;
+    box-sizing:border-box;
+
+}
+
+
+.custom-card textarea{
+
+    height:100px;
+    resize:none;
+
+}
+
+
+/* UPLOAD */
+
+.upload-area{
+
+    border:2px dashed #ccc;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    margin-top:10px;
+
+}
+
+
+.upload-area span{
+
+    display:block;
+    font-size:13px;
+    color:#777;
+    margin-top:8px;
+
+}
+
+
+/* BUTTON */
+
+.btn-custom{
+
+    width:100%;
+    padding:14px;
+    margin-top:25px;
+    border:none;
+    border-radius:15px;
+    background:#111;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+
+}
+
+
+.btn-custom:hover{
+
+    opacity:.8;
+
+}
+
+.btn-kembali{
+
+    display:block;
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+    text-align:center;
+    text-decoration:none;
+    border-radius:15px;
+    border:1px solid #ddd;
+    color:#333;
+    background:white;
+    box-sizing:border-box;
+
+}
+
+
+.btn-kembali:hover{
+
+    background:#f2f2f2;
+
+}

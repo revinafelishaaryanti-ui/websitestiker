@@ -14,38 +14,64 @@ if(isset($_GET['status'])){
     $status = mysqli_real_escape_string($conn,$_GET['status']);
 }
 
-if($status==""){
 
-    $query = mysqli_query($conn,"
-    SELECT
-    custom_sticker.*,
-    produk.nama_produk,
-    produk.gambar
-    FROM custom_sticker
-    LEFT JOIN produk
-    ON custom_sticker.id_produk=produk.id_produk
-    WHERE custom_sticker.id='$id_user'
-    ORDER BY id_custom DESC
-    ");
+$whereCustom = "WHERE custom_sticker.id='$id_user'";
+$wherePesanan = "WHERE pesanan.id_user='$id_user'";
+
+if($status!=""){
+
+    $whereCustom .= " AND custom_sticker.status='$status'";
+    $wherePesanan .= " AND pesanan.status='$status'";
+
+}
+
+$query = mysqli_query($conn,"
+(
+SELECT
+custom_sticker.id_custom AS id_order,
+custom_sticker.status,
+produk.nama_produk,
+produk.gambar,
+custom_sticker.jumlah,
+custom_sticker.ukuran,
+'custom' AS tipe
+
+FROM custom_sticker
+
+LEFT JOIN produk
+ON custom_sticker.id_produk=produk.id_produk
+
+$whereCustom
+)
+
+UNION
+
+(
+SELECT
+pesanan.id_pesanan AS id_order,
+pesanan.status,
+produk.nama_produk,
+produk.gambar,
+detail_pesanan.jumlah,
+'' AS ukuran,
+'produk' AS tipe
+
+FROM pesanan
+
+JOIN detail_pesanan
+ON pesanan.id_pesanan=detail_pesanan.id_pesanan
+
+JOIN produk
+ON detail_pesanan.id_produk=produk.id_produk
+
+$wherePesanan
+)
+
+ORDER BY id_order DESC
+") or die(mysqli_error($conn));
     
-    }else{
-    
-    $query = mysqli_query($conn,"
-    SELECT
-    custom_sticker.*,
-    produk.nama_produk,
-    produk.gambar
-    FROM custom_sticker
-    LEFT JOIN produk
-    ON custom_sticker.id_produk=produk.id_produk
-    WHERE
-    custom_sticker.id='$id_user'
-    AND status='$status'
-    ORDER BY id_custom DESC
-    ");
-    
-    }
-?>
+
+    ?>
 
 <!DOCTYPE html>
 <html lang="id">
@@ -151,7 +177,6 @@ break;
     <div class="produk-kanan">
 
         <h3><?= htmlspecialchars($row['nama_produk']); ?></h3>
-        <?= $row['gambar']; ?>
 
         <p><b>Ukuran :</b> <?= htmlspecialchars($row['ukuran']); ?></p>
 
@@ -175,27 +200,25 @@ break;
 
         <div class="aksi">
 
-            <a
-            href="detail_pesanan.php?id=<?= $row['id_custom']; ?>"
-            class="btn-detail">
+        <a
+        href="detail_pesanan.php?id=<?= $row['id_order']; ?>&tipe=<?= $row['tipe']; ?>"
+        class="btn-detail">
 
-                Detail
+Detail
 
-            </a>
+</a>
+<a
+href="chat_user.php?id_order=<?= $row['id_order']; ?>&tipe=<?= $row['tipe']; ?>"
+class="btn-chat">
 
-            <a
-            href="chat_user.php?id_custom=<?= $row['id_custom']; ?>"
-            class="btn-chat">
+💬 Chat Admin
 
-                💬 Chat Admin
-
-            </a>
+</a>
 
             <?php if($row['status']=="Dikirim"){ ?>
 
-            <a
-            href="lacak_paket.php?id=<?= $row['id_custom']; ?>"
-            class="btn-lacak">
+                <a href="lacak_paket.php?id=<?= $row['id_pesanan']; ?>">
+
 
                 🚚 Lacak Paket
 
@@ -206,8 +229,8 @@ break;
             <?php if($row['status']=="Selesai"){ ?>
 
             <a
-            href="rating.php?id=<?= $row['id_custom']; ?>"
-            class="btn-rating">
+            href="rating.php?id=<?= $row['id_order']; ?>"
+                        class="btn-rating">
 
                 ⭐ Nilai Produk
 

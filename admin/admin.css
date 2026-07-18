@@ -2162,3 +2162,219 @@ LAPORAN
 .table-produk tr:hover{
     background:#f8fbff;
 }
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background:#f8f8f8;
+    margin:0;
+    padding:30px;
+}
+
+
+.container{
+    background:white;
+    width:90%;
+    margin:auto;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+
+h2{
+    color:#3b82f6;
+    margin-bottom:25px;
+}
+
+
+.info{
+    background:#fff0f7;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:25px;
+}
+
+
+.info p{
+    margin:10px 0;
+}
+
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    overflow:hidden;
+    border-radius:15px;
+}
+
+
+table th{
+    background:#3b82f6;
+    color:white;
+    padding:15px;
+}
+
+
+table td{
+    padding:15px;
+    text-align:center;
+    border-bottom:1px solid #eee;
+}
+
+
+table tr:hover{
+    background:#fff8fc;
+}
+
+
+img{
+    width:70px;
+    height:70px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+
+.btn{
+    display:inline-block;
+    margin-top:25px;
+    padding:12px 25px;
+    background:#3b82f6;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+}
+
+
+.btn:hover{
+    background:#3b82f6;
+}
+
+.ubah-status{
+    margin:20px 0;
+    padding:20px;
+    background:#fff0f7;
+    border-radius:15px;
+}
+
+
+.ubah-status select{
+    padding:10px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    margin-left:10px;
+}
+
+
+.ubah-status button{
+    padding:10px 20px;
+    background:#3b82f6;
+    color:white;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+
+.ubah-status button:hover{
+    background:#3b82f6;
+}
+
+.btn-detail{
+
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    
+    background:#2563eb;
+    color:#fff;
+    
+    padding:8px 15px;
+    
+    border-radius:8px;
+    
+    text-decoration:none;
+    
+    font-size:14px;
+    
+    font-weight:600;
+    
+    transition:.3s;
+    
+    }
+    
+    .btn-detail:hover{
+    
+    background:#1d4ed8;
+    
+    transform:translateY(-2px);
+    
+    }
+
+    .setting-card{
+        background:#fff;
+        padding:25px;
+        border-radius:15px;
+        box-shadow:0 5px 15px rgba(0,0,0,.08);
+    }
+    
+    .setting-card label{
+        display:block;
+        margin-top:18px;
+        margin-bottom:8px;
+        font-weight:600;
+        color:#444;
+    }
+    
+    .setting-card input,
+    .setting-card select,
+    .setting-card textarea{
+        width:100%;
+        padding:12px;
+        border:1px solid #d8e5ff;
+        border-radius:10px;
+        font-size:15px;
+        outline:none;
+        transition:.3s;
+    }
+    
+    .setting-card input:focus,
+    .setting-card select:focus,
+    .setting-card textarea:focus{
+        border-color:#3b82f6;
+        box-shadow:0 0 10px rgba(59,130,246,.2);
+    }
+    
+    .btn-simpan{
+        margin-top:20px;
+        width:100%;
+        padding:14px;
+        background:#2563eb;
+        color:#fff;
+        border:none;
+        border-radius:10px;
+        font-size:16px;
+        font-weight:bold;
+        cursor:pointer;
+    }
+    
+    .btn-simpan:hover{
+        background:#1d4ed8;
+    }
+
+    .btn-chat-admin{
+        display:block;
+        margin-top:15px;
+        text-align:center;
+        background:#0ea5e9;
+        color:white;
+        padding:13px;
+        border-radius:10px;
+        text-decoration:none;
+        font-weight:bold;
+        transition:.3s;
+        }
+        
+        .btn-chat-admin:hover{
+        background:#0284c7;
+        }

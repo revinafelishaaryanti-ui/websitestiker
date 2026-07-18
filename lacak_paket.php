@@ -8,20 +8,32 @@ if(!isset($_SESSION['id'])){
 }
 
 $id_user = $_SESSION['id'];
-$id_custom = (int)$_GET['id'];
+
+if(!isset($_GET['id'])){
+    die("Pesanan tidak ditemukan.");
+}
+
+$id_pesanan = (int)$_GET['id'];
+
 
 $query = mysqli_query($conn,"
-SELECT *
-FROM custom_sticker
-WHERE id_custom='$id_custom'
-AND id='$id_user'
+SELECT 
+    pesanan.*,
+    users.nama
+FROM pesanan
+JOIN users ON pesanan.id_user = users.id
+WHERE pesanan.id_pesanan='$id_pesanan'
+AND pesanan.id_user='$id_user'
 ");
+
 
 if(mysqli_num_rows($query)==0){
     die("Data tidak ditemukan.");
 }
 
+
 $data = mysqli_fetch_assoc($query);
+
 ?>
 
 <!DOCTYPE html>
@@ -45,19 +57,31 @@ $data = mysqli_fetch_assoc($query);
 
 <div class="tracking-card">
 
-<h3><?= htmlspecialchars($data['kurir']); ?></h3>
+<h3>
+    <?= htmlspecialchars($data['metode_pembayaran']); ?>
+</h3>
 
 <p><b>Nomor Resi</b></p>
 
-<p><?= htmlspecialchars($data['nomor_resi']); ?></p>
+<p>
+<?= !empty($data['no_resi']) 
+? htmlspecialchars($data['no_resi']) 
+: "Belum tersedia"; ?>
+</p>
 
 <p><b>Estimasi Tiba</b></p>
 
-<p><?= htmlspecialchars($data['estimasi']); ?></p>
+<p>
+Estimasi mengikuti proses pengiriman.
+</p>
 
 <p><b>Lokasi Terakhir</b></p>
 
-<p><?= htmlspecialchars($data['lokasi']); ?></p>
+<p>
+<?= !empty($data['lokasi']) 
+? htmlspecialchars($data['lokasi']) 
+: "Pesanan sedang diproses"; ?>
+</p>
 
 <div class="timeline">
 

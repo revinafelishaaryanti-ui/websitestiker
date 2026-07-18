@@ -83,30 +83,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <?php } ?>
 
     <!-- HEADER -->
-    <div class="header">
 
-        <h1>STICKERIN</h1>
+<div class="header">
 
-        <div class="navbar">
+    <h1>STICKERIN</h1>
 
-        <a href="dashboard.php">Beranda</a>
 
-        <a href="kategori.php">Kategori</a>
-
-        <?php if(isset($_SESSION['id'])){ ?>
-
-<a href="pesanan.php">Pesanan</a>
-
-<?php } ?>
-
-    </div>
-
-        <div class="icon-group">
-
-        <a href="notifikasi.php" class="notif-icon">
-    <i class="fa-solid fa-bell"></i>
-</a>
-            <form action="cari.php" method="GET" class="search-box">
+    <div class="icon-group">
+    <form action="cari.php" method="GET" class="search-box">
 
 <input
 type="text"
@@ -115,49 +99,89 @@ placeholder="Cari stiker...">
 
 <button type="submit">
 
-<i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass"></i>
 
 </button>
 
 </form>
-            <?php if(isset($_SESSION['id'])){ ?>
 
-<a href="akun.php">
-<i class="fa-solid fa-user"></i>
+        <a href="notifikasi.php">
+            <i class="fa-solid fa-bell"></i>
+        </a>
+
+
+        <a href="akun.php">
+            <i class="fa-solid fa-user"></i>
+        </a>
+
+
+
+        <?php if(isset($_SESSION['id'])){ ?>
+
+        <a href="keranjang.php" class="cart">
+
+            <i class="fa-solid fa-cart-shopping"></i>
+
+            <?php if($jumlah_keranjang > 0){ ?>
+
+            <span>
+                <?= $jumlah_keranjang; ?>
+            </span>
+
+            <?php } ?>
+
+        </a>
+
+        <?php }else{ ?>
+
+
+        <a href="login.php" class="cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+
+
+        <?php } ?>
+
+
+    </div>
+
+</div>
+
+
+<!-- MENU -->
+
+<div class="navbar">
+
+
+<a href="dashboard.php">
+Beranda
 </a>
 
-<?php }else{ ?>
 
-<a href="login.php">
-<i class="fa-solid fa-user"></i>
+<a href="kategori.php">
+Kategori
 </a>
 
-<?php } ?>
+
+<a href="costum.php">
+
+<i class="fa-solid fa-pen-ruler"></i>
+
+Custom Sticker
+
+</a>
+
+
 <?php if(isset($_SESSION['id'])){ ?>
 
-<a href="keranjang.php" class="cart">
-
-    <i class="fa-solid fa-cart-shopping"></i>
-
-    <?php if($jumlah_keranjang > 0){ ?>
-        <span><?= $jumlah_keranjang; ?></span>
-    <?php } ?>
-
-</a>
-
-<?php }else{ ?>
-
-<a href="login.php" class="cart">
-
-    <i class="fa-solid fa-cart-shopping"></i>
-
+<a href="pesanan.php">
+Pesanan
 </a>
 
 <?php } ?>
-</div>
+
 
 </div>
-
 
     <!-- BANNER -->
 

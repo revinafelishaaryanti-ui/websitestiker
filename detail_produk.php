@@ -165,7 +165,7 @@ if(isset($_SESSION['id'])){
 
 ?>
 
-<a href="<?= $link_beli; ?>" class="btn btn-buy">
+<a href="#" class="btn btn-buy" onclick="beliSekarang()">
 
 ⚡ Beli Sekarang
 
@@ -217,7 +217,12 @@ function tambahKeranjang(){
     "tambah_keranjang.php?id=" + id_produk + "&jumlah=" + jumlah;
 
 }
+function beliSekarang(){
 
+window.location =
+"<?= $link_beli; ?>&jumlah=" + jumlah;
+
+}
 
 </script>
 </body>

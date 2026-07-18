@@ -63,8 +63,21 @@ $user = mysqli_fetch_assoc($query_user);
 
 
 
-$total = $produk['harga'];
+$jumlah = isset($_GET['jumlah']) ? (int)$_GET['jumlah'] : 1;
 
+$total = $produk['harga'] * $jumlah;
+// Hitung ongkir
+if($jumlah >= 5){
+
+    $ongkir = 0;
+
+}else{
+
+    $ongkir = 10000;
+
+}
+
+$total_bayar = $total + $ongkir;
 if(isset($_POST['buat_pesanan'])){
 
 
@@ -74,31 +87,48 @@ if(isset($_POST['buat_pesanan'])){
 
     $simpan = mysqli_query($conn,"
 
-    INSERT INTO pesanan
-    (
-    id_user,
-    id_produk,
-    jumlah,
-    total_harga,
-    metode_pembayaran,
-    bank
-    )
+INSERT INTO pesanan
+(
+id_user,
+total_harga,
+metode_pembayaran,
+bank,
+no_resi
+)
 
-    VALUES
-    (
-    '$id_user',
-    '$id_produk',
-    '1',
-    '$total',
-    '$pembayaran',
-    '$bank'
-    )
-
+VALUES
+(
+'$id_user',
+'$total_bayar',
+'$pembayaran',
+'$bank',
+'INV'.date('YmdHis')
+)    
     ");
 
 
 
     if($simpan){
+
+        $id_pesanan = mysqli_insert_id($conn);
+
+mysqli_query($conn,"
+INSERT INTO detail_pesanan
+(
+id_pesanan,
+id_produk,
+jumlah,
+harga
+)
+
+VALUES
+(
+'$id_pesanan',
+'$id_produk',
+'$jumlah',
+'".$produk['harga']."'
+)
+");
 
         header("location:pesanan.php");
         exit;
@@ -177,8 +207,8 @@ if(isset($_POST['buat_pesanan'])){
 
 
         <span>
-            Jumlah : 1 Produk
-        </span>
+        Jumlah : <?= $jumlah; ?> Produk
+            </span>
 
 
     </div>
@@ -286,13 +316,37 @@ Mandiri
 <div class="total">
 
 
-<h3>Total</h3>
-
+<h3>Subtotal</h3>
 
 <h2>
-Rp <?= number_format($total); ?>
+Rp <?= number_format($total,0,",","."); ?>
 </h2>
 
+<hr>
+
+<h3>Ongkir</h3>
+
+<h2>
+
+<?php if($ongkir == 0){ ?>
+
+Gratis Ongkir
+
+<?php }else{ ?>
+
+Rp <?= number_format($ongkir,0,",","."); ?>
+
+<?php } ?>
+
+</h2>
+
+<hr>
+
+<h3>Total Bayar</h3>
+
+<h2>
+Rp <?= number_format($total_bayar,0,",","."); ?>
+</h2>
 
 </div>
 

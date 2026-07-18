@@ -114,6 +114,7 @@ Cari
 <th>Jumlah</th>
 <th>Referensi</th>
 <th>Status</th>
+<th>Aksi</th>
 
 </tr>
 
@@ -183,7 +184,19 @@ else{
 ?>
 
 </td>
+<td>
 
+<a
+href="detail_costum.php?id=<?= $row['id_custom']; ?>"
+class="btn-detail">
+
+<i class="fa-solid fa-eye"></i>
+
+Detail
+
+</a>
+
+</td>
 </tr>
 
 <?php } ?>

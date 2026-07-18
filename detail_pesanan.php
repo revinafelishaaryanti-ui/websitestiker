@@ -8,7 +8,13 @@ if(!isset($_SESSION['id'])){
 }
 
 $id_user = $_SESSION['id'];
-$id_custom = $_GET['id'];
+
+$id = $_GET['id'];
+$tipe = $_GET['tipe'];
+
+
+// PESANAN CUSTOM
+if($tipe=="custom"){
 
 $query = mysqli_query($conn,"
 SELECT
@@ -16,21 +22,68 @@ custom_sticker.*,
 produk.nama_produk,
 produk.gambar,
 produk.harga
+
 FROM custom_sticker
+
 LEFT JOIN produk
 ON custom_sticker.id_produk = produk.id_produk
-WHERE custom_sticker.id_custom='$id_custom'
+
+WHERE 
+custom_sticker.id_custom='$id'
 AND custom_sticker.id='$id_user'
 ");
 
-if(mysqli_num_rows($query)==0){
-    die("Pesanan tidak ditemukan.");
+
 }
+
+
+// PESANAN PRODUK BIASA
+else{
+
+
+$query = mysqli_query($conn,"
+SELECT
+pesanan.*,
+detail_pesanan.jumlah,
+detail_pesanan.harga,
+produk.nama_produk,
+produk.gambar
+
+FROM pesanan
+
+JOIN detail_pesanan
+ON pesanan.id_pesanan = detail_pesanan.id_pesanan
+
+JOIN produk
+ON detail_pesanan.id_produk = produk.id_produk
+
+WHERE 
+pesanan.id_pesanan='$id'
+");
+
+
+}
+
+
+if(mysqli_num_rows($query)==0){
+
+    die("Pesanan tidak ditemukan.");
+
+}
+
 
 $data=mysqli_fetch_assoc($query);
 ?>
 <?php
-$total_harga = $data['harga'] * $data['jumlah'];
+if($tipe=="custom"){
+
+    $total_harga = $data['harga'] * $data['jumlah'];
+
+}else{
+
+    $total_harga = $data['harga'] * $data['jumlah'];
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -61,17 +114,36 @@ $total_harga = $data['harga'] * $data['jumlah'];
 
 <p><b>Total Harga :</b> Rp <?= number_format($total_harga,0,',','.'); ?></p>
 
-<p><b>Ukuran :</b> <?= $data['ukuran']; ?></p>
+<?php if($tipe=="custom"){ ?>
 
-<p><b>Jumlah :</b> <?= $data['jumlah']; ?></p>
+<p>
+<b>Ukuran :</b> 
+<?= $data['ukuran']; ?>
+</p>
 
-<p><b>Status :</b> <?= $data['status']; ?></p>
+<p>
+<b>Catatan :</b>
+</p>
 
-<p><b>Catatan :</b></p>
+<p>
+<?= $data['catatan']; ?>
+</p>
 
-<p><?= $data['catatan']; ?></p>
+<?php } ?>
 
-<?php if($data['file_logo']!=""){ ?>
+
+<p>
+<b>Jumlah :</b> 
+<?= $data['jumlah']; ?>
+</p>
+
+
+<p>
+<b>Status :</b> 
+<?= $data['status']; ?>
+</p>
+
+<?php if($tipe=="custom" && $data['file_logo']!=""){ ?>
 
 <p><b>Logo :</b></p>
 
@@ -85,7 +157,7 @@ Lihat Logo
 
 <br><br>
 
-<?php if($data['file_referensi']!=""){ ?>
+<?php if($tipe=="custom" && $data['file_referensi']!=""){ ?>
 
 <p><b>Referensi :</b></p>
 
@@ -100,9 +172,7 @@ Lihat Referensi
 <br><br>
 
 <?php
-if($data['file_desain']!=""){
-?>
-
+if($tipe=="custom" && $data['file_desain']!=""){?>
 
 <?php
 }
@@ -126,12 +196,11 @@ if($data['status']=="Menunggu Persetujuan"){
 </a>
 
 <a class="btn-chat"
-href="chat_user.php?id_custom=<?= $data['id_custom']; ?>">
+href="chat_user.php?id_order=<?= $id; ?>&tipe=<?= $tipe; ?>">
 
 💬 Chat Admin
 
 </a>
-
 
 </div>
 

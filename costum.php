@@ -16,30 +16,30 @@ if(isset($_POST['pesan'])){
     $jumlah = $_POST['jumlah'];
     $catatan = mysqli_real_escape_string($conn,$_POST['catatan']);
 
-    $logo = "";
-    $referensi = "";
+    $ekspedisi = $_POST['ekspedisi'];
 
-    // Upload Logo
-    if($_FILES['file_logo']['name']!=""){
+// SIMPAN GAMBAR KE DATABASE
 
-        $logo = time()."_".$_FILES['file_logo']['name'];
+$logo = "";
 
-        move_uploaded_file(
-            $_FILES['file_logo']['tmp_name'],
-            "uploads/custom/".$logo
-        );
-    }
+if(isset($_FILES['file_logo']) && $_FILES['file_logo']['tmp_name']!=""){
 
-    // Upload Referensi
-    if($_FILES['file_referensi']['name']!=""){
+    $logo = base64_encode(
+        file_get_contents($_FILES['file_logo']['tmp_name'])
+    );
 
-        $referensi = time()."_".$_FILES['file_referensi']['name'];
+}
 
-        move_uploaded_file(
-            $_FILES['file_referensi']['tmp_name'],
-            "uploads/custom/".$referensi
-        );
-    }
+
+$referensi = "";
+
+if(isset($_FILES['file_referensi']) && $_FILES['file_referensi']['tmp_name']!=""){
+
+    $referensi = base64_encode(
+        file_get_contents($_FILES['file_referensi']['tmp_name'])
+    );
+
+}
 
     mysqli_query($conn,"
     INSERT INTO custom_sticker
@@ -49,6 +49,7 @@ if(isset($_POST['pesan'])){
         ukuran,
         jumlah,
         catatan,
+        ekspedisi,
         file_logo,
         file_referensi
     )
@@ -59,6 +60,7 @@ if(isset($_POST['pesan'])){
         '$ukuran',
         '$jumlah',
         '$catatan',
+        '$ekspedisi',
         '$logo',
         '$referensi'
     )
@@ -81,14 +83,20 @@ if(isset($_POST['pesan'])){
 <title>Custom Sticker</title>
 
 <link rel="stylesheet" href="stayle.css">
-
+<link rel="stylesheet" href="custom_sticker.css">
 </head>
 
 <body>
 
-<div class="mobile">
+<div class="custom-wrapper">
 
-<h2>Custom Sticker</h2>
+<div class="custom-card">
+
+<h2>🎨 Custom Sticker</h2>
+
+<p class="subjudul">
+Buat stiker sesuai desain kamu sendiri
+</p>
 
 <form
 method="POST"
@@ -143,32 +151,82 @@ required>
 name="catatan"></textarea>
 
 <br><br>
+<br><br>
 
+<label>Ekspedisi Pengiriman</label>
+
+<select name="ekspedisi" required>
+
+<option value="">
+-- Pilih Ekspedisi --
+</option>
+
+<option value="JNE">
+JNE
+</option>
+
+<option value="J&T">
+J&T
+</option>
+
+<option value="SiCepat">
+SiCepat
+</option>
+
+<option value="AnterAja">
+AnterAja
+</option>
+
+<option value="Pos Indonesia">
+Pos Indonesia
+</option>
+
+</select>
 <label>Upload Logo</label>
+
+<div class="upload-area">
 
 <input
 type="file"
 name="file_logo">
 
+<span>
+Masukkan logo kamu
+</span>
+
+</div>
 <br><br>
 
-<label>Upload Referensi</label>
+<label>Upload Referensi Desain</label>
+
+<div class="upload-area">
 
 <input
 type="file"
 name="file_referensi">
 
+<span>
+Masukkan contoh desain
+</span>
+
+</div>
+
 <br><br>
+<a href="dashboard.php" class="btn-kembali">
+    ← Kembali
+</a>
 
 <button
-class="auth-btn"
+class="btn-custom"
 name="pesan">
 
-Kirim Pesanan
+Kirim Pesanan Custom
 
 </button>
 
 </form>
+
+</div>
 
 </div>
 

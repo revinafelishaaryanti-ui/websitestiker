@@ -17,10 +17,9 @@ padding:0;
     margin:auto;
     min-height:100vh;
     background:#fff;
-    overflow:hidden;
     position:relative;
     padding:20px 40px;
-    box-sizing:border-box;
+    overflow-x:hidden;
 }
 
 .header{
@@ -3499,5 +3498,49 @@ body{
     background:#176fd1;
 
     transform:translateY(-2px);
+
+}
+
+/* FIX HEADER USER */
+
+.header{
+    width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+
+.icon-group{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    flex-shrink:0;
+}
+
+
+.icon-group a,
+.cart{
+    width:50px;
+    height:50px;
+    flex-shrink:0;
+}
+
+
+@media(max-width:768px){
+
+    .mobile{
+        padding:20px;
+    }
+
+
+    .header h1{
+        font-size:28px;
+    }
+
+
+    .icon-group{
+        gap:10px;
+    }
 
 }
