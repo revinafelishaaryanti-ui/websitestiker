@@ -215,16 +215,17 @@ class="btn-chat">
 
 </a>
 
-            <?php if($row['status']=="Dikirim"){ ?>
+<?php if($row['status']=="Dikirim"){ ?>
 
-                <a href="lacak_paket.php?id=<?= $row['id_pesanan']; ?>">
+<a
+href="lacak_paket.php?id=<?= $row['id_order']; ?>&tipe=<?= $row['tipe']; ?>"
+class="btn-lacak">
 
+🚚 Lacak Paket
 
-                🚚 Lacak Paket
+</a>
 
-            </a>
-
-            <?php } ?>
+<?php } ?>
 
             <?php if($row['status']=="Selesai"){ ?>
 

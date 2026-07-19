@@ -43,27 +43,37 @@ if(isset($_FILES['file_referensi']) && $_FILES['file_referensi']['tmp_name']!=""
 
     mysqli_query($conn,"
     INSERT INTO custom_sticker
-    (
-        id,
-        id_produk,
-        ukuran,
-        jumlah,
-        catatan,
-        ekspedisi,
-        file_logo,
-        file_referensi
-    )
-    VALUES
-    (
-        '$id_user',
-        '$id_produk',
-        '$ukuran',
-        '$jumlah',
-        '$catatan',
-        '$ekspedisi',
-        '$logo',
-        '$referensi'
-    )
+(
+    id,
+    id_produk,
+    ukuran,
+    jumlah,
+    catatan,
+    ekspedisi,
+    file_logo,
+    file_referensi,
+    metode_pembayaran,
+    bank,
+    latitude,
+    longitude,
+    lokasi
+)
+VALUES
+(
+    '$id_user',
+    '$id_produk',
+    '$ukuran',
+    '$jumlah',
+    '$catatan',
+    '$ekspedisi',
+    '$logo',
+    '$referensi',
+    '$pembayaran',
+    '$bank'
+    NULL,
+    NULL,
+    'Pesanan sedang diproses'
+)
     ");
 
     echo "<script>
@@ -152,7 +162,58 @@ name="catatan"></textarea>
 
 <br><br>
 <br><br>
+<label>Metode Pembayaran</label>
 
+<select name="pembayaran" required>
+
+<option value="">
+-- Pilih Pembayaran --
+</option>
+
+<option value="QRIS">
+QRIS
+</option>
+
+<option value="Transfer Bank">
+Transfer Bank
+</option>
+
+<option value="COD">
+COD
+</option>
+
+</select>
+
+<br><br>
+
+
+<label>Pilih Bank</label>
+
+<select name="bank">
+
+<option value="-">
+-- Pilih Bank --
+</option>
+
+<option value="BCA">
+BCA
+</option>
+
+<option value="BRI">
+BRI
+</option>
+
+<option value="BNI">
+BNI
+</option>
+
+<option value="Mandiri">
+Mandiri
+</option>
+
+</select>
+
+<br><br>
 <label>Ekspedisi Pengiriman</label>
 
 <select name="ekspedisi" required>

@@ -85,61 +85,63 @@ if(isset($_POST['buat_pesanan'])){
     $bank = isset($_POST['bank']) ? $_POST['bank'] : '-';
 
 
+    $no_resi = "INV".date("YmdHis");
+
+
     $simpan = mysqli_query($conn,"
 
-INSERT INTO pesanan
-(
-id_user,
-total_harga,
-metode_pembayaran,
-bank,
-no_resi
-)
+    INSERT INTO pesanan
+    (
+    id_user,
+    total_harga,
+    metode_pembayaran,
+    bank,
+    no_resi
+    )
 
-VALUES
-(
-'$id_user',
-'$total_bayar',
-'$pembayaran',
-'$bank',
-'INV'.date('YmdHis')
-)    
+    VALUES
+    (
+    '$id_user',
+    '$total_bayar',
+    '$pembayaran',
+    '$bank',
+    '$no_resi'
+    )
+
     ");
-
 
 
     if($simpan){
 
         $id_pesanan = mysqli_insert_id($conn);
 
-mysqli_query($conn,"
-INSERT INTO detail_pesanan
-(
-id_pesanan,
-id_produk,
-jumlah,
-harga
-)
+        mysqli_query($conn,"
+        INSERT INTO detail_pesanan
+        (
+        id_pesanan,
+        id_produk,
+        jumlah,
+        harga
+        )
 
-VALUES
-(
-'$id_pesanan',
-'$id_produk',
-'$jumlah',
-'".$produk['harga']."'
-)
-");
+        VALUES
+        (
+        '$id_pesanan',
+        '$id_produk',
+        '$jumlah',
+        '".$produk['harga']."'
+        )
+        ");
 
-        header("location:pesanan.php");
-        exit;
-    
+        header("location:pembayaran.php?id=".$id_pesanan);
+                exit;
+
     }else{
-    
+
         echo "Pesanan gagal disimpan : ";
         echo mysqli_error($conn);
-    
-    }
 
+    }
 
 }
 ?>
@@ -168,7 +170,7 @@ VALUES
 
 
 
-<a href="produk.php" class="back">
+<a href="kategori.php" class="back">
 ← Kembali
 </a>
 
@@ -260,34 +262,36 @@ value="<?= $user['no_hp']; ?>">
 
 <label>Metode Pembayaran</label>
 
-<select id="metodePembayaran" name="pembayaran" onchange="tampilBank()">
+<select name="pembayaran" required>
 
-    <option value="">
-        Pilih Metode Pembayaran
-    </option>
+<option value="">
+-- Pilih Pembayaran --
+</option>
 
-    <option value="QRIS">
-        QRIS
-    </option>
+<option value="QRIS">
+QRIS
+</option>
 
-    <option value="Transfer Bank">
-        Transfer Bank
-    </option>
+<option value="Transfer Bank">
+Transfer Bank
+</option>
 
-    <option value="COD">
-        COD
-    </option>
+<option value="COD">
+COD
+</option>
 
 </select>
 
+<br><br>
 
-
-
-<div id="bankContainer" class="bank-box">
 
 <label>Pilih Bank</label>
 
 <select name="bank">
+
+<option value="-">
+-- Pilih Bank --
+</option>
 
 <option value="BCA">
 BCA
@@ -306,6 +310,8 @@ Mandiri
 </option>
 
 </select>
+
+<br><br>
 
 </div>
 

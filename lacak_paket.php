@@ -13,19 +13,32 @@ if(!isset($_GET['id'])){
     die("Pesanan tidak ditemukan.");
 }
 
-$id_pesanan = (int)$_GET['id'];
+$id = (int)$_GET['id'];
+$tipe = isset($_GET['tipe']) ? $_GET['tipe'] : 'produk';
 
+if($tipe=="custom"){
 
 $query = mysqli_query($conn,"
-SELECT 
-    pesanan.*,
-    users.nama
+SELECT *
+FROM custom_sticker
+WHERE id_custom='$id'
+AND id='$id_user'
+");
+
+}else{
+
+$query = mysqli_query($conn,"
+SELECT
+pesanan.*,
+users.nama
 FROM pesanan
-JOIN users ON pesanan.id_user = users.id
-WHERE pesanan.id_pesanan='$id_pesanan'
+JOIN users
+ON pesanan.id_user=users.id
+WHERE pesanan.id_pesanan='$id'
 AND pesanan.id_user='$id_user'
 ");
 
+}
 
 if(mysqli_num_rows($query)==0){
     die("Data tidak ditemukan.");
@@ -58,7 +71,13 @@ $data = mysqli_fetch_assoc($query);
 <div class="tracking-card">
 
 <h3>
-    <?= htmlspecialchars($data['metode_pembayaran']); ?>
+<?php
+if($tipe=="custom"){
+    echo "Pesanan Custom Sticker";
+}else{
+    echo htmlspecialchars($data['metode_pembayaran']);
+}
+?>
 </h3>
 
 <p><b>Nomor Resi</b></p>
@@ -82,6 +101,27 @@ Estimasi mengikuti proses pengiriman.
 ? htmlspecialchars($data['lokasi']) 
 : "Pesanan sedang diproses"; ?>
 </p>
+
+<?php if(
+    ($data['status']=="Dikirim" || $data['status']=="Selesai")
+    && !empty($data['latitude'])
+    && !empty($data['longitude'])
+){ ?>
+
+<div class="map-box">
+
+<iframe
+width="100%"
+height="300"
+style="border:0;"
+loading="lazy"
+allowfullscreen
+src="https://maps.google.com/maps?q=<?= $data['latitude']; ?>,<?= $data['longitude']; ?>&z=15&output=embed">
+</iframe>
+
+</div>
+
+<?php } ?>
 
 <div class="timeline">
 
