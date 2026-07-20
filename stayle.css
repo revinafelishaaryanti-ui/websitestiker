@@ -3544,3 +3544,103 @@ body{
     }
 
 }
+
+/* =========================
+   FOOTER STICKERIN
+========================= */
+
+.footer{
+    background:#111111;
+    color:white;
+    padding:45px 60px 20px;
+    margin-top:50px;
+    border-top:3px solid #176fd1;
+}
+
+
+.footer-content{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1.5fr;
+    gap:40px;
+    max-width:1200px;
+    margin:auto;
+}
+
+
+/* Judul Stickerin */
+.footer-box h3{
+    font-size:30px;
+    color:#176fd1;
+    margin-bottom:15px;
+    font-weight:bold;
+}
+
+
+.footer-box h4{
+    font-size:18px;
+    color:#176fd1;
+    margin-bottom:18px;
+}
+
+
+/* Deskripsi */
+.footer-box p{
+    color:#ddd;
+    font-size:14px;
+    line-height:1.8;
+}
+
+
+/* Link menu */
+.footer-box a{
+    display:block;
+    color:#ddd;
+    text-decoration:none;
+    margin-bottom:12px;
+    font-size:14px;
+    transition:0.3s;
+}
+
+
+.footer-box a:hover{
+    color:#176fd1;
+    transform:translateX(5px);
+}
+
+
+/* Kontak */
+.footer-box p{
+    margin:8px 0;
+}
+
+
+/* Bagian bawah */
+.footer-bottom{
+    text-align:center;
+    margin-top:35px;
+    padding-top:20px;
+    border-top:1px solid #333;
+    color:#aaa;
+    font-size:14px;
+}
+
+
+/* Responsive HP */
+@media(max-width:768px){
+
+    .footer{
+        padding:35px 20px 15px;
+    }
+
+
+    .footer-content{
+        grid-template-columns:1fr;
+        text-align:center;
+    }
+
+
+    .footer-box a:hover{
+        transform:none;
+    }
+
+}

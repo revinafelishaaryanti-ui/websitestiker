@@ -264,6 +264,51 @@ Pesanan
 </div> <!-- .produk -->
 
 </div> <!-- .mobile -->
+<footer class="footer">
 
+    <div class="footer-content">
+
+        <div class="footer-box">
+            <h3>Stickerin</h3>
+            <p>
+                Platform custom sticker yang membantu kamu membuat
+                desain sticker sesuai keinginan dengan mudah dan cepat.
+            </p>
+        </div>
+
+
+        <div class="footer-box">
+            <h4>Menu</h4>
+            <a href="dashboard.php">Beranda</a>
+            <a href="kategori.php">Kategori</a>
+            <a href="keranjang.php">Keranjang</a>
+            <a href="pesanan.php">Pesanan</a>
+        </div>
+
+
+        <div class="footer-box">
+            <h4>Bantuan</h4>
+            <a href="#">Cara Pemesanan</a>
+            <a href="#">Pembayaran</a>
+            <a href="#">Pengiriman</a>
+            <a href="#">Hubungi Kami</a>
+        </div>
+
+
+        <div class="footer-box">
+            <h4>Kontak</h4>
+            <p>📍 Indonesia</p>
+            <p>📱 WhatsApp : 08xxxxxxxxxx</p>
+            <p>✉ Email : stickerin@gmail.com</p>
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+        © 2026 Stickerin. Semua Hak Dilindungi.
+    </div>
+
+</footer>
 </body>
 </html>

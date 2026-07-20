@@ -208,7 +208,7 @@ Detail
 
 </a>
 <a
-href="chat_user.php?id_order=<?= $row['id_order']; ?>&tipe=<?= $row['tipe']; ?>"
+href="chat.php?id_order=<?= $row['id_order']; ?>&tipe=<?= $row['tipe']; ?>"
 class="btn-chat">
 
 💬 Chat Admin

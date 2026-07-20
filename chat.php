@@ -11,16 +11,28 @@ if(!isset($_SESSION['id'])){
 $id_user = $_SESSION['id'];
 
 // Ambil id custom dari URL
-$id_custom = isset($_GET['id_custom']) ? (int)$_GET['id_custom'] : 0;
+$id_order = isset($_GET['id_order']) ? (int)$_GET['id_order'] : 0;
+$tipe = isset($_GET['tipe']) ? $_GET['tipe'] : 'produk';
 
+if($tipe=="custom"){
 
-// Ambil semua chat
-$query = mysqli_query($conn,"
-SELECT *
-FROM chat
-WHERE id_custom='$id_custom'
-ORDER BY waktu ASC
-");
+    $query = mysqli_query($conn,"
+    SELECT *
+    FROM chat
+    WHERE id_custom='$id_order'
+    ORDER BY waktu ASC
+    ");
+
+}else{
+
+    $query = mysqli_query($conn,"
+    SELECT *
+    FROM chat
+    WHERE id_pesanan='$id_order'
+    ORDER BY waktu ASC
+    ");
+
+}
 
 ?>
 
@@ -46,6 +58,10 @@ ORDER BY waktu ASC
 
 
 <div class="chat-header">
+
+<a href="pesanan.php" class="btn-kembali">
+    ←
+</a>
 
 <h2>Chat Admin Stickerin</h2>
 
@@ -76,14 +92,42 @@ ORDER BY waktu ASC
 
 
 <?php
-if($row['file']!=""){
+if(!empty($row['file'])){
+
+    // cek apakah file berupa base64
+    if(strpos($row['file'], 'iVBOR') === 0 || strpos($row['file'], '/9j/') === 0){
+
+        $mime = "image/png";
+
+        if(strpos($row['file'], '/9j/') === 0){
+            $mime = "image/jpeg";
+        }
+
 ?>
 
 <br>
 
-<img src="img/<?= $row['file']; ?>">
+<img 
+src="data:<?= $mime ?>;base64,<?= trim($row['file']); ?>"
+style="max-width:220px;border-radius:10px;">
 
-<?php } ?>
+<?php
+
+    }else{
+
+        // kalau data lama berupa nama file
+?>
+
+<br>
+
+<img 
+src="img/<?= $row['file']; ?>"
+style="max-width:220px;border-radius:10px;">
+
+<?php
+    }
+}
+?>
 
 
 <div class="jam-chat">
@@ -117,13 +161,20 @@ if($row['file']!=""){
 
 
 <?php
-if($row['file']!=""){
+if(!empty($row['file'])){
+
+    $mime = "image/png";
+
+    if(substr($row['file'],0,4)=="/9j/"){
+        $mime = "image/jpeg";
+    }
 ?>
 
 <br>
 
-<img src="uploads/chat/<?= $row['file']; ?>">
-
+<img 
+src="data:<?= $mime ?>;base64,<?= trim($row['file']); ?>"
+style="max-width:220px;border-radius:10px;">
 
 <?php } ?>
 
@@ -161,9 +212,13 @@ class="chat-form">
 
 <input
 type="hidden"
-name="id_custom"
-value="<?= $id_custom ?>">
+name="id_order"
+value="<?= $id_order; ?>">
 
+<input
+type="hidden"
+name="tipe"
+value="<?= $tipe; ?>">
 
 
 <input
