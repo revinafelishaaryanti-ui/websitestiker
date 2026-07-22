@@ -105,20 +105,6 @@ elseif($data['bank']=="Mandiri"){
 ?>
 
 
-
-<?php } ?>
-
-
-<?php if($data['metode_pembayaran']=="QRIS"){ ?>
-
-
-<h3>Scan QRIS</h3>
-
-
-<img src="img/qris.png"
-width="250">
-
-
 <?php } ?>
 
 

@@ -143,6 +143,8 @@ if($tipe=="custom"){
 <?= $data['status']; ?>
 </p>
 
+
+
 <?php if($tipe=="custom" && $data['file_logo']!=""){ ?>
 
 <p><b>Logo :</b></p>

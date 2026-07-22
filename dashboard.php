@@ -165,8 +165,6 @@ Kategori
 
 <a href="costum.php">
 
-<i class="fa-solid fa-pen-ruler"></i>
-
 Custom Sticker
 
 </a>
@@ -199,7 +197,7 @@ Pesanan
 
         <?php if(isset($_SESSION['id'])){ ?>
 
-<a href="custom_stiker.php">
+<a href="custom.php">
 
 <?php }else{ ?>
 

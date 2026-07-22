@@ -3,19 +3,67 @@ session_start();
 include '../koneksi.php';
 
 
-if(!isset($_GET['id_custom'])){
-    echo "Pelanggan tidak ditemukan";
-    exit;
+$tipe = isset($_GET['tipe']) ? $_GET['tipe'] : 'produk';
+
+$id_order = isset($_GET['id_order']) ? (int)$_GET['id_order'] : 0;
+
+
+// Ambil nama pelanggan
+if($tipe=="custom"){
+
+    $q_user = mysqli_query($conn,"
+        SELECT users.nama
+        FROM custom_sticker
+        INNER JOIN users 
+        ON custom_sticker.id = users.id
+        WHERE custom_sticker.id_custom='$id_order'
+    ");
+
+}else{
+
+    $q_user = mysqli_query($conn,"
+        SELECT users.nama
+        FROM pesanan
+        INNER JOIN users 
+        ON pesanan.id_user = users.id
+        WHERE pesanan.id_pesanan='$id_order'
+    ");
+
 }
 
 
-$id_custom = $_GET['id_custom'];
+if(!$q_user){
+    die("Query user gagal : ".mysqli_error($conn));
+}
+
+
+$data_user = mysqli_fetch_assoc($q_user);
+
+
+if(isset($data_user['nama'])){
+    $nama_pelanggan = $data_user['nama'];
+}else{
+    $nama_pelanggan = "Pelanggan";
+}
+
+
+
+// tentukan kolom chat
+if($tipe=="custom"){
+
+    $kolom = "id_custom";
+
+}else{
+
+    $kolom = "id_pesanan";
+
+}
 
 
 // Ambil data chat pelanggan
 $query = mysqli_query($conn,"
     SELECT * FROM chat
-    WHERE id_custom='$id_custom'
+    WHERE $kolom='$id_order'
     ORDER BY waktu ASC
 ");
 
@@ -24,10 +72,9 @@ $query = mysqli_query($conn,"
 mysqli_query($conn,"
     UPDATE chat 
     SET dibaca='1'
-    WHERE id_custom='$id_custom'
+    WHERE $kolom='$id_order'
     AND pengirim='user'
 ");
-
 
 ?>
 
@@ -53,15 +100,14 @@ mysqli_query($conn,"
 
 <div class="chat-header">
 
-<a href="chat.php" class="back">
+<a href="<?= $tipe=="custom" ? 'detail_costum.php?id='.$id_order : 'detail_pesanan.php?id='.$id_order; ?>" class="back">
 ←
 </a>
-
 
 <div>
 
 <h3>
-👤 Pelanggan #<?= $id_custom; ?>
+👤 <?= htmlspecialchars($nama_pelanggan); ?>
 </h3>
 
 <span class="online">
@@ -128,12 +174,20 @@ if($data['pengirim']=="admin"){
 <?= htmlspecialchars($data['pesan']); ?>
 
 
-<?php if($data['file']!=""){ ?>
+<?php
+if(!empty($data['file'])){
+?>
 
 <br>
 
-<img src="../img/<?= $data['file']; ?>">
-<?php } ?>
+<img 
+src="data:image/png;base64,<?= trim($data['file']); ?>"
+width="200"
+style="border-radius:10px;">
+
+<?php
+}
+?>
 
 
 <small>
@@ -162,8 +216,9 @@ if($data['pengirim']=="admin"){
 <form action="kirim_chat.php" method="POST" enctype="multipart/form-data" class="chat-form">
 
 
-<input type="hidden" name="id_custom" value="<?= $id_custom; ?>">
+<input type="hidden" name="id_order" value="<?= $id_order; ?>">
 
+<input type="hidden" name="tipe" value="<?= $tipe; ?>">
 
 <input 
 type="text" 
@@ -183,7 +238,15 @@ name="file"
 Kirim
 </button>
 
+<a class="btn"
+href="cetak_resi_custom.php?id=<?= $data['id_custom']; ?>"
+target="_blank">
 
+<i class="fa-solid fa-print"></i>
+
+Cetak Resi
+
+</a>
 </form>
 
 

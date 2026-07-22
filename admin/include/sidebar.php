@@ -42,6 +42,15 @@
             <span>Pesanan</span>
         </a>
         </li>
+        <li>
+<a href="pendapatan.php">
+
+<i class="fa-solid fa-money-bill-wave"></i>
+
+Pendapatan
+
+</a>
+</li>
 
         <li>
             <a href="pelanggan.php">

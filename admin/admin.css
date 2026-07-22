@@ -2378,3 +2378,21 @@ img{
         .btn-chat-admin:hover{
         background:#0284c7;
         }
+
+        .btn-chat{
+            display:inline-block;
+            background:#0284c7;
+            color:white;
+            padding:12px 20px;
+            border-radius:10px;
+            text-decoration:none;
+            font-weight:bold;
+            margin-top:15px;
+            transition:0.3s;
+        }
+        
+        
+        .btn-chat:hover{
+            background:#0284c7;
+            transform:translateY(-2px);
+        }

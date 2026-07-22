@@ -14,7 +14,7 @@ if(!isset($_SESSION['id'])){
 
 
 $id_user = $_SESSION['id'];
-
+$id_alamat = isset($_GET['id_alamat']) ? $_GET['id_alamat'] : '';
 
 // ambil id produk dari tombol beli
 
@@ -53,13 +53,44 @@ $produk = mysqli_fetch_assoc($query_produk);
 
 // ambil data user
 
-$query_user = mysqli_query($conn,
-
-"SELECT * FROM users 
-WHERE id='$id_user'");
+if($id_alamat != ''){
 
 
-$user = mysqli_fetch_assoc($query_user);
+    $query_user = mysqli_query($conn,"
+    SELECT 
+    nama_penerima AS nama,
+    no_hp,
+    provinsi,
+    kabupaten,
+    kecamatan,
+    desa,
+    rt_rw,
+    dusun,
+    patokan,
+    kode_pos
+    
+    FROM alamat_user
+    
+    WHERE id_alamat='$id_alamat'
+    ");
+    
+    
+    }else{
+    
+    
+    $query_user = mysqli_query($conn,"
+    SELECT *
+    FROM users
+    WHERE id='$id_user'
+    ");
+    
+    
+    }
+    
+    
+    $user = mysqli_fetch_assoc($query_user);
+
+
 
 
 
@@ -80,7 +111,7 @@ if($jumlah >= 5){
 $total_bayar = $total + $ongkir;
 if(isset($_POST['buat_pesanan'])){
 
-
+    $ekspedisi = isset($_POST['ekspedisi']) ? $_POST['ekspedisi'] : '';
     $pembayaran = isset($_POST['pembayaran']) ? $_POST['pembayaran'] : '';
     $bank = isset($_POST['bank']) ? $_POST['bank'] : '-';
 
@@ -91,22 +122,26 @@ if(isset($_POST['buat_pesanan'])){
     $simpan = mysqli_query($conn,"
 
     INSERT INTO pesanan
-    (
-    id_user,
-    total_harga,
-    metode_pembayaran,
-    bank,
-    no_resi
-    )
+(
+id_user,
+total_harga,
+ekspedisi,
+metode_pembayaran,
+bank,
+no_resi,
+status_pembayaran
+)
 
     VALUES
-    (
-    '$id_user',
-    '$total_bayar',
-    '$pembayaran',
-    '$bank',
-    '$no_resi'
-    )
+(
+'$id_user',
+'$total_bayar',
+'$ekspedisi',
+'$pembayaran',
+'$bank',
+'$no_resi',
+'Belum Dibayar'
+)
 
     ");
 
@@ -228,52 +263,108 @@ if(isset($_POST['buat_pesanan'])){
 <div class="card">
 
 
-<form method="POST" action="">
+<form method="POST" action="" enctype="multipart/form-data">
+<label>Data Pembeli</label>
 
-<h2>Data Pembeli</h2>
+<a href="pilih_alamat.php?id_produk=<?= $id_produk; ?>" class="data-pembeli">
+    <div class="nama-hp">
 
+        <b>
+        <?= htmlspecialchars($user['nama']); ?>
+        </b>
 
+        <b class="nohp">
+        <?= htmlspecialchars($user['no_hp']); ?>
+        </b>
 
-<label>Nama</label>
-
-<input type="text"
-value="<?= $user['nama']; ?>">
-
-
-
-<label>No HP</label>
-
-<input type="text"
-value="<?= $user['no_hp']; ?>">
+    </div>
 
 
+    <div class="alamat-user">
 
-<label>Alamat</label>
+<?php if($id_alamat != ''){ ?>
 
-<textarea>
+    <?= htmlspecialchars($user['desa']); ?>,
+    <?= htmlspecialchars($user['kecamatan']); ?>,
+    <?= htmlspecialchars($user['kabupaten']); ?>,
+    <?= htmlspecialchars($user['provinsi']); ?>,
+    RT/RW <?= htmlspecialchars($user['rt_rw']); ?>,
+    <?= htmlspecialchars($user['dusun']); ?>,
+    <?= htmlspecialchars($user['patokan']); ?>,
+    <?= htmlspecialchars($user['kode_pos']); ?>
 
-<?= $user['alamat']; ?>
 
-</textarea>
+<?php }else{ ?>
+
+    <?= !empty($user['alamat']) 
+    ? nl2br(htmlspecialchars($user['alamat'])) 
+    : "Belum ada alamat."; ?>
+
+<?php } ?>
+
+</div>
+
+</a>
 
 
+<a href="pilih_alamat.php?id_produk=<?= $id_produk; ?>" class="btn-alamat">
+    + Tambah 
+</a>
 
+<label>Jasa Ekspedisi</label>
 
+<select name="ekspedisi" required>
+
+<option value="">
+-- Pilih Ekspedisi --
+</option>
+
+<option value="JNE">
+JNE
+</option>
+
+<option value="J&T Express">
+J&T Express
+</option>
+
+<option value="SiCepat">
+SiCepat
+</option>
+
+<option value="AnterAja">
+AnterAja
+</option>
+
+<option value="Pos Indonesia">
+Pos Indonesia
+</option>
+
+<option value="Ninja Xpress">
+Ninja Xpress
+</option>
+
+</select>
+
+<br><br>
 
 <label>Metode Pembayaran</label>
 
-<select name="pembayaran" required>
+<select 
+name="pembayaran" 
+id="metodePembayaran"
+onchange="tampilPembayaran()"
+required>
 
 <option value="">
 -- Pilih Pembayaran --
 </option>
 
-<option value="QRIS">
-QRIS
-</option>
-
 <option value="Transfer Bank">
 Transfer Bank
+</option>
+
+<option value="E-Wallet">
+E-Wallet
 </option>
 
 <option value="COD">
@@ -285,11 +376,13 @@ COD
 <br><br>
 
 
+<div id="pilihanBank" style="display:none;">
+
 <label>Pilih Bank</label>
 
-<select name="bank">
+<select name="bank" id="bank" onchange="ubahBank()">
 
-<option value="-">
+<option value="">
 -- Pilih Bank --
 </option>
 
@@ -311,6 +404,88 @@ Mandiri
 
 </select>
 
+</div>
+
+<div id="pilihanEwallet" style="display:none;">
+
+<label>Pilih E-Wallet</label>
+
+<select name="ewallet" id="ewallet" onchange="ubahEwallet()">
+
+<option value="">
+-- Pilih E-Wallet --
+</option>
+
+<option value="Dana">
+Dana
+</option>
+
+<option value="OVO">
+OVO
+</option>
+
+<option value="GoPay">
+GoPay
+</option>
+
+<option value="ShopeePay">
+ShopeePay
+</option>
+
+</select>
+
+</div>
+
+<div id="infoPembayaran" style="display:none">
+
+<h3>Informasi Pembayaran</h3>
+
+<div id="bankInfo" style="display:none">
+
+<p>Silakan transfer ke:</p>
+
+<p><b id="namaBank"></b></p>
+
+<p>No Rekening :
+<b id="nomorRekening"></b></p>
+
+<p>a.n Stickerin</p>
+
+</div>
+
+<div id="ewalletInfo" style="display:none">
+
+<p>Kirim ke akun:</p>
+
+<p><b id="namaEwallet"></b></p>
+
+<p>Nomor :</p>
+
+<b id="nomorEwallet"></b>
+
+<p>a.n Stickerin</p>
+
+</div>
+
+
+</div>
+
+<br><br>
+
+<div id="uploadBukti" style="display:none;">
+
+<label>
+Upload Bukti Pembayaran
+</label>
+
+<br>
+
+<input 
+type="file"
+name="bukti_pembayaran"
+accept="image/*">
+
+</div>
 <br><br>
 
 </div>
@@ -379,25 +554,72 @@ Buat Pesanan
 
 <script>
 
-function tampilBank(){
+function tampilPembayaran(){
+    document.getElementById("uploadBukti").style.display="none";
+let metode=document.getElementById("metodePembayaran").value;
 
-    let metode = document.getElementById("metodePembayaran").value;
+document.getElementById("pilihanBank").style.display="none";
+document.getElementById("pilihanEwallet").style.display="none";
 
-    let bank = document.getElementById("bankContainer");
+document.getElementById("infoPembayaran").style.display="none";
+document.getElementById("bankInfo").style.display="none";
+document.getElementById("ewalletInfo").style.display="none";
 
+if(metode=="Transfer Bank"){
 
-    if(metode == "Transfer Bank"){
+document.getElementById("pilihanBank").style.display="block";
 
-        bank.style.display = "block";
-
-    }else{
-
-        bank.style.display = "none";
-
-    }
+document.getElementById("uploadBukti").style.display="block";
 
 }
 
+if(metode=="E-Wallet"){
+
+document.getElementById("pilihanEwallet").style.display="block";
+
+}
+
+}
+
+function ubahBank(){
+
+let bank=document.getElementById("bank").value;
+
+document.getElementById("infoPembayaran").style.display="block";
+document.getElementById("bankInfo").style.display="block";
+
+document.getElementById("namaBank").innerHTML=bank;
+
+let rekening="";
+
+if(bank=="BCA") rekening="1234567890";
+if(bank=="BRI") rekening="9876543210";
+if(bank=="BNI") rekening="1122334455";
+if(bank=="Mandiri") rekening="5566778899";
+
+document.getElementById("nomorRekening").innerHTML=rekening;
+
+}
+
+function ubahEwallet(){
+
+let ewallet=document.getElementById("ewallet").value;
+
+document.getElementById("infoPembayaran").style.display="block";
+document.getElementById("ewalletInfo").style.display="block";
+
+document.getElementById("namaEwallet").innerHTML=ewallet;
+
+let nomor="";
+
+if(ewallet=="Dana") nomor="081234567890";
+if(ewallet=="OVO") nomor="081234567891";
+if(ewallet=="GoPay") nomor="081234567892";
+if(ewallet=="ShopeePay") nomor="081234567893";
+
+document.getElementById("nomorEwallet").innerHTML=nomor;
+
+}
 
 </script>
 

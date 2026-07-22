@@ -16,7 +16,7 @@ if(isset($_POST['update_status'])){
     $status = $_POST['status'];
 
     $update = mysqli_query($conn,"
-        UPDATE pesanan 
+        UPDATE pesanan
         SET status='$status'
         WHERE id_pesanan='$id_pesanan'
     ");
@@ -24,6 +24,20 @@ if(isset($_POST['update_status'])){
     if(!$update){
         die(mysqli_error($conn));
     }
+
+    // Tambah notifikasi
+    mysqli_query($conn,"
+        INSERT INTO notifikasi
+        (id_user, judul, pesan, tipe, link)
+        VALUES
+        (
+            '".$data_pesanan['id_user']."',
+            'Status Pesanan',
+            'Status pesanan Anda telah diubah menjadi $status',
+            'pesanan',
+            'pesanan.php'
+        )
+    ");
 
     header("location:detail_pesanan.php?id=$id_pesanan");
     exit;
@@ -46,17 +60,18 @@ if(isset($_POST['simpan_resi'])){
 
 $query_pesanan = mysqli_query($conn,"
     SELECT 
-        pesanan.*,
-        users.nama,
-        users.no_hp,
-        users.alamat
+    pesanan.*,
+    pesanan.id_user,
+    users.nama,
+    users.no_hp,
+    users.alamat
     FROM pesanan
     JOIN users ON pesanan.id_user = users.id
     WHERE pesanan.id_pesanan='$id_pesanan'
 ");
 
 $data_pesanan = mysqli_fetch_assoc($query_pesanan);
-
+$id_user = $data_pesanan['id_user'];
 
 $query_detail = mysqli_query($conn,"
     SELECT 
@@ -89,7 +104,9 @@ $query_detail = mysqli_query($conn,"
 <div class="container">
 
 <h2>Detail Pesanan #<?= $id_pesanan ?></h2>
-
+<a href="room.php?id_order=<?= $id_pesanan; ?>&tipe=produk" class="btn-chat">
+    💬 Chat Pelanggan
+</a>
 
 <div class="info">
 
@@ -116,9 +133,47 @@ $query_detail = mysqli_query($conn,"
 <b>No Resi :</b>
 <?= $data_pesanan['no_resi']; ?>
 </p>
-</div>
-<div class="ubah-status">
 
+
+<!-- BUKTI PEMBAYARAN USER -->
+
+<?php if(!empty($data_pesanan['bukti_pembayaran'])){ ?>
+
+<hr>
+
+<h3>Bukti Pembayaran</h3>
+
+<img 
+src="data:image/png;base64,<?= $data_pesanan['bukti_pembayaran']; ?>"
+width="300"
+style="border-radius:10px; border:1px solid #ddd;">
+
+
+<br><br>
+
+<a 
+href="data:image/png;base64,<?= $data_pesanan['bukti_pembayaran']; ?>"
+target="_blank">
+
+Lihat Gambar Penuh
+
+</a>
+
+
+<?php }else{ ?>
+
+<p>
+<b>Bukti Pembayaran :</b>
+Belum Upload
+</p>
+
+<?php } ?>
+
+
+</div>
+
+
+<div class="ubah-status">
 
 <label>
 <b>update status </b>

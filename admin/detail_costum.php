@@ -17,6 +17,28 @@ $id_custom = (int)$_GET['id'];
    SIMPAN PERUBAHAN
 =========================== */
 
+if(isset($_POST['konfirmasi_bayar'])){
+
+
+    mysqli_query($conn,"
+    UPDATE custom_sticker
+    
+    SET status_pembayaran='Lunas'
+    
+    WHERE id_custom='$id_custom'
+    ");
+    
+    
+    echo "
+    <script>
+    alert('Pembayaran berhasil dikonfirmasi');
+    location='detail_costum.php?id=$id_custom';
+    </script>
+    ";
+    
+    
+    }
+    
 if(isset($_POST['simpan'])){
 
     $status = mysqli_real_escape_string($conn,$_POST['status']);
@@ -397,12 +419,89 @@ Belum ada desain dari admin.
 Pengaturan Pesanan
 </h3>
 
+<!-- KONFIRMASI PEMBAYARAN -->
+
+<div class="detail-card">
+
+<h3>
+<i class="fa-solid fa-money-bill"></i>
+Pembayaran
+</h3>
+
+
+<p>
+Status Pembayaran :
+<b>
+<?= $data['status_pembayaran']; ?>
+</b>
+</p>
+
+
+
+<?php if(!empty($data['bukti_pembayaran'])){ ?>
+
+<p>
+Bukti Pembayaran :
+</p>
+
+
+<img 
+src="../uploads/pembayaran/<?= $data['bukti_pembayaran']; ?>"
+width="250">
+
+
+<br><br>
+
+
+<?php if($data['status_pembayaran']=="Menunggu Konfirmasi"){ ?>
+
+<form method="POST">
+
+<button 
+name="konfirmasi_bayar"
+class="btn-simpan">
+
+Konfirmasi Pembayaran
+
+</button>
+
+</form>
+
+<?php } ?>
+
+
+<?php }else{ ?>
+
+
+<p style="color:red">
+
+Belum ada bukti pembayaran
+
+</p>
+
+
+<?php } ?>
+
+
+</div>
+
 <form method="POST" enctype="multipart/form-data">
 
 <label>Status</label>
 
-<select name="status">
+<select 
+name="status"
+<?= $data['status_pembayaran']!="Lunas" ? "disabled" : ""; ?>
+>
 
+<?php if($data['status_pembayaran']!="Lunas"){ ?>
+
+<input 
+type="hidden"
+name="status"
+value="<?= $data['status']; ?>">
+
+<?php } ?>
 <?php
 
 $statusList=[
@@ -471,11 +570,24 @@ class="btn-simpan">
 Simpan Perubahan
 
 </button>
-<a href="room.php?id_custom=<?= $data['id_custom']; ?>" class="btn-chat-admin">
+
+
+
+<a href="room.php?id_order=<?= $data['id_custom']; ?>&tipe=custom" class="btn-chat-admin">
 
 <i class="fa-solid fa-comments"></i>
 
 Chat Pelanggan
+
+</a>
+<a 
+href="cetak_resi_custom.php?id=<?= $data['id_custom']; ?>"
+target="_blank"
+class="btn-cetak-resi">
+
+<i class="fa-solid fa-print"></i>
+
+Cetak Resi
 
 </a>
 </form>

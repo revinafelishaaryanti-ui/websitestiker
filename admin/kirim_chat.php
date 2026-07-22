@@ -1,18 +1,16 @@
 <?php
 
 session_start();
-
 include '../koneksi.php';
 
 
-// cek id custom
-if(!isset($_POST['id_custom'])){
-    header("Location:chat.php");
-    exit;
+if(!isset($_POST['id_order'])){
+    die("ID pesanan tidak ditemukan");
 }
 
 
-$id_custom = (int)$_POST['id_custom'];
+$id_order = (int)$_POST['id_order'];
+$tipe = $_POST['tipe'];
 
 $pesan = mysqli_real_escape_string(
     $conn,
@@ -21,35 +19,29 @@ $pesan = mysqli_real_escape_string(
 
 
 // ID admin
-// sesuaikan jika ID admin kamu berbeda
 $id_pengirim = 1;
 
 
 $file = "";
+$nama_file = "";
 
 
-if(isset($_FILES['file']) && $_FILES['file']['name']!=""){
+if(isset($_FILES['file']) && $_FILES['file']['tmp_name']!=""){
 
-    $file = time()."_".$_FILES['file']['name'];
+    $nama_file = time()."_".$_FILES['file']['name'];
 
-    // folder penyimpanan gambar
-    $folder = "../img/";
-
-    // buat folder jika belum ada
-    if(!is_dir($folder)){
-        mkdir($folder,0777,true);
-    }
-
-
-    move_uploaded_file(
-        $_FILES['file']['tmp_name'],
-        $folder.$file
+    $file = base64_encode(
+        file_get_contents($_FILES['file']['tmp_name'])
     );
+
 }
 
 
+// kalau custom
+if($tipe=="custom"){
 
-$query = mysqli_query($conn,"
+
+$sql = mysqli_query($conn,"
 INSERT INTO chat
 (
 id_custom,
@@ -57,26 +49,62 @@ pengirim,
 id_pengirim,
 pesan,
 file,
+nama_file,
 dibaca,
 waktu
 )
 VALUES
 (
-'$id_custom',
+'$id_order',
 'admin',
 '$id_pengirim',
 '$pesan',
 '$file',
+'$nama_file',
 '0',
 NOW()
 )
 ");
 
 
+}else{
 
-if($query){
 
-    header("Location:room.php?id_custom=".$id_custom);
+// kalau pesanan biasa
+
+$sql = mysqli_query($conn,"
+INSERT INTO chat
+(
+id_pesanan,
+pengirim,
+id_pengirim,
+pesan,
+file,
+nama_file,
+dibaca,
+waktu
+)
+VALUES
+(
+'$id_order',
+'admin',
+'$id_pengirim',
+'$pesan',
+'$file',
+'$nama_file',
+'0',
+NOW()
+)
+");
+
+
+}
+
+
+
+if($sql){
+
+    header("Location:room.php?id_order=".$id_order."&tipe=".$tipe);
     exit;
 
 }else{
