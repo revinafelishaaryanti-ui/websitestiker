@@ -42,46 +42,56 @@ if(isset($_POST['konfirmasi_bayar'])){
 if(isset($_POST['simpan'])){
 
     $status = mysqli_real_escape_string($conn,$_POST['status']);
-    $kurir = mysqli_real_escape_string($conn,$_POST['kurir']);
     $nomor_resi = mysqli_real_escape_string($conn,$_POST['nomor_resi']);
+
+$kurir = "Lainnya";
+
+if(stripos($nomor_resi,"JNE")===0){
+    $kurir="JNE";
+}
+elseif(stripos($nomor_resi,"JT")===0){
+    $kurir="J&T";
+}
+elseif(stripos($nomor_resi,"SICEPAT")===0){
+    $kurir="SiCepat";
+}
+elseif(stripos($nomor_resi,"SPX")===0){
+    $kurir="Shopee Express";
+}
+elseif(stripos($nomor_resi,"POS")===0){
+    $kurir="Pos Indonesia";
+}
+elseif(stripos($nomor_resi,"ID")===0){
+    $kurir="ID Express";
+}
     $estimasi = mysqli_real_escape_string($conn,$_POST['estimasi']);
-    $lokasi = mysqli_real_escape_string($conn,$_POST['lokasi_terakhir']);
 
     $namaFile = "";
 
-    if(!empty($_FILES['file_desain']['name'])){
+    if(!empty($_FILES['file_desain']['tmp_name'])){
 
-        $namaFile = time()."_".$_FILES['file_desain']['name'];
-
-        move_uploaded_file(
-            $_FILES['file_desain']['tmp_name'],
-            "../uploads/desain/".$namaFile
+        $file_desain = base64_encode(
+            file_get_contents($_FILES['file_desain']['tmp_name'])
         );
-
+    
         mysqli_query($conn,"
         UPDATE custom_sticker
         SET
-        file_desain='$namaFile'
+        file_desain='$file_desain'
         WHERE id_custom='$id_custom'
         ");
+    
     }
 
     mysqli_query($conn,"
-    UPDATE custom_sticker
-    SET
-
-    status='$status',
-
-    kurir='$kurir',
-
-    nomor_resi='$nomor_resi',
-
-    estimasi='$estimasi',
-
-    lokasi_terakhir='$lokasi'
-
-    WHERE id_custom='$id_custom'
-    ");
+UPDATE custom_sticker
+SET
+status='$status',
+kurir='$kurir',
+nomor_resi='$nomor_resi',
+estimasi='$estimasi'
+WHERE id_custom='$id_custom'
+");
 
     echo "<script>
 
@@ -160,306 +170,239 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <div class="page-header">
 
-<div>
+    <div>
+        <h2>🎨 Detail Custom Sticker</h2>
+        <p>Informasi lengkap pesanan custom pelanggan.</p>
+    </div>
 
-<h2>🎨 Detail Custom Sticker</h2>
-
-<p>Informasi lengkap pesanan custom pelanggan.</p>
-
-</div>
-
-<a href="customsticker.php" class="btn-back">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-Kembali
-
-</a>
+    <a href="customsticker.php" class="btn-back">
+        <i class="fa-solid fa-arrow-left"></i>
+        Kembali
+    </a>
 
 </div>
 
-<div class="detail-custom-container">
 
-<!-- ========================= -->
-<!-- DATA PELANGGAN -->
-<!-- ========================= -->
+<div class="detail-wrapper">
+
+<!-- ================= DATA ================= -->
 
 <div class="detail-card">
 
 <h3>
-
 <i class="fa-solid fa-user"></i>
-
 Data Pelanggan
-
 </h3>
 
-<table class="table-detail">
+<div class="customer-grid">
 
-<tr>
+<div class="customer-box">
+<b>Nama</b> :
+<span><?= $data['nama']; ?></span>
+</div>
 
-<td>Nama</td>
+<div class="customer-box">
+<b>No HP</b> :
+<span><?= $data['no_hp']; ?></span>
+</div>
 
-<td><?= $data['nama']; ?></td>
+<div class="customer-box">
+<b>Email</b> :
+<span><?= $data['email']; ?></span>
+</div>
 
-</tr>
-
-<tr>
-
-<td>Email</td>
-
-<td><?= $data['email']; ?></td>
-
-</tr>
-
-<tr>
-
-<td>No HP</td>
-
-<td><?= $data['no_hp']; ?></td>
-
-</tr>
-
-<tr>
-
-<td>Alamat</td>
-
-<td><?= $data['alamat']; ?></td>
-
-</tr>
-
-</table>
+<div class="customer-box">
+<b>Alamat</b> :
+<span><?= $data['alamat']; ?></span>
+</div>
 
 </div>
 
-<!-- ========================= -->
-<!-- DATA PRODUK -->
-<!-- ========================= -->
+</div>
+
+
 
 <div class="detail-card">
 
-<h3>
+    <h3>
+        <i class="fa-solid fa-box"></i>
+        Produk
+    </h3>
 
-<i class="fa-solid fa-box"></i>
+    <div class="produk-box">
 
-Produk
+        <img
+        src="../img/<?= $data['gambar']; ?>"
+        class="produk-img">
 
-</h3>
+        <div class="produk-info">
 
-<div class="produk-admin">
+            <h2><?= $data['nama_produk']; ?></h2>
 
-<img src="../img/<?= $data['gambar']; ?>">
+            <div class="info-item">
+                <span>Harga</span>
+                <strong>
+                    Rp <?= number_format($data['harga'],0,",","."); ?>
+                </strong>
+            </div>
 
-<div>
+            <div class="info-item">
+                <span>Jumlah</span>
+                <strong><?= $data['jumlah']; ?> pcs</strong>
+            </div>
 
-<h2><?= $data['nama_produk']; ?></h2>
+            <div class="info-item">
+                <span>Ukuran</span>
+                <strong><?= $data['ukuran']; ?></strong>
+            </div>
 
-<h3>
+        </div>
 
-Rp <?= number_format($data['harga'],0,",","."); ?>
-
-</h3>
-
-<p>
-
-Jumlah :
-<b><?= $data['jumlah']; ?></b>
-
-</p>
-
-<p>
-
-Ukuran :
-<b><?= $data['ukuran']; ?></b>
-
-</p>
-
-</div>
+    </div>
 
 </div>
 
-</div>
 
-<!-- ========================= -->
-<!-- CATATAN -->
-<!-- ========================= -->
+
+<!-- ================= FILE ================= -->
+
+<div class="grid-2">
 
 <div class="detail-card">
 
-<h3>
+<h3>🖼 Logo</h3>
 
-<i class="fa-solid fa-note-sticky"></i>
+<?php if($data['file_logo']!=""){ ?>
 
-Catatan Pelanggan
+    <img
+class="preview-big"
+src="data:image/png;base64,<?= $data['file_logo']; ?>">
 
-</h3>
+<?php }else{ ?>
 
-<p>
+<div class="empty-box">
 
-<?= nl2br($data['catatan']); ?>
-
-</p>
-
-</div>
-
-<!-- ========================= -->
-<!-- FILE LOGO -->
-<!-- ========================= -->
-
-<div class="detail-card">
-
-<h3>
-
-Logo
-
-</h3>
-
-<?php
-
-if($data['file_logo']!=""){
-
-?>
-
-<img
-class="preview-custom"
-src="../uploads/custom_logo/<?= $data['file_logo']; ?>">
-
-<?php
-
-}else{
-
-echo "Tidak ada logo.";
-
-}
-
-?>
+Belum upload logo
 
 </div>
-
-<!-- ========================= -->
-<!-- FILE REFERENSI -->
-<!-- ========================= -->
-
-<div class="detail-card">
-
-<h3>
-
-Referensi
-
-</h3>
-
-<?php
-
-if($data['file_referensi']!=""){
-
-?>
-
-<img
-class="preview-custom"
-src="../uploads/custom_referensi/<?= $data['file_referensi']; ?>">
-
-<?php
-
-}else{
-
-echo "Tidak ada referensi.";
-
-}
-
-?>
-
-</div>
-
-<!-- ========================= -->
-<!-- FILE DESAIN -->
-<!-- ========================= -->
-
-<div class="detail-card">
-
-<h3>
-
-Hasil Desain
-
-</h3>
-
-<?php
-
-if($data['file_desain']!=""){
-
-?>
-
-<img
-class="preview-custom"
-src="../uploads/desain/<?= $data['file_desain']; ?>">
-
-<?php
-
-}else{
-
-?>
-
-<p>
-
-Belum ada desain dari admin.
-
-</p>
 
 <?php } ?>
 
 </div>
 
-<!-- ========================= -->
-<!-- FORM ADMIN -->
-<!-- ========================= -->
 
-<div class="detail-card setting-card">
 
-<h3>
-<i class="fa-solid fa-gear"></i>
-Pengaturan Pesanan
-</h3>
+<div class="detail-card">
 
-<!-- KONFIRMASI PEMBAYARAN -->
+<h3>🖼 Referensi</h3>
+
+<?php if($data['file_referensi']!=""){ ?>
+
+    <img
+class="preview-big"
+src="data:image/png;base64,<?= $data['file_referensi']; ?>">
+
+<?php }else{ ?>
+
+<div class="empty-box">
+
+Belum upload referensi
+
+</div>
+
+<?php } ?>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= CATATAN ================= -->
 
 <div class="detail-card">
 
 <h3>
-<i class="fa-solid fa-money-bill"></i>
-Pembayaran
+📝 Catatan Pelanggan
 </h3>
 
+<div class="catatan-box">
 
-<p>
-Status Pembayaran :
-<b>
+<?= nl2br($data['catatan']); ?>
+
+</div>
+
+</div>
+
+
+
+<!-- ================= HASIL DESAIN ================= -->
+
+<div class="detail-card">
+
+<h3>
+
+🎨 Hasil Desain
+
+</h3>
+<?php if(!empty($data['file_desain'])){ ?>
+
+<img
+class="preview-desain"
+src="data:image/png;base64,<?= $data['file_desain']; ?>">
+
+<?php }else{ ?>
+
+<div class="empty-box">
+
+Belum ada desain.
+
+</div>
+
+<?php } ?>
+</div>
+
+<!-- ================= PEMBAYARAN ================= -->
+
+<div class="detail-card">
+
+<h3>
+💳 Pembayaran
+</h3>
+
+<div class="info-item">
+<span>Status Pembayaran</span>
+
+<strong>
+
 <?= $data['status_pembayaran']; ?>
-</b>
-</p>
 
+</strong>
 
+</div>
+
+<br>
 
 <?php if(!empty($data['bukti_pembayaran'])){ ?>
 
-<p>
-Bukti Pembayaran :
-</p>
+<p><b>Bukti Pembayaran</b></p>
 
-
-<img 
+<img
 src="../uploads/pembayaran/<?= $data['bukti_pembayaran']; ?>"
-width="250">
-
+class="preview-big">
 
 <br><br>
-
 
 <?php if($data['status_pembayaran']=="Menunggu Konfirmasi"){ ?>
 
 <form method="POST">
 
-<button 
+<button
+type="submit"
 name="konfirmasi_bayar"
-class="btn-simpan">
+class="btn-konfirmasi">
+
+<i class="fa-solid fa-circle-check"></i>
 
 Konfirmasi Pembayaran
 
@@ -469,39 +412,38 @@ Konfirmasi Pembayaran
 
 <?php } ?>
 
-
 <?php }else{ ?>
 
-
-<p style="color:red">
+<div class="empty-box">
 
 Belum ada bukti pembayaran
 
-</p>
-
+</div>
 
 <?php } ?>
-
 
 </div>
 
+
+
+<!-- ================= PENGATURAN ================= -->
+
+<div class="detail-card">
+
+<h3>
+
+⚙ Pengaturan Pesanan
+
+</h3>
+
 <form method="POST" enctype="multipart/form-data">
 
-<label>Status</label>
+<label>Status Pesanan</label>
 
-<select 
+<select
 name="status"
-<?= $data['status_pembayaran']!="Lunas" ? "disabled" : ""; ?>
->
+<?= $data['status_pembayaran']!="Lunas" ? "disabled" : ""; ?>>
 
-<?php if($data['status_pembayaran']!="Lunas"){ ?>
-
-<input 
-type="hidden"
-name="status"
-value="<?= $data['status']; ?>">
-
-<?php } ?>
 <?php
 
 $statusList=[
@@ -518,7 +460,7 @@ foreach($statusList as $s){
 
 <option
 value="<?= $s ?>"
-<?= $data['status']==$s?'selected':'' ?>>
+<?= $data['status']==$s ? "selected" : ""; ?>>
 
 <?= $s ?>
 
@@ -528,71 +470,67 @@ value="<?= $s ?>"
 
 </select>
 
+<?php if($data['status_pembayaran']!="Lunas"){ ?>
+
+<input
+type="hidden"
+name="status"
+value="<?= $data['status']; ?>">
+
+<?php } ?>
+
 <label>Upload Hasil Desain</label>
 
 <input
 type="file"
 name="file_desain">
 
-<label>Kurir</label>
-
-<input
-type="text"
-name="kurir"
-value="<?= $data['kurir']; ?>">
-
 <label>Nomor Resi</label>
 
 <input
 type="text"
 name="nomor_resi"
-value="<?= $data['nomor_resi']; ?>">
+value="<?= $data['nomor_resi']; ?>"
+placeholder="Contoh : JNE123456789">
 
-<label>Estimasi</label>
+<label>Estimasi Sampai</label>
 
 <input
 type="date"
 name="estimasi"
 value="<?= $data['estimasi']; ?>">
 
-<label>Lokasi Terakhir</label>
-
-<textarea
-name="lokasi_terakhir"><?= $data['lokasi_terakhir']; ?></textarea>
+<div class="button-group">
 
 <button
 type="submit"
 name="simpan"
 class="btn-simpan">
 
-<i class="fa-solid fa-floppy-disk"></i>
-
-Simpan Perubahan
+💾 Simpan
 
 </button>
 
+<a
+href="room.php?id_order=<?= $data['id_custom']; ?>&tipe=custom"
+class="btn-chat-admin">
 
-
-<a href="room.php?id_order=<?= $data['id_custom']; ?>&tipe=custom" class="btn-chat-admin">
-
-<i class="fa-solid fa-comments"></i>
-
-Chat Pelanggan
+💬 Chat
 
 </a>
-<a 
+
+<a
 href="cetak_resi_custom.php?id=<?= $data['id_custom']; ?>"
 target="_blank"
 class="btn-cetak-resi">
 
-<i class="fa-solid fa-print"></i>
-
-Cetak Resi
+🖨 Cetak Resi
 
 </a>
-</form>
 
 </div>
+
+</form>
 
 </div>
 

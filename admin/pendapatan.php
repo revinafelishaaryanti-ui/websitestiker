@@ -191,228 +191,27 @@ mysqli_data_seek($data,0);
 <head>
 
 <title>Pendapatan Admin</title>
-
-<style>
-
-
-body{
-
-font-family:Arial, sans-serif;
-
-background:#eef6ff;
-
-color:#333;
-
-}
-
-
-
-.card{
-
-background:white;
-
-padding:20px;
-
-border-radius:15px;
-
-margin-bottom:20px;
-
-box-shadow:0 4px 12px rgba(0,123,255,.15);
-
-}
-
-
-
-h2{
-
-color:#0066cc;
-
-}
-
-
-
-.total{
-
-font-size:32px;
-
-font-weight:bold;
-
-color:#0066cc;
-
-}
-
-
-
-.filter button{
-
-background:#0066cc;
-
-color:white;
-
-border:none;
-
-padding:10px 20px;
-
-border-radius:8px;
-
-cursor:pointer;
-
-}
-
-
-
-.filter button:hover{
-
-background:#004c99;
-
-}
-
-
-
-th{
-
-background:#0066cc;
-
-color:white;
-
-padding:12px;
-
-}
-
-
-
-.container{
-
-width:95%;
-
-margin:auto;
-
-}
-
-
-
-.card{
-
-background:white;
-
-padding:20px;
-
-border-radius:15px;
-
-margin-bottom:20px;
-
-box-shadow:0 3px 10px rgba(0,0,0,.1);
-
-}
-
-
-
-h2{
-
-margin-top:0;
-
-}
-
-
-
-.total{
-
-font-size:32px;
-
-font-weight:bold;
-
-color:#198754;
-
-}
-
-
-
-.filter a{
-
-display:inline-block;
-
-padding:10px 15px;
-
-background:#222;
-
-color:white;
-
-text-decoration:none;
-
-border-radius:8px;
-
-margin-right:8px;
-
-}
-
-
-
-.filter a:hover{
-
-background:#444;
-
-}
-
-
-
-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-}
-
-
-
-th{
-
-background:#222;
-
-color:white;
-
-padding:12px;
-
-}
-
-
-
-td{
-
-padding:12px;
-
-border-bottom:1px solid #ddd;
-
-text-align:center;
-
-}
-
-
-
-.status{
-
-font-weight:bold;
-
-}
-
-
-
-</style>
-
-
+<link rel="stylesheet" href="admin.css">
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
-
-
 
 <body>
 
+<?php include 'include/sidebar.php'; ?>
+
+<div class="main">
+
+<?php include 'include/navbar.php'; ?>
+
+<div class="content">
+
+<div class="content-header">
 
 <div class="container">
 
 
-
-<div class="card">
-
+<div class="pendapatan-card">
 
 <h2>
 💰 Laporan Pendapatan
@@ -422,21 +221,19 @@ font-weight:bold;
 <p>Total Pendapatan</p>
 
 
-<div class="total">
+<div class="pendapatan-total">
 
 Rp <?=number_format($totalPendapatan,0,',','.');?>
 
 </div>
 
-
 </div>
 
 
 
 
 
-<div class="card">
-
+<div class="pendapatan-card">
 
 <h3>
 Filter Data
@@ -484,8 +281,7 @@ Cari
 <div class="card">
 
 
-<table>
-
+<table class="table-pendapatan">
 
 <tr>
 
@@ -594,19 +390,27 @@ Belum ada data pendapatan
 <?php } ?>
 
 
+<tr>
+    <td colspan="3">
+        <b>Total Pendapatan</b>
+    </td>
 
+    <td>
+        <b>
+        Rp <?=number_format($totalPendapatan,0,',','.');?>
+        </b>
+    </td>
+
+    <td colspan="3"></td>
+</tr>
 
 </table>
 
 
-</div>
-
-
-
-</div>
-
-
+</div> <!-- container -->
+</div> <!-- main-content -->
+</div> <!-- content -->
+</div> <!-- main -->
 
 </body>
-
 </html>

@@ -429,3 +429,206 @@ body{
     margin-top:5px;
     opacity:0.7;
 }
+
+
+
+body{
+
+    font-family:Arial, sans-serif;
+    
+    background:#eef6ff;
+    
+    color:#333;
+    
+    }
+    
+    
+    
+    .card{
+    
+    background:white;
+    
+    padding:20px;
+    
+    border-radius:15px;
+    
+    margin-bottom:20px;
+    
+    box-shadow:0 4px 12px rgba(0,123,255,.15);
+    
+    }
+    
+    
+    
+    h2{
+    
+    color:#0066cc;
+    
+    }
+    
+    
+    
+    .total{
+    
+    font-size:32px;
+    
+    font-weight:bold;
+    
+    color:#0066cc;
+    
+    }
+    
+    
+    
+    .filter button{
+    
+    background:#0066cc;
+    
+    color:white;
+    
+    border:none;
+    
+    padding:10px 20px;
+    
+    border-radius:8px;
+    
+    cursor:pointer;
+    
+    }
+    
+    
+    
+    .filter button:hover{
+    
+    background:#004c99;
+    
+    }
+    
+    
+    
+    th{
+    
+    background:#0066cc;
+    
+    color:white;
+    
+    padding:12px;
+    
+    }
+    
+    
+    
+    .container{
+    
+    width:95%;
+    
+    margin:auto;
+    
+    }
+    
+    
+    
+    .card{
+    
+    background:white;
+    
+    padding:20px;
+    
+    border-radius:15px;
+    
+    margin-bottom:20px;
+    
+    box-shadow:0 3px 10px rgba(0,0,0,.1);
+    
+    }
+    
+    
+    
+    h2{
+    
+    margin-top:0;
+    
+    }
+    
+    
+    
+    .total{
+    
+    font-size:32px;
+    
+    font-weight:bold;
+    
+    color:#198754;
+    
+    }
+    
+    
+    
+    .filter a{
+    
+    display:inline-block;
+    
+    padding:10px 15px;
+    
+    background:#222;
+    
+    color:white;
+    
+    text-decoration:none;
+    
+    border-radius:8px;
+    
+    margin-right:8px;
+    
+    }
+    
+    
+    
+    .filter a:hover{
+    
+    background:#444;
+    
+    }
+    
+    
+    
+    table{
+    
+    width:100%;
+    
+    border-collapse:collapse;
+    
+    }
+    
+    
+    
+    th{
+    
+    background:#222;
+    
+    color:white;
+    
+    padding:12px;
+    
+    }
+    
+    
+    
+    td{
+    
+    padding:12px;
+    
+    border-bottom:1px solid #ddd;
+    
+    text-align:center;
+    
+    }
+    
+    
+    
+    .status{
+    
+    font-weight:bold;
+    
+    }
+    

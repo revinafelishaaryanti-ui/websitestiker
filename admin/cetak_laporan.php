@@ -7,6 +7,22 @@ if(!isset($_SESSION['admin_id'])){
     exit;
 }
 
+$tanggal_awal = isset($_GET['tanggal_awal']) ? $_GET['tanggal_awal'] : '';
+$tanggal_akhir = isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : '';
+
+$where = "";
+
+if($tanggal_awal != "" && $tanggal_akhir != ""){
+
+    $where = "
+    WHERE DATE(pesanan.tanggal)
+    BETWEEN '$tanggal_awal'
+    AND '$tanggal_akhir'
+    ";
+
+}
+
+
 $query = mysqli_query($conn,"
 SELECT
 pesanan.*,
@@ -14,6 +30,7 @@ users.nama
 FROM pesanan
 JOIN users
 ON pesanan.id_user = users.id
+$where
 ORDER BY pesanan.tanggal DESC
 ");
 ?>
@@ -94,8 +111,22 @@ table th{
 
 <h2>LAPORAN PENJUALAN STICKERIN</h2>
 
-<p><?= date('d F Y'); ?></p>
+<?php if($tanggal_awal != "" && $tanggal_akhir != ""){ ?>
 
+<p>
+Periode :
+<?= date('d-m-Y',strtotime($tanggal_awal)); ?>
+s/d
+<?= date('d-m-Y',strtotime($tanggal_akhir)); ?>
+</p>
+
+<?php }else{ ?>
+
+<p>
+Semua Periode - <?= date('d F Y'); ?>
+</p>
+
+<?php } ?>
 <table>
 
 <tr>

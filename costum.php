@@ -149,6 +149,8 @@ INSERT INTO custom_sticker
     id_produk,
     ukuran,
     jumlah,
+    jenis_desain,
+    total_harga,
     catatan,
     ekspedisi,
     file_logo,
@@ -158,7 +160,7 @@ INSERT INTO custom_sticker
     bukti_pembayaran,
     latitude,
     longitude,
-    lokasi,
+    lokasi_terakhir,
     status_pembayaran
 )
 VALUES
@@ -167,13 +169,15 @@ VALUES
     '$id_produk',
     '$ukuran',
     '$jumlah',
+    '$jenis_desain',
+    '$total_harga',
     '$catatan',
     '$ekspedisi',
     '$logo',
     '$referensi',
     '$pembayaran',
     '$bank',
-    '$bukti_pembayaran',
+    '$bukti',
     NULL,
     NULL,
     'Pesanan sedang diproses',
@@ -196,10 +200,6 @@ if($simpan){
 
 }
 
-    echo "<script>
-alert('Pesanan Custom Berhasil Dibuat');
-window.location='pembayaran_custom.php?id=".$id_custom."';
-</script>";
 }
 ?>
 

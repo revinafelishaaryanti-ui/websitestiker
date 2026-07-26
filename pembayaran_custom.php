@@ -127,7 +127,7 @@ Total Pembayaran
 </p>
 
 <h2>
-Rp <?= number_format($data['harga']*$data['jumlah']); ?>
+Rp <?= number_format($data['total_harga'],0,",","."); ?>
 </h2>
 
 

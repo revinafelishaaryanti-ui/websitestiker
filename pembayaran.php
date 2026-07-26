@@ -21,6 +21,32 @@ WHERE id_pesanan='$id_pesanan'
 
 $data = mysqli_fetch_assoc($query);
 
+if(isset($_POST['upload'])){
+
+    $bukti = "";
+
+    if(isset($_FILES['bukti']) && $_FILES['bukti']['tmp_name']!=""){
+
+        $bukti = base64_encode(
+            file_get_contents($_FILES['bukti']['tmp_name'])
+        );
+
+        mysqli_query($conn,"
+        UPDATE pesanan
+        SET
+        bukti_pembayaran='$bukti',
+        status_pembayaran='Menunggu Verifikasi'
+        WHERE id_pesanan='$id_pesanan'
+        ");
+
+        echo "<script>
+        alert('Bukti pembayaran berhasil dikirim');
+        location='pesanan.php';
+        </script>";
+        exit;
+    }
+}
+
 
 ?>
 
@@ -123,11 +149,27 @@ Pembayaran dilakukan saat barang diterima.
 <br>
 
 
-<a href="pesanan.php" class="btn-order">
+<form method="POST" enctype="multipart/form-data">
 
-Saya Sudah Bayar
+<label>Upload Bukti Pembayaran</label>
 
-</a>
+<input
+type="file"
+name="bukti"
+required>
+
+<br><br>
+
+<button
+type="submit"
+name="upload"
+class="btn-order">
+
+Kirim Bukti Pembayaran
+
+</button>
+
+</form>
 
 
 </div>

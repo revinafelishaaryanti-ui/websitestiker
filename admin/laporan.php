@@ -26,7 +26,40 @@ SELECT COUNT(*) as total
 FROM custom_sticker
 "));
 
+// FILTER TANGGAL
+$tanggal_awal = isset($_GET['tanggal_awal']) ? $_GET['tanggal_awal'] : '';
+$tanggal_akhir = isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : '';
+
+$where = "";
+
+if($tanggal_awal != "" && $tanggal_akhir != ""){
+
+    $where = "
+    WHERE DATE(pesanan.tanggal)
+    BETWEEN '$tanggal_awal'
+    AND '$tanggal_akhir'
+    ";
+
+}
+
+
 // ambil data laporan
+$tanggal_awal = isset($_GET['tanggal_awal']) ? $_GET['tanggal_awal'] : '';
+$tanggal_akhir = isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : '';
+
+$where = "";
+
+if($tanggal_awal != "" && $tanggal_akhir != ""){
+
+    $where = "
+    WHERE DATE(pesanan.tanggal)
+    BETWEEN '$tanggal_awal'
+    AND '$tanggal_akhir'
+    ";
+
+}
+
+
 $query = mysqli_query($conn,"
 SELECT
 pesanan.*,
@@ -34,6 +67,7 @@ users.nama
 FROM pesanan
 JOIN users
 ON pesanan.id_user=users.id
+$where
 ORDER BY tanggal DESC
 ");
 ?>
@@ -73,13 +107,45 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
-<a href="cetak_laporan.php" class="btn-primary">
-
+<a href="cetak_laporan.php?tanggal_awal=<?= $tanggal_awal; ?>&tanggal_akhir=<?= $tanggal_akhir; ?>" class="btn-primary">
 <i class="fa-solid fa-print"></i>
-
 Cetak
-
 </a>
+
+</div>
+
+
+<!-- FILTER TANGGAL -->
+
+<form method="GET" class="filter-tanggal">
+
+<label>Tanggal Awal</label>
+
+<input 
+type="date" 
+name="tanggal_awal"
+value="<?= $tanggal_awal; ?>">
+
+
+<label>Tanggal Akhir</label>
+
+<input 
+type="date" 
+name="tanggal_akhir"
+value="<?= $tanggal_akhir; ?>">
+
+
+<button type="submit">
+🔍 Filter
+</button>
+
+
+<a href="laporan.php">
+Reset
+</a>
+
+</form>
+
 
 </div>
 
