@@ -1,4 +1,4 @@
-/* ==========================
+  /* ==========================
    GOOGLE FONT
 ========================== */
 
@@ -3310,141 +3310,423 @@ body{
     font-weight:bold;
     
     }
-    /* ==========================
-   PENDAPATAN
-========================== */
+/* ==============================
+   HALAMAN PENDAPATAN
+============================== */
 
-.pendapatan-card{
+.pendapatan-header{
     background:white;
-    padding:25px;
+    padding:30px;
     border-radius:20px;
     margin-bottom:25px;
     box-shadow:0 8px 25px rgba(0,0,0,.08);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:20px;
 }
 
-.pendapatan-card h2{
-    color:#4F7CFF;
+.pendapatan-header-left h2{
+    margin:0;
+    color:#2563eb;
+    font-size:28px;
 }
 
-.pendapatan-total{
-    font-size:32px;
-    font-weight:bold;
-    color:#10b981;
+.pendapatan-header-left h2 i{
+    margin-right:10px;
 }
 
-.pendapatan-table{
-    width:100%;
-    border-collapse:collapse;
+.pendapatan-header-left p{
+    margin-top:8px;
+    color:#777;
+    font-size:15px;
 }
 
-.pendapatan-table th{
-    background:#4F7CFF;
+.pendapatan-total-box{
+    background:linear-gradient(135deg,#10b981,#34d399);
+    padding:20px 30px;
+    border-radius:18px;
+    text-align:center;
     color:white;
-    padding:15px;
+    box-shadow:0 10px 25px rgba(16,185,129,.25);
+    min-width:200px;
 }
 
-.pendapatan-table td{
-    padding:15px;
-    text-align:center;
-    border-bottom:1px solid #eee;
+.pendapatan-total-box span{
+    display:block;
+    font-size:14px;
+    opacity:.9;
+    margin-bottom:6px;
 }
 
-.table-pendapatan{
-    width:100%;
-    border-collapse:collapse;
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
+.pendapatan-total-box h3{
+    font-size:26px;
+    margin:0;
+    font-weight:700;
 }
 
-.table-pendapatan th{
-    background:#4F7CFF;
-    color:white;
-    padding:15px;
-    text-align:center;
-}
-
-.table-pendapatan td{
-    padding:15px;
-    text-align:center;
-    border-bottom:1px solid #eee;
-}
-
-.table-pendapatan tr:hover{
-    background:#f5f8ff;
-}
-
-.pendapatan-total{
-    font-size:32px;
-    font-weight:bold;
-    color:#10b981;
-}
-
-/* ==========================
-   FILTER TANGGAL LAPORAN
-========================== */
-
+/* FILTER TANGGAL */
 .filter-tanggal{
+    background:white;
+    padding:18px 25px;
+    border-radius:18px;
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+    margin-bottom:25px;
+}
+
+.filter-tanggal form{
     display:flex;
     align-items:center;
-    gap:15px;
-    background:#fff;
-    padding:20px;
-    border-radius:15px;
-    margin:20px 0;
-    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+    gap:12px;
+    flex-wrap:wrap;
 }
-
 
 .filter-tanggal label{
     font-weight:600;
-    color:#333;
+    color:#444;
+    font-size:14px;
+    white-space:nowrap;
 }
 
+.filter-tanggal label i{
+    margin-right:5px;
+    color:#4F7CFF;
+}
 
 .filter-tanggal input[type="date"]{
-    padding:10px 14px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    font-size:14px;
+    padding:11px 14px;
+    border:2px solid #e0e7ff;
+    border-radius:12px;
     outline:none;
+    font-size:14px;
+    color:#444;
+    background:#f8faff;
     transition:.3s;
+    height:44px;
 }
-
 
 .filter-tanggal input[type="date"]:focus{
-    border-color:#ff4d6d;
-    box-shadow:0 0 5px rgba(255,77,109,.3);
+    border-color:#4F7CFF;
+    box-shadow:0 0 10px rgba(79,124,255,.2);
 }
-
 
 .filter-tanggal button{
-    background:#ff4d6d;
+    background:linear-gradient(135deg,#4F7CFF,#7B61FF);
     color:white;
     border:none;
-    padding:10px 20px;
-    border-radius:10px;
-    cursor:pointer;
+    padding:11px 22px;
+    border-radius:12px;
     font-weight:600;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:8px;
     transition:.3s;
+    height:44px;
+    font-size:14px;
 }
-
 
 .filter-tanggal button:hover{
-    background:#e6395c;
+    transform:translateY(-2px);
+    box-shadow:0 8px 15px rgba(79,124,255,.25);
 }
-
 
 .filter-tanggal a{
     text-decoration:none;
-    background:#eee;
-    color:#333;
-    padding:10px 18px;
-    border-radius:10px;
+    color:#4F7CFF;
+    font-weight:600;
+    padding:11px 18px;
+    border-radius:12px;
+    transition:.3s;
+    height:44px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:14px;
+    background:#f5f7ff;
+}
+
+.filter-tanggal a:hover{
+    background:#eef2ff;
+}
+
+/* TABEL PENDAPATAN */
+.tabel-pendapatan{
+    background:white;
+    padding:0;
+    border-radius:20px;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    overflow:hidden;
+}
+
+.tabel-pendapatan table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.tabel-pendapatan thead th{
+    background:linear-gradient(135deg,#4F7CFF,#6D63FF);
+    color:white;
+    padding:16px 14px;
+    text-align:center;
+    font-size:14px;
     font-weight:600;
 }
 
+.tabel-pendapatan tbody td{
+    padding:14px;
+    text-align:center;
+    border-bottom:1px solid #edf1ff;
+    font-size:14px;
+    color:#444;
+}
 
-.filter-tanggal a:hover{
-    background:#ddd;
+.tabel-pendapatan tbody tr:hover{
+    background:#f5f8ff;
+}
+
+.tabel-pendapatan tbody tr:last-child td{
+    border-bottom:none;
+}
+
+.tabel-pendapatan .harga-td{
+    font-weight:600;
+    color:#2563eb;
+}
+
+.tabel-pendapatan .empty-data{
+    text-align:center;
+    color:#888;
+    padding:40px !important;
+    font-size:15px;
+}
+
+/* Total Row Footer */
+.tabel-pendapatan tfoot .total-row{
+    background:#f0f4ff;
+}
+
+.tabel-pendapatan tfoot .total-label{
+    text-align:right;
+    padding:16px 14px;
+    font-weight:700;
+    color:#333;
+    font-size:15px;
+}
+
+.tabel-pendapatan tfoot .total-value{
+    padding:16px 14px;
+    font-weight:700;
+    color:#10b981;
+    font-size:18px;
+    text-align:center;
+}
+
+/* Badge Jenis */
+.jenis-badge{
+    font-size:12px;
+    padding:5px 12px;
+    border-radius:20px;
+    font-weight:600;
+    display:inline-block;
+}
+
+.badge-custom{
+    background:#8b5cf6;
+    color:white;
+}
+
+.badge-produk{
+    background:#3b82f6;
+    color:white;
+}
+
+/* Badge Status */
+.badge-success{
+    background:#10b981;
+    color:white;
+    padding:5px 14px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+    display:inline-block;
+}
+
+/* ===========================
+   PERBAIKAN DETAIL PESANAN
+=========================== */
+
+
+.detail-wrapper{
+    max-width:1100px;
+    margin:40px auto;
+}
+
+
+.detail-card{
+
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    margin-bottom:25px;
+
+}
+
+
+/* BOX PRODUK */
+
+.produk-box{
+
+    display:flex;
+    gap:30px;
+    align-items:center;
+
+}
+
+
+.produk-img{
+
+    width:220px;
+    height:220px;
+    object-fit:cover;
+    border-radius:20px;
+    border:1px solid #eee;
+
+}
+
+
+
+.produk-info{
+
+    flex:1;
+
+}
+
+
+.produk-info h2{
+
+    color:#2563eb;
+    font-size:28px;
+    margin-bottom:20px;
+
+}
+
+
+
+.produk-info p{
+
+    font-size:16px;
+    margin:12px 0;
+    color:#555;
+
+}
+
+
+.produk-info strong{
+
+    color:#222;
+
+}
+
+
+/* STATUS */
+
+.badge{
+
+    display:inline-block;
+    padding:8px 18px;
+    border-radius:30px;
+    color:white;
+    font-size:14px;
+    font-weight:600;
+
+}
+
+
+.warning{
+    background:#f59e0b;
+}
+
+.primary{
+    background:#2563eb;
+}
+
+.success{
+    background:#10b981;
+}
+
+
+/* BUTTON */
+
+.button-group{
+
+    display:flex;
+    gap:15px;
+    margin-top:25px;
+
+}
+
+
+.button-group a{
+
+    padding:12px 25px;
+    border-radius:12px;
+    text-decoration:none;
+    color:white;
+    font-weight:600;
+
+}
+
+
+.btn-back{
+
+    background:#6366f1;
+
+}
+
+
+.btn-chat{
+
+    background:#ff9800;
+
+}
+
+
+
+.btn-back:hover{
+
+    background:#4f46e5;
+
+}
+
+
+.btn-chat:hover{
+
+    background:#f57c00;
+
+}
+
+
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+
+.produk-box{
+
+    flex-direction:column;
+    text-align:center;
+
+}
+
+
+.produk-img{
+
+    width:180px;
+    height:180px;
+
+}
+
 }

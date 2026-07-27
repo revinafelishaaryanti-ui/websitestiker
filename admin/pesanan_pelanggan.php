@@ -2,6 +2,21 @@
 session_start();
 include '../koneksi.php';
 
+// FILTER TANGGAL
+$tanggal_awal = isset($_GET['tanggal_awal']) ? $_GET['tanggal_awal'] : '';
+$tanggal_akhir = isset($_GET['tanggal_akhir']) ? $_GET['tanggal_akhir'] : '';
+
+$whereTanggal = "";
+
+if($tanggal_awal != "" && $tanggal_akhir != ""){
+
+    $whereTanggal = "
+    AND DATE(pesanan.tanggal) 
+    BETWEEN '$tanggal_awal' AND '$tanggal_akhir'
+    ";
+
+}
+
 if(!isset($_SESSION['admin_id'])){
     header("Location:login.php");
     exit;
@@ -14,6 +29,8 @@ users.nama
 FROM pesanan
 JOIN users
 ON pesanan.id_user = users.id
+WHERE 1=1
+$whereTanggal
 ORDER BY pesanan.id_pesanan DESC
 ");
 
@@ -29,7 +46,7 @@ if(!$query){
 
 <meta charset="UTF-8">
 
-<title>pesanan Pelanggan</title>
+<title>Pesanan Pelanggan</title>
 
 <link rel="stylesheet" href="admin.css">
 
@@ -47,6 +64,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <?php include 'include/navbar.php'; ?>
 
 <div class="content">
+
 <div class="page-header">
 
 <div>
@@ -57,14 +75,43 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
-<a href="#" class="btn-primary">
+</div>
 
+<!-- Filter Form -->
+<div class="filter-card">
+<div class="filter-tanggal">
+
+<form method="GET">
+
+<label>
+<i class="fa-solid fa-calendar"></i>
+Dari Tanggal
+</label>
+
+<input type="date" name="tanggal_awal" 
+value="<?= $tanggal_awal ?>">
+
+<label>
+Sampai Tanggal
+</label>
+
+<input type="date" name="tanggal_akhir" 
+value="<?= $tanggal_akhir ?>">
+
+<button type="submit">
 <i class="fa-solid fa-filter"></i>
-
 Filter
+</button>
 
+
+<a href="pesanan_pelanggan.php">
+<i class="fa-solid fa-rotate-right"></i>
+Reset
 </a>
 
+</form>
+
+</div>
 </div>
 
 <div class="table-card">
