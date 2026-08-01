@@ -83,10 +83,14 @@ if($tipe=="custom"){
 <p><b>Nomor Resi</b></p>
 
 <p>
-<?= !empty($data['no_resi']) 
-? htmlspecialchars($data['no_resi']) 
-: "Belum tersedia"; ?>
-</p>
+<?php
+if($tipe=="custom"){
+    $resi = !empty($data['nomor_resi']) ? $data['nomor_resi'] : "Belum tersedia";
+}else{
+    $resi = !empty($data['no_resi']) ? $data['no_resi'] : "Belum tersedia";
+}
+echo htmlspecialchars($resi);
+?>
 
 <p><b>Estimasi Tiba</b></p>
 

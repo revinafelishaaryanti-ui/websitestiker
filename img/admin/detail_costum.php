@@ -387,52 +387,11 @@ Belum ada desain.
 
 <p><b>Bukti Pembayaran</b></p>
 
-<?php
-// Deteksi apakah berisi base64 (data dari upload user)
-$bukti = $data['bukti_pembayaran'];
-$is_base64 = (strlen($bukti) > 100) && (strpos($bukti, 'data:image') !== false || base64_decode($bukti, true) !== false);
-?>
-
-<?php if($is_base64){ ?>
-
-    <img
-    src="data:image/png;base64,<?= $bukti; ?>"
-    class="preview-big">
-
-<?php }else{ ?>
-
-    <?php
-    $filePath = "../uploads/pembayaran/".$bukti;
-    $fileExists = file_exists(dirname(__FILE__)."/../uploads/pembayaran/".$bukti);
-    ?>
-
-    <?php if($fileExists){ ?>
-
-        <img
-        src="<?= $filePath; ?>"
-        class="preview-big">
-
-    <?php }else{ ?>
-
-        <div class="empty-box">
-            File bukti pembayaran tidak ditemukan di server.
-        </div>
-
-    <?php } ?>
-
-<?php } ?>
+<img
+src="../uploads/pembayaran/<?= $data['bukti_pembayaran']; ?>"
+class="preview-big">
 
 <br><br>
-
-<?php }else{ ?>
-
-<div class="empty-box">
-
-Belum ada bukti pembayaran
-
-</div>
-
-<?php } ?>
 
 <?php if($data['status_pembayaran']=="Menunggu Konfirmasi"){ ?>
 
@@ -450,6 +409,16 @@ Konfirmasi Pembayaran
 </button>
 
 </form>
+
+<?php } ?>
+
+<?php }else{ ?>
+
+<div class="empty-box">
+
+Belum ada bukti pembayaran
+
+</div>
 
 <?php } ?>
 
@@ -550,15 +519,8 @@ class="btn-chat-admin">
 
 </a>
 
-<a
-href="cetak_resi_custom.php?id=<?= $data['id_custom']; ?>"
-class="btn-print"
-target="_blank">
-
-<i class="fa-solid fa-print"></i>
-
-Cetak Resi
-
+<a href="cetak_resi_custom.php?id=<?= $data['id_custom']; ?>" target="_blank">
+    Cetak Resi
 </a>
 
 </div>

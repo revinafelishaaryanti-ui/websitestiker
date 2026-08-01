@@ -1,25 +1,19 @@
- # ✅ TASK COMPLETED
+#  TODO - Perbaikan Foto Bukti Pembayaran Custom Tidak Muncul
 
-## Perbaikan Halaman Pendapatan Admin & Detail Pesanan User
+## Akar Masalah
+- Folder `uploads/pembayaran/` tidak ada → upload lama gagal tersimpan, database hanya berisi nama file yang file fisiknya hilang.
+- Data lama (id_custom 3 & 4) masih berisi nama file, bukan base64 → tidak bisa ditampilkan otomatis.
 
-### admin/pendapatan.php ✅
-- HTML rusak (class="pendap" terpotong) diperbaiki
-- Duplikat tag </body></html> dihapus
-- Header gradient dengan total card + ikon
-- Filter tanggal rapi inline (flexbox), value tetap terisi setelah submit
-- Tombol Reset untuk menghapus filter
-- Tabel dengan badge jenis (Custom/Pesanan), total row, empty state
-- Badge status success untuk selesai
+## Langkah Perbaikan
 
-### detail_pesanan.php (User Side) ✅
-- Tampilan modern dengan CSS grid & inline styles
-- Header sleek: tombol back dengan hover, judul + ID pesanan
-- Section produk: gambar border rapi, grid info 2 kolom (harga, jumlah, total, tipe, ukuran, catatan)
-- Status bar ikon + warna badge per status (menunggu, diproses, dikirim, selesai, dll)
-- File custom (logo, referensi) dalam card dengan link
-- Tombol aksi gradient (Kembali, Chat Admin, Lacak Paket)
-- Responsive mobile
+- [x] Analisis akar masalah
+- [x] Edit `pembayaran_custom.php` → simpan bukti sebagai **base64 langsung di database** (tidak butuh folder)
+- [x] Edit `admin/detail_costum.php` → deteksi otomatis base64 vs nama file, hanya **menampilkan foto yang dikirim user**
+- [x] Verifikasi sintaks PHP (No syntax errors)
+- [x] Bersihkan file sementara
 
-### admin/admin.css ✅
-- Pendapatan: header gradient, filter, tabel, badge, total row
-- Detail costum: produk-box, info-item, grid, preview
+## Catatan Penting
+- **Upload baru** dari user → tersimpan base64 → langsung tampil di detail custom.
+- **Data lama** (yang file-nya hilang) → menampilkan keterangan "File bukti pembayaran tidak ditemukan di server." karena file fisiknya memang sudah tidak ada.
+- Tidak ada form upload dari sisi admin (sesuai permintaan: hanya menampilkan foto yang dikirim user).
+

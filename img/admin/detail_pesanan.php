@@ -134,13 +134,6 @@ $query_detail = mysqli_query($conn,"
 <?= $data_pesanan['no_resi']; ?>
 </p>
 
-<p>
-<b>Catatan Pesanan :</b>
-</p>
-<p style="background:#fff; padding:12px 15px; border-radius:8px; border:1px solid #e5e7eb; margin-top:5px;">
-<?= !empty($data_pesanan['catatan']) ? nl2br(htmlspecialchars($data_pesanan['catatan'])) : '-'; ?>
-</p>
-
 
 <!-- BUKTI PEMBAYARAN USER -->
 

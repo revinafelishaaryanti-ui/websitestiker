@@ -509,3 +509,21 @@ textarea{
     margin-top:10px;
     color:#555;
 }
+
+.catatan-pesanan{
+    width:100%;
+    min-height:100px;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    resize:vertical;
+    font-size:14px;
+    font-family:inherit;
+    outline:none;
+    transition:.3s;
+}
+
+.catatan-pesanan:focus{
+    border-color:#4a90e2;
+    box-shadow:0 0 5px rgba(74,144,226,.3);
+}

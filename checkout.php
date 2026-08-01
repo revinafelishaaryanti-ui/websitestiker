@@ -114,6 +114,7 @@ if(isset($_POST['buat_pesanan'])){
     $ekspedisi = isset($_POST['ekspedisi']) ? $_POST['ekspedisi'] : '';
     $pembayaran = isset($_POST['pembayaran']) ? $_POST['pembayaran'] : '';
     $bank = isset($_POST['bank']) ? $_POST['bank'] : '-';
+    $catatan = isset($_POST['catatan']) ? mysqli_real_escape_string($conn, $_POST['catatan']) : '';
 
 
     $no_resi = "INV".date("YmdHis");
@@ -129,7 +130,8 @@ ekspedisi,
 metode_pembayaran,
 bank,
 no_resi,
-status_pembayaran
+status_pembayaran,
+catatan
 )
 
     VALUES
@@ -140,7 +142,8 @@ status_pembayaran
 '$pembayaran',
 '$bank',
 '$no_resi',
-'Belum Dibayar'
+'Belum Dibayar',
+'$catatan'
 )
 
     ");
@@ -530,14 +533,19 @@ Rp <?= number_format($total_bayar,0,",","."); ?>
 </h2>
 
 </div>
+<textarea
+name="catatan"
+rows="4"
+placeholder="Contoh: Tolong jangan dilipat, kirim sore hari, atau catatan lainnya..."
+class="catatan-pesanan"></textarea>
 
-
-
+<br><br>
 
 <button 
 type="submit" 
 name="buat_pesanan"
 class="btn-order">
+
 
 Buat Pesanan
 

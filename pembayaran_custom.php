@@ -51,20 +51,47 @@ if(isset($_POST['kirim_bukti'])){
     $bukti="";
 
 
-    if($_FILES['bukti']['name']!=""){
+    // Cek apakah file benar-benar terupload
+    if(isset($_FILES['bukti']) && $_FILES['bukti']['error']==UPLOAD_ERR_OK && $_FILES['bukti']['tmp_name']!=""){
 
 
-        $bukti=time()."_".$_FILES['bukti']['name'];
+        // Simpan bukti pembayaran sebagai base64 langsung di database
+        // sehingga tidak tergantung folder di server
+        $dataFile = file_get_contents($_FILES['bukti']['tmp_name']);
+
+        if($dataFile !== false){
+            $bukti = base64_encode($dataFile);
+        }
 
 
-        move_uploaded_file(
-            $_FILES['bukti']['tmp_name'],
-            "uploads/pembayaran/".$bukti
-        );
+    }else{
+
+
+        echo "
+        <script>
+        alert('Upload gagal. Pastikan file gambar dipilih dengan benar.');
+        window.history.back();
+        </script>
+        ";
+        exit;
 
 
     }
 
+
+    if($bukti==""){
+
+
+        echo "
+        <script>
+        alert('File bukti gagal diproses. Silakan coba lagi.');
+        window.history.back();
+        </script>
+        ";
+        exit;
+
+
+    }
 
 
     mysqli_query($conn,"

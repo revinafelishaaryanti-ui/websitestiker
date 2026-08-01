@@ -495,7 +495,7 @@ function getStatusBadge($status){
                 <a href="pesanan.php" class="action-btn btn-kembali">
                     <i class="fa-solid fa-arrow-left"></i> Kembali
                 </a>
-                <a href="chat_user.php?id_order=<?= $id; ?>&tipe=<?= $tipe; ?>" class="action-btn btn-chat-admin">
+                <a href="chat.php?id_order=<?= $id; ?>&tipe=<?= $tipe; ?>" class="action-btn btn-chat-admin">
                     <i class="fa-solid fa-comments"></i> Chat Admin
                 </a>
                 <?php if($data['status']=="Dikirim"){ ?>

@@ -88,8 +88,6 @@ while($row=mysqli_fetch_assoc($data)){
     $totalPendapatan += $row['total'];
 }
 mysqli_data_seek($data,0);
-$hariIni = date("Y-m-d");
-$totalHariIni = 0;
 ?>
 
 <!DOCTYPE html>

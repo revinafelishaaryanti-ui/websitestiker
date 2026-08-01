@@ -142,6 +142,7 @@ if(isset($_FILES['bukti_pembayaran']) && $_FILES['bukti_pembayaran']['tmp_name']
 
 }
 
+$no_resi_custom = "SC".date("YmdHis");
 $simpan = mysqli_query($conn,"
 INSERT INTO custom_sticker
 (
@@ -161,7 +162,8 @@ INSERT INTO custom_sticker
     latitude,
     longitude,
     lokasi_terakhir,
-    status_pembayaran
+    status_pembayaran,
+    nomor_resi
 )
 VALUES
 (
@@ -181,7 +183,8 @@ VALUES
     NULL,
     NULL,
     'Pesanan sedang diproses',
-    'Belum Dibayar'
+    'Belum Dibayar',
+    '$no_resi_custom'
 )
 ");
 
