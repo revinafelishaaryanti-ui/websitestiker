@@ -278,6 +278,9 @@ Lanjut ke Pemesanan
 
 </a>
 
+<!-- Dari keranjang, checkout.php tanpa id_produk akan memuat
+     SEMUA produk yang ada di keranjang -->
+
 
 
 

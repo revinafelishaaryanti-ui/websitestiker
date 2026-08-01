@@ -10,6 +10,12 @@ if(!isset($_SESSION['id'])){
 
 $id_user=$_SESSION['id'];
 
+// id_produk opsional: diisi jika beli langsung, kosong jika checkout dari keranjang
+$id_produk = isset($_GET['id_produk']) ? $_GET['id_produk'] : '';
+
+// Query string untuk kembali ke checkout
+$qstring = $id_produk != '' ? '?id_produk='.$id_produk : '';
+
 
 // Ambil alamat lama dari users
 $query_user = mysqli_query($conn,"
@@ -178,7 +184,7 @@ Pilih Alamat Pengiriman
 <div class="aksi">
 
 <a class="pilih"
-href="checkout.php?id_produk=<?= $_GET['id_produk']; ?>&alamat=lama">
+href="checkout.php<?= $qstring; ?><?= $qstring != '' ? '&' : '?'; ?>alamat=lama">
 
 Pilih
 
@@ -248,7 +254,7 @@ RT/RW <?= htmlspecialchars($row['rt_rw']); ?>,
 <div class="aksi">
 
 <a class="pilih"
-href="checkout.php?id_produk=<?= $_GET['id_produk']; ?>&id_alamat=<?= $row['id_alamat']; ?>">
+href="checkout.php<?= $qstring; ?><?= $qstring != '' ? '&' : '?'; ?>id_alamat=<?= $row['id_alamat']; ?>">
 
 Pilih
 
@@ -265,12 +271,12 @@ Edit
 
 </div>
 
-
+ 
 </div>
 
 
 <?php } ?>
-<a href="tambah_alamat.php?id_produk=<?= $_GET['id_produk']; ?>" class="tambah">
+<a href="tambah_alamat.php<?= $qstring; ?>" class="tambah">
     + Tambah Alamat Baru
 </a>
 <a href="javascript:history.back();">

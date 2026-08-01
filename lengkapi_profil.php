@@ -34,7 +34,7 @@ if(isset($_POST['simpan'])){
     ");
 
 
-    header("Location: checkout.php?id=".$_GET['id']);
+    header("Location: checkout.php?id_produk=".$_GET['id']);
     exit;
 
 }

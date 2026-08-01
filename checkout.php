@@ -16,43 +16,109 @@ if(!isset($_SESSION['id'])){
 $id_user = $_SESSION['id'];
 $id_alamat = isset($_GET['id_alamat']) ? $_GET['id_alamat'] : '';
 
-// ambil id produk dari tombol beli
+// ============================================
+// MODE CHECKOUT
+// 1. Dari keranjang  : tanpa id_produk -> semua item keranjang
+// 2. Beli langsung   : ada id_produk    -> satu produk
+// ============================================
 
-if(isset($_GET['id_produk'])){
+$mode_keranjang = false;
+$id_produk = isset($_GET['id_produk']) ? $_GET['id_produk'] : '';
 
-    $id_produk = $_GET['id_produk'];
+if($id_produk != ''){
+
+    // ---------- BELI LANGSUNG (satu produk) ----------
+
+    // ambil data produk
+    $query_produk = mysqli_query($conn,
+    "SELECT * FROM produk 
+    WHERE id_produk='$id_produk'");
+
+    if(mysqli_num_rows($query_produk) == 0){
+        die("Produk tidak ditemukan.");
+    }
+
+    $produk = mysqli_fetch_assoc($query_produk);
+
+    $jumlah = isset($_GET['jumlah']) ? (int)$_GET['jumlah'] : 1;
+
+    // daftar item checkout (satu produk)
+    $items = array(
+        array(
+            'id_produk' => $produk['id_produk'],
+            'nama_produk' => $produk['nama_produk'],
+            'gambar' => $produk['gambar'],
+            'harga' => $produk['harga'],
+            'jumlah' => $jumlah,
+            'subtotal' => $produk['harga'] * $jumlah
+        )
+    );
+
+    $total_qty = $jumlah;
 
 }else{
 
-    die("Produk belum dipilih.");
+    // ---------- DARI KERANJANG (multi produk) ----------
+
+    $mode_keranjang = true;
+
+    $query_cart = mysqli_query($conn,"
+    SELECT
+    keranjang.id,
+    keranjang.jumlah,
+    produk.id_produk,
+    produk.nama_produk,
+    produk.gambar,
+    produk.harga
+
+    FROM keranjang
+
+    JOIN produk
+    ON keranjang.id_produk = produk.id_produk
+
+    WHERE keranjang.id_user='$id_user'
+    ORDER BY keranjang.id ASC
+    ");
+
+    if(mysqli_num_rows($query_cart) == 0){
+        die("Keranjang masih kosong.");
+    }
+
+    $items = array();
+    $total_qty = 0;
+
+    while($row = mysqli_fetch_assoc($query_cart)){
+        $items[] = array(
+            'id_produk' => $row['id_produk'],
+            'nama_produk' => $row['nama_produk'],
+            'gambar' => $row['gambar'],
+            'harga' => $row['harga'],
+            'jumlah' => $row['jumlah'],
+            'subtotal' => $row['harga'] * $row['jumlah']
+        );
+        $total_qty += $row['jumlah'];
+    }
 
 }
 
 
-
-// ambil data produk
-
-$query_produk = mysqli_query($conn,
-
-"SELECT * FROM produk 
-WHERE id_produk='$id_produk'");
-
-
-if(mysqli_num_rows($query_produk) == 0){
-
-    die("Produk tidak ditemukan.");
-
+// Hitung total
+$total = 0;
+foreach($items as $item){
+    $total += $item['subtotal'];
 }
 
+// Hitung ongkir (gratis jika total barang >= 5)
+if($total_qty >= 5){
+    $ongkir = 0;
+}else{
+    $ongkir = 10000;
+}
 
-$produk = mysqli_fetch_assoc($query_produk);
-
-
-
+$total_bayar = $total + $ongkir;
 
 
 // ambil data user
-
 if($id_alamat != ''){
 
 
@@ -91,24 +157,6 @@ if($id_alamat != ''){
     $user = mysqli_fetch_assoc($query_user);
 
 
-
-
-
-$jumlah = isset($_GET['jumlah']) ? (int)$_GET['jumlah'] : 1;
-
-$total = $produk['harga'] * $jumlah;
-// Hitung ongkir
-if($jumlah >= 5){
-
-    $ongkir = 0;
-
-}else{
-
-    $ongkir = 10000;
-
-}
-
-$total_bayar = $total + $ongkir;
 if(isset($_POST['buat_pesanan'])){
 
     $ekspedisi = isset($_POST['ekspedisi']) ? $_POST['ekspedisi'] : '';
@@ -153,23 +201,36 @@ catatan
 
         $id_pesanan = mysqli_insert_id($conn);
 
-        mysqli_query($conn,"
-        INSERT INTO detail_pesanan
-        (
-        id_pesanan,
-        id_produk,
-        jumlah,
-        harga
-        )
+        // Simpan semua item ke detail_pesanan
+        foreach($items as $item){
 
-        VALUES
-        (
-        '$id_pesanan',
-        '$id_produk',
-        '$jumlah',
-        '".$produk['harga']."'
-        )
-        ");
+            mysqli_query($conn,"
+            INSERT INTO detail_pesanan
+            (
+            id_pesanan,
+            id_produk,
+            jumlah,
+            harga
+            )
+
+            VALUES
+            (
+            '$id_pesanan',
+            '".$item['id_produk']."',
+            '".$item['jumlah']."',
+            '".$item['harga']."'
+            )
+            ");
+
+        }
+
+        // Jika dari keranjang, kosongkan keranjang user
+        if($mode_keranjang){
+            mysqli_query($conn,"
+            DELETE FROM keranjang
+            WHERE id_user='$id_user'
+            ");
+        }
 
         header("location:pembayaran.php?id=".$id_pesanan);
                 exit;
@@ -225,11 +286,12 @@ catatan
 <h2>Produk Dibeli</h2>
 
 
+<?php foreach($items as $item){ ?>
 
 <div class="product-card">
 
 
-    <img src="img/<?= $produk['gambar']; ?>" 
+    <img src="img/<?= $item['gambar']; ?>" 
     class="product-image">
 
 
@@ -237,17 +299,17 @@ catatan
 
 
         <h3>
-            <?= $produk['nama_produk']; ?>
+            <?= $item['nama_produk']; ?>
         </h3>
 
 
         <p class="product-price">
-            Rp <?= number_format($produk['harga']); ?>
+            Rp <?= number_format($item['harga']); ?>
         </p>
 
 
         <span>
-        Jumlah : <?= $jumlah; ?> Produk
+        Jumlah : <?= $item['jumlah']; ?> Produk
             </span>
 
 
@@ -255,9 +317,10 @@ catatan
 
 
 </div>
+
+<?php } ?>
+
 </div>
-
-
 
 
 
@@ -269,7 +332,7 @@ catatan
 <form method="POST" action="" enctype="multipart/form-data">
 <label>Data Pembeli</label>
 
-<a href="pilih_alamat.php?id_produk=<?= $id_produk; ?>" class="data-pembeli">
+<a href="pilih_alamat.php<?= $id_produk != '' ? '?id_produk='.$id_produk : ''; ?>" class="data-pembeli">
     <div class="nama-hp">
 
         <b>
@@ -310,7 +373,7 @@ catatan
 </a>
 
 
-<a href="pilih_alamat.php?id_produk=<?= $id_produk; ?>" class="btn-alamat">
+<a href="pilih_alamat.php<?= $id_produk != '' ? '?id_produk='.$id_produk : ''; ?>" class="btn-alamat">
     + Tambah 
 </a>
 
@@ -634,3 +697,4 @@ document.getElementById("nomorEwallet").innerHTML=nomor;
 </body>
 
 </html>
+

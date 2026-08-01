@@ -9,6 +9,25 @@ if(!isset($_GET['id'])){
 
 $id = (int)$_GET['id'];
 
+$jumlah_keranjang = 0;
+
+if(isset($_SESSION['id'])){
+
+    $id_user = $_SESSION['id'];
+
+    $qKeranjang = mysqli_query($conn,"
+    SELECT COUNT(*) AS total
+    FROM keranjang
+    WHERE id_user='$id_user'
+    ");
+
+    if($qKeranjang){
+        $dataKeranjang = mysqli_fetch_assoc($qKeranjang);
+        $jumlah_keranjang = $dataKeranjang['total'];
+    }
+
+}
+
 $query = mysqli_query($conn,"
 SELECT *
 FROM produk
@@ -51,6 +70,66 @@ $jumlahKomentar = 0;
 <body>
 
 <div class="mobile">
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <h1>STICKERIN</h1>
+
+        <div class="navbar">
+
+            <a href="dashboard.php">Beranda</a>
+            <a href="kategori.php">Kategori</a>
+            <a href="costum.php">Custom Sticker</a>
+
+            <?php if(isset($_SESSION['id'])){ ?>
+            <a href="pesanan.php">Pesanan</a>
+            <?php } ?>
+
+        </div>
+
+        <div class="icon-group">
+
+            <form action="cari.php" method="GET" class="search-box">
+
+                <input
+                type="text"
+                name="keyword"
+                placeholder="Cari stiker...">
+
+                <button type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+
+            </form>
+
+            <a href="akun.php">
+                <i class="fa-solid fa-user"></i>
+            </a>
+
+            <?php if(isset($_SESSION['id'])){ ?>
+
+            <a href="keranjang.php" class="cart">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                <?php if($jumlah_keranjang > 0){ ?>
+                <span><?= $jumlah_keranjang; ?></span>
+                <?php } ?>
+
+            </a>
+
+            <?php }else{ ?>
+
+            <a href="login.php" class="cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+
+            <?php } ?>
+
+        </div>
+
+    </div>
 
 <div class="detail-container">
 <div class="top-back">
@@ -158,7 +237,7 @@ if(isset($_SESSION['id'])){
 
 }else{
 
-    $redirect = urlencode("checkout.php?id=".$produk['id_produk']);
+    $redirect = urlencode("checkout.php?id_produk=".$produk['id_produk']);
     $link_beli = "login.php?redirect=".$redirect;
 
 }

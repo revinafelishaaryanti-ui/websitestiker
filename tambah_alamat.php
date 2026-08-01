@@ -11,6 +11,14 @@ if(!isset($_SESSION['id'])){
 
 $id_user = $_SESSION['id'];
 
+// id_produk opsional: diisi jika beli langsung (dari pilih_alamat), kosong untuk mode keranjang
+$id_produk = isset($_GET['id_produk'])
+    ? $_GET['id_produk']
+    : (isset($_POST['id_produk']) ? $_POST['id_produk'] : '');
+
+// Query string kembali ke pilih_alamat
+$qstring = $id_produk != '' ? '?id_produk='.$id_produk : '';
+
 
 
 if(isset($_POST['simpan'])){
@@ -71,7 +79,7 @@ VALUES
 
 
 
-    header("location:pilih_alamat.php");
+    header("location:pilih_alamat.php".$qstring);
     exit;
 
 }
@@ -324,11 +332,19 @@ Simpan Alamat
 
 
 
-<a href="pilih_alamat.php" class="kembali">
+    <a href="pilih_alamat.php<?= $qstring; ?>" class="kembali">
 
 ← Kembali
 
 </a>
+
+<?php if($id_produk != ''){ ?>
+
+<input type="hidden"
+name="id_produk"
+value="<?= htmlspecialchars($id_produk); ?>">
+
+<?php } ?>
 
 
 

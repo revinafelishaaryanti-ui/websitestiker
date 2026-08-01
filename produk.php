@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'koneksi.php';
 
 if (!isset($_GET['id'])) {
@@ -6,6 +7,25 @@ if (!isset($_GET['id'])) {
 }
 
 $id = (int)$_GET['id'];
+
+$jumlah_keranjang = 0;
+
+if(isset($_SESSION['id'])){
+
+    $id_user = $_SESSION['id'];
+
+    $qKeranjang = mysqli_query($conn,"
+    SELECT COUNT(*) AS total
+    FROM keranjang
+    WHERE id_user='$id_user'
+    ");
+
+    if($qKeranjang){
+        $dataKeranjang = mysqli_fetch_assoc($qKeranjang);
+        $jumlah_keranjang = $dataKeranjang['total'];
+    }
+
+}
 
 // Ambil nama kategori
 $kategori = mysqli_query($conn,"
@@ -33,16 +53,80 @@ ORDER BY id_produk DESC
 <head>
 
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Produk</title>
 
 <link rel="stylesheet" href="stayle.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 </head>
 
 <body>
 
 <div class="mobile">
+
+    <!-- HEADER -->
+    <div class="header">
+
+        <h1>STICKERIN</h1>
+
+        <div class="navbar">
+
+            <a href="dashboard.php">Beranda</a>
+            <a href="kategori.php">Kategori</a>
+            <a href="costum.php">Custom Sticker</a>
+
+            <?php if(isset($_SESSION['id'])){ ?>
+            <a href="pesanan.php">Pesanan</a>
+            <?php } ?>
+
+        </div>
+
+        <div class="icon-group">
+
+            <form action="cari.php" method="GET" class="search-box">
+
+                <input
+                type="text"
+                name="keyword"
+                placeholder="Cari stiker...">
+
+                <button type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+
+            </form>
+
+            <a href="akun.php">
+                <i class="fa-solid fa-user"></i>
+            </a>
+
+            <?php if(isset($_SESSION['id'])){ ?>
+
+            <a href="keranjang.php" class="cart">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                <?php if($jumlah_keranjang > 0){ ?>
+                <span><?= $jumlah_keranjang; ?></span>
+                <?php } ?>
+
+            </a>
+
+            <?php }else{ ?>
+
+            <a href="login.php" class="cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+
+            <?php } ?>
+
+        </div>
+
+    </div>
 
 <h2 class="judul">
 
